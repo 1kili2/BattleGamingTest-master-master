@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#f4a300</color>
+    <color name="colorPrimaryDark">#ff9400</color>
+    <color name="colorWorkday">#ffcb63</color>
+    <color name="colorDate">#ffbc38</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="background_color">#ffffff</color>
+    <color name="textColor">#ffffff</color>
+    <color name="testColor">#c60000</color>
+</resources>

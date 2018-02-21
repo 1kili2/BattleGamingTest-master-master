@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="2dp"
+    android:padding="2dp">
+
+    <android.support.constraint.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/myrect"
+        android:elevation="2dp"
+        android:orientation="vertical"
+        android:padding="6dp">
+
+        <TextView
+            android:id="@+id/Date"
+            android:layout_width="25dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorDate"
+            android:text="12"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="@+id/DateInfo"
+            app:layout_constraintTop_toTopOf="@+id/Day" />
+
+        <TextView
+            android:id="@+id/Day"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="25dp"
+            android:layout_toRightOf="@id/Date"
+            android:background="@color/colorWorkday"
+            android:text="Lunes"
+
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/NewsTitle"
+            app:layout_constraintStart_toEndOf="@+id/Date"
+            app:layout_constraintTop_toTopOf="@+id/NewsTitle"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/DateInfo"
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/NewsTitle"
+            app:layout_constraintTop_toBottomOf="@+id/Day" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>
