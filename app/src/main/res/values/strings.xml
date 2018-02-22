@@ -10,4 +10,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hola_mundo">Hola Mundo</string>
+    <string name="color_del_texto">Color del texto</string>
+    <string name="color_de_fondo">Color de fondo</string>
+    <string name="save">Save</string>
+    <string name="reset">Reset</string>
 </resources>

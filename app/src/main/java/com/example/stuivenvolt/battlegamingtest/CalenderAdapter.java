@@ -48,6 +48,7 @@ public class CalenderAdapter extends
         day.setTextColor(getTextColor());
         date.setTextColor(getTextColor());
         dateInfo.setTextColor(getTextColor());
+        new CalenderFetcher(dateInfo).execute();
         return new WordViewHolder(dItemView, this);
     }
 

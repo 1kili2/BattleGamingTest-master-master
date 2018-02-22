@@ -6,7 +6,7 @@
     tools:context="com.example.stuivenvolt.battlegamingtest.SettingsFragment"
     android:id="@+id/myScreen">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,9 +19,9 @@
                 android:id="@+id/bgcolor"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Color de fondo"
+                android:text="@string/color_de_fondo"
                 android:textAlignment="center"
-                android:textSize="30dp"
+                android:textSize="30sp"
                 android:paddingBottom="6dp"
                 />
 
@@ -40,9 +40,6 @@
                 android:id="@+id/mySeekingBar_B"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/mySeekingBar_R"
                 android:layout_marginTop="8dp"
                 android:max="255"
                 android:progress="255"
@@ -54,9 +51,6 @@
                 android:id="@+id/mySeekingBar_G"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/mySeekingBar_B"
                 android:layout_marginTop="8dp"
                 android:max="255"
                 android:progress="255"
@@ -68,9 +62,9 @@
                 android:id="@+id/textcolor"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Color del titulo"
+                android:text="@string/color_del_texto"
                 android:textAlignment="center"
-                android:textSize="30dp"
+                android:textSize="30sp"
                 android:paddingBottom="6dp"
                  />
             <SeekBar
@@ -114,13 +108,13 @@
                 android:id="@+id/save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save" />
+                android:text="@string/save" />
 
             <Button
                 android:id="@+id/reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reset" />
+                android:text="@string/reset" />
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 

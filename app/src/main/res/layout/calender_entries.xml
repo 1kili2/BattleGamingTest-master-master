@@ -38,21 +38,18 @@
             android:layout_toRightOf="@id/Date"
             android:background="@color/colorWorkday"
             android:text="Lunes"
-
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/NewsTitle"
             app:layout_constraintStart_toEndOf="@+id/Date"
-            app:layout_constraintTop_toTopOf="@+id/NewsTitle"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_toEndOf="@id/Date"
+            android:layout_marginLeft="25dp" />
 
         <TextView
             android:id="@+id/DateInfo"
             android:layout_width="match_parent"
             android:layout_height="86dp"
             android:text=""
-            app:layout_constraintEnd_toEndOf="@+id/textView"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/NewsTitle"
             app:layout_constraintTop_toBottomOf="@+id/Day" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
