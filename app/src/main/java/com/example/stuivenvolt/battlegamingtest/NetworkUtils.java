@@ -16,9 +16,11 @@ import java.net.URL;
 
 public class NetworkUtils {
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
-    private static final String CALENDER_BASE_URL =  "https://battle-gaming-agenda.firebaseio.com/agenda/eventos/2018/Marzo"; // Base URI for the Books API
-    private static final String YEAR = "/"; // Parameter for the search string
-    private static final String MONTH = "/"; // Parameter that limits search results
+    private static final String CALENDER_BASE_URL =  "https://battle-gaming-agenda.firebaseio.com"; // Base URI for the Books API
+    private static final String AGENDA = "/agenda/eventos";
+    private static final String YEAR = "/2018";
+    private static final String MONTH = "/Enero"; // Parameter that limits search results
+    private static final String JSON = ".json"; // Parameter for the search string
 
     static String getCalenderInfo(String queryString){
         HttpURLConnection urlConnection = null;
@@ -26,7 +28,7 @@ public class NetworkUtils {
         String calenderJSONString = null;
 
         try {
-            Uri builtURI = Uri.parse(CALENDER_BASE_URL).buildUpon().build();
+            Uri builtURI = Uri.parse(CALENDER_BASE_URL+AGENDA+YEAR+MONTH+JSON);
             URL requestURL = new URL(builtURI.toString());
 
             urlConnection = (HttpURLConnection) requestURL.openConnection();
