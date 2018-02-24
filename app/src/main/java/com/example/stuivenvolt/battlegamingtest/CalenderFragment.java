@@ -1,5 +1,8 @@
 package com.example.stuivenvolt.battlegamingtest;
 
+import android.app.DownloadManager;
+import android.app.ProgressDialog;
+import android.app.VoiceInteractor;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -14,9 +17,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -37,13 +55,15 @@ public class CalenderFragment extends android.app.Fragment {
     private String mParam1;
     private String mParam2;
     private final LinkedList<String> mDateList = new LinkedList<>();
-    private int mCount = 1;
+    private String mCount = "";
     private RecyclerView mRecyclerView;
     private CalenderAdapter cAdapter;
     FrameLayout mScreen;
     private FloatingActionButton btnPrev, btnNext;
 
     private OnFragmentInteractionListener mListener;
+    private List<DayItems> dayList;
+    private String URL_DATA = "https://battle-gaming-agenda.firebaseio.com/agenda/eventos/2018.json";
 
     public CalenderFragment() {
         // Required empty public constructor
@@ -70,6 +90,7 @@ public class CalenderFragment extends android.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dayList = new ArrayList<>();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -83,28 +104,21 @@ public class CalenderFragment extends android.app.Fragment {
 
         View view = inflater.inflate(R.layout.fragment_calender, container, false);
 
-        for (int i = 0; i < 28; i++) {
-            mDateList.addLast(""+mCount++);
-            Log.d("DateList", mDateList.getLast());
-        }
+
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclercalender);
         // Create an adapter and supply the data to be displayed.
-        cAdapter = new CalenderAdapter(getActivity(), mDateList);
+
         // Connect the adapter with the RecyclerView.
-        mRecyclerView.setAdapter(cAdapter);
+
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new GridLayoutManager(this.getActivity(), 2));
         mScreen = (FrameLayout) view.findViewById(R.id.myScreen);
         mScreen.setBackgroundColor(getBackgroundColor());
-
+        TextView dateInfo=(TextView) view.findViewById(R.id.DateInfo);
         btnNext = (FloatingActionButton) view.findViewById(R.id.btnNext);
         btnPrev = (FloatingActionButton) view.findViewById(R.id.btnPrev);
-
-        //String bgC=""+getBackgroundColor();
-
-        //btnNext.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(bgC)));
-        //btnPrev.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(bgC)));
-
+        new CalenderFetcher(dateInfo, mCount, mRecyclerView, getActivity()).execute();
+        //getDayJsonData();
         btnNext.setColorFilter(getTextColor());
         btnPrev.setColorFilter(getTextColor());
 
@@ -124,6 +138,42 @@ public class CalenderFragment extends android.app.Fragment {
         super.onDetach();
         mListener = null;
     }
+    /*private void getDayJsonData(){
+        final ProgressDialog pd=new ProgressDialog(getActivity());
+        pd.setMessage("Loading...");
+        pd.show();
+        Log.e("Begin","after loading before entering StringRequest");
+        StringRequest st=new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("Inside", "Inside onresponse");
+                pd.dismiss();
+                try {
+                    JSONObject jsonO = new JSONObject(response);
+                    JSONArray array = jsonO.getJSONArray("Marzo");
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject jo = array.getJSONObject(i);
+                        DayItems di = new DayItems(jo.getString("" + jo.names().get(0)));
+                        dayList.add(di);
+                    }
+                    cAdapter = new CalenderAdapter(getActivity(), dayList);
+                    mRecyclerView.setAdapter(cAdapter);
+
+                } catch (JSONException je) {
+                    je.printStackTrace();
+                    Log.e("JSONException", ""+je);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "Error" +error.toString(),Toast.LENGTH_LONG).show();
+                Log.e("getJsonError", ""+error);
+            }
+        });
+        Log.e("End","after get  JSON");
+    }*/
+
     public int getBackgroundColor(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);

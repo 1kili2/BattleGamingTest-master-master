@@ -3,12 +3,14 @@ package com.example.stuivenvolt.battlegamingtest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by i7-4770 on 18/02/2018.
@@ -21,20 +23,23 @@ public class CalenderAdapter extends
     private Context context;
     private TextView day,date,dateInfo;
     private SharedPreferences prefs;
+    private String dayn;
 
 
 
 
-    private final LinkedList<String> mDateList;
+    private final List<DayItems> dayList;
 
     class WordViewHolder extends RecyclerView.ViewHolder {
-        public final TextView calenderDateView;
+        public final TextView calenderDateView, calenderDateInfoView, calenderDayView;
         final CalenderAdapter cAdapter;
 
 
         public WordViewHolder(View itemView, CalenderAdapter adapter) {
             super(itemView);
             calenderDateView = (TextView) itemView.findViewById(R.id.Date);
+            calenderDateInfoView = (TextView) itemView.findViewById(R.id.DateInfo);
+            calenderDayView = (TextView) itemView.findViewById(R.id.Day);
             this.cAdapter = adapter;
         }
     }
@@ -48,26 +53,33 @@ public class CalenderAdapter extends
         day.setTextColor(getTextColor());
         date.setTextColor(getTextColor());
         dateInfo.setTextColor(getTextColor());
-        new CalenderFetcher(dateInfo).execute();
+
         return new WordViewHolder(dItemView, this);
     }
 
     @Override
     public void onBindViewHolder(CalenderAdapter.WordViewHolder holder, int position) {
-        String mCurrent = mDateList.get(position);
-        holder.calenderDateView.setText(mCurrent);
+        Log.e("onBindViewHolder", "In onbindviewholder");
+        final DayItems dayItems = dayList.get(position);
+        holder.calenderDateView.setText(dayItems.getDate());
+        holder.calenderDateInfoView.setText(dayItems.getDayInfo());
+        holder.calenderDayView.setText(dayItems.getDay());
     }
 
     @Override
     public int getItemCount() {
-        return mDateList.size();
+        return dayList.size();
     }
-    public CalenderAdapter(Context context, LinkedList<String> wordList) {
+
+    public CalenderAdapter(Context context, List<DayItems> dayList) {
         dInflater = LayoutInflater.from(context);
-        this.mDateList = wordList;
+        this.dayList = dayList;
+
     }
     public int getTextColor(){
         int tColor = prefs.getInt("TColor", 0xff000000);
         return tColor;
+    }
+    public void setInfo(String day){
     }
 }

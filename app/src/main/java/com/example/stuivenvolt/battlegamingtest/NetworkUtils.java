@@ -19,23 +19,25 @@ public class NetworkUtils {
     private static final String CALENDER_BASE_URL =  "https://battle-gaming-agenda.firebaseio.com"; // Base URI for the Books API
     private static final String AGENDA = "/agenda/eventos";
     private static final String YEAR = "/2018";
-    private static final String MONTH = "/Enero"; // Parameter that limits search results
+    private static final String MONTH = "/Marzo";
+    private static final String DAY = "/Days";
     private static final String JSON = ".json"; // Parameter for the search string
 
-    static String getCalenderInfo(String queryString){
+    static String getCalenderInfo(String queryString,String dayn){
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String calenderJSONString = null;
 
+
         try {
-            Uri builtURI = Uri.parse(CALENDER_BASE_URL+AGENDA+YEAR+MONTH+JSON);
-            URL requestURL = new URL(builtURI.toString());
+            URL requestURL = new URL("https://battle-gaming-agenda.firebaseio.com/agenda/eventos/2018.json");
 
             urlConnection = (HttpURLConnection) requestURL.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
             InputStream inputStream = urlConnection.getInputStream();
+            Log.e("inputstream",""+inputStream);
             StringBuffer buffer = new StringBuffer();
             if (inputStream == null) {
                 // Nothing to do.
@@ -48,6 +50,7 @@ public class NetworkUtils {
       parsing) but it does make debugging a *lot* easier if you print out the
       completed buffer for debugging. */
                 buffer.append(line + "\n");
+                Log.e("Buffer", ""+buffer);
             }
             if (buffer.length() == 0) {
                 // Stream was empty.  No point in parsing.
@@ -68,7 +71,7 @@ public class NetworkUtils {
                     e.printStackTrace();
                 }
             }
-            Log.d(LOG_TAG, calenderJSONString);
+            Log.e(LOG_TAG, calenderJSONString);
             return calenderJSONString;
         }
     }

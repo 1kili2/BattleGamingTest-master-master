@@ -1,8 +1,19 @@
 package com.example.stuivenvolt.battlegamingtest;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -11,18 +22,95 @@ import java.util.Random;
 
 public class CalenderFetcher extends AsyncTask<Void, Void, String> {
 
-    TextView mTextView;
+    TextView mTextView,calenderDateView;
+    String dayn,date;
+    private static final String LOG_TAG = CalenderFetcher.class.getSimpleName();
+    private List<DayItems> dayList;
+    private CalenderAdapter cAdapter;
+    private RecyclerView mRecyclerView;
+    private Context context;
+    private DayItems di;
+    //final ProgressDialog pd=new ProgressDialog(context);
 
-    public CalenderFetcher(TextView tv) {
+
+    public CalenderFetcher(TextView tv,String day, RecyclerView rv, Context ctx) {
         mTextView = tv;
+        dayn=day;
+        mRecyclerView=rv;
+        context=ctx;
     }
 
     @Override
     protected String doInBackground(Void... voids) {
-        return NetworkUtils.getCalenderInfo("Marzo");
+        //pd.setMessage("Loading...");
+        //pd.show();
+        return NetworkUtils.getCalenderInfo("Marzo",dayn);
     }
 
     protected void onPostExecute(String result) {
-        mTextView.setText(result);
+        dayList = new ArrayList<>();
+        super.onPostExecute(result);
+        int test = 0;
+       //pd.dismiss();
+        try {
+            JSONObject jsonO = new JSONObject(result);
+            JSONArray array = jsonO.getJSONArray("Marzo");
+            test=array.length();
+            Log.e(LOG_TAG,result);
+            Log.e("Array Length", ""+test);
+            for (int i = 0; i < 28; i++) {
+                if (i < 9) {
+                    date = "0" + (i + 1);
+                } else {
+                    date = "" + (i + 1);
+                }
+                for (int x = 0; x < array.length(); x++) {
+                    Log.e("Array Content", "" + array.getJSONObject(x));
+                    JSONObject jo = array.getJSONObject(x);
+                    if(jo.getString("Day").equals(date)) {
+                        di = new DayItems(jo.getString("Day"),"Sabado",jo.getString("Entrene"));
+                        break;
+                    }else{
+                        di = new DayItems(date,"Lunes","");
+                    }
+                }
+                dayList.add(di);
+            }
+            cAdapter = new CalenderAdapter(context,dayList);
+            mRecyclerView.setAdapter(cAdapter);
+
+
+        } catch (JSONException je){
+            je.printStackTrace();
+           // try {
+           //     //JSONObject jsonObject = new JSONObject(result);
+           //     JSONObject itemsArray = new JSONObject(result);
+           //     Log.d(LOG_TAG,result);
+//
+           //         String day = ""+itemsArray;
+           //         //String day=null;
+           //         //JSONObject volumeInfo = book.getJSONObject("sessionInfo");
+//
+//
+//
+//
+//
+           //         if (day != null ){
+           //             mTextView.setText(mTextView.getText()+" "+day);
+//
+           //         }
+//
+//
+           //     if(mTextView.getText()==null) {
+           //         mTextView.setText(dayn+"No Results Found");
+           //     }
+//
+//
+//
+           // } catch (Exception ex){
+           //     mTextView.setText(dayn+"No Results Found"+test);
+           //     ex.printStackTrace();
+           // }
+        }
     }
 }
