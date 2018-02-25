@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by i7-4770 on 17/02/2018.
@@ -16,7 +17,7 @@ import java.util.LinkedList;
 
 public class NewsItemsAdapter extends
         RecyclerView.Adapter<NewsItemsAdapter.WordViewHolder>  {
-    private final LinkedList<String> mWordList;
+    private final List<NewsItems> newsList;
     private LayoutInflater mInflater;
     private SharedPreferences prefs;
     private TextView newsTitle;
@@ -42,17 +43,18 @@ public class NewsItemsAdapter extends
 
     @Override
     public void onBindViewHolder(NewsItemsAdapter.WordViewHolder holder, int position) {
-        String mCurrent = mWordList.get(position);
-        holder.newsItemView.setText(mCurrent);
+        final NewsItems newsItems = newsList.get(position);
+        holder.newsItemView.setText(newsItems.getNewsTitle());
     }
 
     @Override
     public int getItemCount() {
-        return mWordList.size();
+        return newsList.size();
     }
-    public NewsItemsAdapter(Context context, LinkedList<String> wordList) {
+
+    public NewsItemsAdapter(Context context, List<NewsItems> newsList) {
         mInflater = LayoutInflater.from(context);
-        this.mWordList = wordList;
+        this.newsList = newsList;
     }
 
     public int getTextColor(){

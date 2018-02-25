@@ -99,13 +99,12 @@ public class NewsFragment extends android.app.Fragment {
         // Get a handle to the RecyclerView.
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclernews);
         // Create an adapter and supply the data to be displayed.
-        nAdapter = new NewsItemsAdapter(getActivity(), mWordList);
         // Connect the adapter with the RecyclerView.
-        mRecyclerView.setAdapter(nAdapter);
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         mScreen = (FrameLayout) view.findViewById(R.id.myScreen);
         mScreen.setBackgroundColor(getBackgroundColor());
+        new NewsFetcher(mRecyclerView, getActivity()).execute();
         return view;
     }
 
