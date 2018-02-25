@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +24,7 @@ import java.util.Random;
 public class CalenderFetcher extends AsyncTask<Void, Void, String> {
 
     TextView mTextView,calenderDateView;
-    String dayn,date;
+    String dayn,date,month;
     private static final String LOG_TAG = CalenderFetcher.class.getSimpleName();
     private List<DayItems> dayList;
     private CalenderAdapter cAdapter;
@@ -33,18 +34,18 @@ public class CalenderFetcher extends AsyncTask<Void, Void, String> {
     //final ProgressDialog pd=new ProgressDialog(context);
 
 
-    public CalenderFetcher(TextView tv,String day, RecyclerView rv, Context ctx) {
-        mTextView = tv;
+    public CalenderFetcher(String mnt, String day, RecyclerView rv, Context ctx) {
         dayn=day;
         mRecyclerView=rv;
         context=ctx;
+        month=mnt;
     }
 
     @Override
     protected String doInBackground(Void... voids) {
         //pd.setMessage("Loading...");
         //pd.show();
-        return NetworkUtils.getCalenderInfo("Marzo",dayn);
+        return NetworkUtils.getCalenderInfo(month,dayn);
     }
 
     protected void onPostExecute(String result) {
@@ -54,9 +55,10 @@ public class CalenderFetcher extends AsyncTask<Void, Void, String> {
        //pd.dismiss();
         try {
             JSONObject jsonO = new JSONObject(result);
-            JSONArray array = jsonO.getJSONArray("Marzo");
+            JSONArray array = jsonO.getJSONArray(month);
             test=array.length();
             Log.e(LOG_TAG,result);
+            Log.e("Month", month);
             Log.e("Array Length", ""+test);
             for (int i = 0; i < 28; i++) {
                 if (i < 9) {
@@ -65,7 +67,6 @@ public class CalenderFetcher extends AsyncTask<Void, Void, String> {
                     date = "" + (i + 1);
                 }
                 for (int x = 0; x < array.length(); x++) {
-                    Log.e("Array Content", "" + array.getJSONObject(x));
                     JSONObject jo = array.getJSONObject(x);
                     if(jo.getString("Day").equals(date)) {
                         di = new DayItems(jo.getString("Day"),"Sabado",jo.getString("Entrene"));
@@ -82,6 +83,8 @@ public class CalenderFetcher extends AsyncTask<Void, Void, String> {
 
         } catch (JSONException je){
             je.printStackTrace();
+            Toast toast = Toast.makeText(context, "No hay mas informacion", Toast.LENGTH_SHORT);
+            toast.show();
            // try {
            //     //JSONObject jsonObject = new JSONObject(result);
            //     JSONObject itemsArray = new JSONObject(result);

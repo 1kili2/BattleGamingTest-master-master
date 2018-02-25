@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 
 
@@ -88,8 +91,9 @@ public class NewsFragment extends android.app.Fragment {
         // Inflate the layout for this fragment
         for (int i = 0; i < 20; i++) {
             mWordList.addLast("Title " + mCount++);
-            Log.d("WordList", mWordList.getLast());
+            Log.e("WordList", mWordList.getLast());
         }
+
 
         View view = inflater.inflate(R.layout.fragment_news, container, false);
         // Get a handle to the RecyclerView.

@@ -32,7 +32,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -60,10 +63,12 @@ public class CalenderFragment extends android.app.Fragment {
     private CalenderAdapter cAdapter;
     FrameLayout mScreen;
     private FloatingActionButton btnPrev, btnNext;
+    private String[] months={"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
 
     private OnFragmentInteractionListener mListener;
     private List<DayItems> dayList;
     private String URL_DATA = "https://battle-gaming-agenda.firebaseio.com/agenda/eventos/2018.json";
+    int currentMonth;
 
     public CalenderFragment() {
         // Required empty public constructor
@@ -103,6 +108,10 @@ public class CalenderFragment extends android.app.Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_calender, container, false);
+        DateFormat dateFormat = new SimpleDateFormat("M");
+        Date month = new Date();
+        currentMonth=Integer.parseInt(dateFormat.format(month))-1;
+        Log.e("Month",dateFormat.format(month));
 
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclercalender);
@@ -117,10 +126,40 @@ public class CalenderFragment extends android.app.Fragment {
         TextView dateInfo=(TextView) view.findViewById(R.id.DateInfo);
         btnNext = (FloatingActionButton) view.findViewById(R.id.btnNext);
         btnPrev = (FloatingActionButton) view.findViewById(R.id.btnPrev);
-        new CalenderFetcher(dateInfo, mCount, mRecyclerView, getActivity()).execute();
+        new CalenderFetcher(months[currentMonth], mCount, mRecyclerView, getActivity()).execute();
         //getDayJsonData();
         btnNext.setColorFilter(getTextColor());
         btnPrev.setColorFilter(getTextColor());
+
+        final FloatingActionButton previousMonth = (FloatingActionButton) view.findViewById(R.id.btnPrev);
+        previousMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                if(currentMonth==0){
+                    Toast toast = Toast.makeText(getActivity(), "Aqui empezo todo, el principio de la historia.", Toast.LENGTH_SHORT);
+                    toast.show();
+                }else {
+                    currentMonth--;
+                    new CalenderFetcher(months[currentMonth], mCount, mRecyclerView, getActivity()).execute();
+                    Log.e("Current month", months[currentMonth]);
+                }
+            }
+        });
+
+        final FloatingActionButton nextMonth = (FloatingActionButton) view.findViewById(R.id.btnNext);
+        nextMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                if(currentMonth==11) {
+                    Toast toast = Toast.makeText(getActivity(), "Llegastes al ultimo mes, se va a acabar el mundo!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }else{
+                    currentMonth++;
+                    new CalenderFetcher(months[currentMonth], mCount, mRecyclerView, getActivity()).execute();
+                    Log.e("Current month", months[currentMonth]);
+                }
+            }
+        });
 
         return view;
     }
@@ -138,41 +177,7 @@ public class CalenderFragment extends android.app.Fragment {
         super.onDetach();
         mListener = null;
     }
-    /*private void getDayJsonData(){
-        final ProgressDialog pd=new ProgressDialog(getActivity());
-        pd.setMessage("Loading...");
-        pd.show();
-        Log.e("Begin","after loading before entering StringRequest");
-        StringRequest st=new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.e("Inside", "Inside onresponse");
-                pd.dismiss();
-                try {
-                    JSONObject jsonO = new JSONObject(response);
-                    JSONArray array = jsonO.getJSONArray("Marzo");
-                    for (int i = 0; i < array.length(); i++) {
-                        JSONObject jo = array.getJSONObject(i);
-                        DayItems di = new DayItems(jo.getString("" + jo.names().get(0)));
-                        dayList.add(di);
-                    }
-                    cAdapter = new CalenderAdapter(getActivity(), dayList);
-                    mRecyclerView.setAdapter(cAdapter);
 
-                } catch (JSONException je) {
-                    je.printStackTrace();
-                    Log.e("JSONException", ""+je);
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Error" +error.toString(),Toast.LENGTH_LONG).show();
-                Log.e("getJsonError", ""+error);
-            }
-        });
-        Log.e("End","after get  JSON");
-    }*/
 
     public int getBackgroundColor(){
         Context context = getActivity();
