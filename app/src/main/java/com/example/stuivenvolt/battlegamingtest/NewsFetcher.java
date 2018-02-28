@@ -57,7 +57,7 @@ public class NewsFetcher extends AsyncTask<Void, Void, String> {
 
             for (int x = 0; x < test ; x++) {
                 JSONObject jo = array.getJSONObject(x);
-                ni = new NewsItems(jo.getString("Title"),jo.names().getString(0));
+                ni = new NewsItems(jo.getString("Title"),jo.getString("Article"));
                 newsList.add(ni);
             }
 

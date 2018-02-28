@@ -27,7 +27,6 @@
             android:background="@color/colorDate"
             android:text="@string/_03"
             android:textAlignment="center"
-            app:layout_constraintStart_toStartOf="@+id/DateInfo"
             app:layout_constraintTop_toTopOf="@+id/Day" />
 
         <TextView
@@ -45,13 +44,21 @@
             android:layout_toEndOf="@id/Date"
             android:layout_marginLeft="25dp" />
 
-        <TextView
-            android:id="@+id/DateInfo"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="478dp"
-            android:text=""
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@+id/Day"
-            tools:layout_editor_absoluteX="6dp" />
+            android:layout_height="475dp"
+            tools:layout_editor_absoluteX="6dp"
+            tools:layout_editor_absoluteY="21dp"
+            app:layout_constraintTop_toBottomOf="@+id/Day">
+
+            <TextView
+                android:id="@+id/DateInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20sp"
+
+                tools:layout_editor_absoluteX="6dp" />
+        </ScrollView>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

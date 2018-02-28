@@ -1,7 +1,9 @@
 package com.example.stuivenvolt.battlegamingtest;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,8 +25,9 @@ public class NewsItemsAdapter extends
     private LayoutInflater mInflater;
     private SharedPreferences prefs;
     private TextView newsTitle;
+    private Context context;
 
-    class WordViewHolder extends RecyclerView.ViewHolder {
+    class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public final TextView newsItemView;
         final NewsItemsAdapter nAdapter;
 
@@ -32,6 +35,24 @@ public class NewsItemsAdapter extends
             super(itemView);
             newsItemView = (TextView) itemView.findViewById(R.id.NewsTitle);
             this.nAdapter = adapter;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int mPosition = getLayoutPosition();
+            NewsItems element = newsList.get(mPosition);
+            Bundle bundle = new Bundle();
+            bundle.putString("Title",element.getNewsTitle());
+            bundle.putString("Article",element.getNewsInfo());
+            final android.app.FragmentManager fm = ((Activity) context).getFragmentManager();
+            NewsItemFragment nif = new NewsItemFragment();
+            nif.setArguments(bundle);
+            fm.beginTransaction().replace(R.id.content_frame, nif).commit();
+            //test=element.getDayInfo()+"Clicked!";
+            //element.setDayInfo(test);
+            //cAdapter.notifyDataSetChanged();
+            Log.e("Adapter onClick", "test");
         }
     }
     @Override
@@ -40,6 +61,7 @@ public class NewsItemsAdapter extends
         View mItemView = mInflater.inflate(R.layout.news_items, parent, false);
         newsTitle=(TextView) mItemView.findViewById(R.id.NewsTitle);
         newsTitle.setTextColor(getTextColor());
+        context=parent.getContext();
         return new WordViewHolder(mItemView, this);
     }
 

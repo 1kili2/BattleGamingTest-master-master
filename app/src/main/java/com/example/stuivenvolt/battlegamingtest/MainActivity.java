@@ -22,7 +22,9 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         CalenderFragment.OnFragmentInteractionListener,
-        DateFragment.OnFragmentInteractionListener{
+        DateFragment.OnFragmentInteractionListener,
+        NewsItemFragment.OnFragmentInteractionListener,
+        NewsFragment.OnFragmentInteractionListener{
     FragmentManager fragmentManager = getFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
