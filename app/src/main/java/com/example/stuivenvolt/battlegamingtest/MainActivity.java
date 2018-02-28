@@ -1,5 +1,6 @@
 package com.example.stuivenvolt.battlegamingtest;
 
+import android.net.Uri;
 import android.os.Handler;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -19,7 +20,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        CalenderFragment.OnFragmentInteractionListener,
+        DateFragment.OnFragmentInteractionListener{
     FragmentManager fragmentManager = getFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -108,5 +111,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

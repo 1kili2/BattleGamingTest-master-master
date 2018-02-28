@@ -23,7 +23,7 @@ public class NetworkUtils {
     private static final String DAY = "/Days";
     private static final String JSON = ".json"; // Parameter for the search string
 
-    static String getCalenderInfo(String queryString,String dayn){
+    static String getCalenderInfo(){
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String calenderJSONString = null;
@@ -37,7 +37,6 @@ public class NetworkUtils {
             urlConnection.connect();
 
             InputStream inputStream = urlConnection.getInputStream();
-            Log.e("inputstream",""+inputStream);
             StringBuffer buffer = new StringBuffer();
             if (inputStream == null) {
                 // Nothing to do.

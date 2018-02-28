@@ -4,49 +4,41 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
+import android.widget.TextView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NewsFragment.OnFragmentInteractionListener} interface
+ * {@link DateFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NewsFragment#newInstance} factory method to
+ * Use the {@link DateFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewsFragment extends android.app.Fragment {
+public class DateFragment extends android.app.Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private final LinkedList<String> mWordList = new LinkedList<>();
-    private int mCount = 1;
-    private RecyclerView mRecyclerView;
-    private NewsItemsAdapter nAdapter;
-    FrameLayout mScreen;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    ConstraintLayout mScreen;
+    private TextView day,date,dateInfo;
 
     private OnFragmentInteractionListener mListener;
 
-    public NewsFragment() {
+    public DateFragment() {
         // Required empty public constructor
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -54,11 +46,11 @@ public class NewsFragment extends android.app.Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CalenderFragment.
+     * @return A new instance of fragment DateFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewsFragment newInstance(String param1, String param2) {
-        NewsFragment fragment = new NewsFragment();
+    public static DateFragment newInstance(String param1, String param2) {
+        DateFragment fragment = new DateFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -73,36 +65,39 @@ public class NewsFragment extends android.app.Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-    }
-    public int getBackgroundColor(){
-        Context context = getActivity();
-        SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-
-        int bgColor = prefs.getInt("BGColor", 0xff000000);
-
-        return bgColor;
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_news, container, false);
-        // Get a handle to the RecyclerView.
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclernews);
-        // Create an adapter and supply the data to be displayed.
-        // Connect the adapter with the RecyclerView.
-        // Give the RecyclerView a default layout manager.
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        mScreen = (FrameLayout) view.findViewById(R.id.myScreen);
+        View view = inflater.inflate(R.layout.fragment_date, container, false);
+        mScreen = (ConstraintLayout) view.findViewById(R.id.myScreen);
         mScreen.setBackgroundColor(getBackgroundColor());
-        new NewsFetcher(mRecyclerView, getActivity()).execute();
+        day=(TextView) view.findViewById(R.id.Day);
+        date=(TextView) view.findViewById(R.id.Date);
+        dateInfo=(TextView) view.findViewById(R.id.DateInfo);
+
+        day.setTextColor(getTextColor());
+        date.setTextColor(getTextColor());
+        dateInfo.setTextColor(getTextColor());
+
+        date.setText(getArguments().getString("Date"));
+        day.setText(getArguments().getString("Day"));
+
+        String[] splitinfo=getArguments().getString("DayInfo").split("\\{|\\}|\\,");
+        String joininfo="test";
+        for(int i=0;i<splitinfo.length;i++){
+            if(joininfo.equals("test")) {
+                joininfo = splitinfo[i];
+            }else{
+                joininfo = joininfo + splitinfo[i] + "\n";
+            }
+        }
+        dateInfo.setText(joininfo);
+        day.setBackgroundColor(getArguments().getInt("DayColor"));
         return view;
     }
-
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -111,6 +106,16 @@ public class NewsFragment extends android.app.Fragment {
         }
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
     @Override
     public void onDetach() {
@@ -118,6 +123,19 @@ public class NewsFragment extends android.app.Fragment {
         mListener = null;
     }
 
+    public int getBackgroundColor(){
+        Context context = getActivity();
+        SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        int bgColor = prefs.getInt("BGColor", 0xff000000);
+        return bgColor;
+    }
+
+    public int getTextColor(){
+        Context context = getActivity();
+        SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        int tColor = prefs.getInt("TColor", 0xff000000);
+        return tColor;
+    }
 
     /**
      * This interface must be implemented by activities that contain this

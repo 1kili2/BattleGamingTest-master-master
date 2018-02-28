@@ -37,7 +37,7 @@ public class NewsConnection {
             urlConnection.connect();
 
             InputStream inputStream = urlConnection.getInputStream();
-            Log.e("inputstream",""+inputStream);
+            Log.e("inputstream","News connection established");
             StringBuffer buffer = new StringBuffer();
             if (inputStream == null) {
                 // Nothing to do.
@@ -50,7 +50,7 @@ public class NewsConnection {
       parsing) but it does make debugging a *lot* easier if you print out the
       completed buffer for debugging. */
                 buffer.append(line + "\n");
-                Log.e("Buffer", ""+buffer);
+
             }
             if (buffer.length() == 0) {
                 // Stream was empty.  No point in parsing.

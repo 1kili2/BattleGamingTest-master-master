@@ -58,12 +58,11 @@ public class CalenderFragment extends android.app.Fragment {
     private String mParam1;
     private String mParam2;
     private final LinkedList<String> mDateList = new LinkedList<>();
-    private String mCount = "";
     private RecyclerView mRecyclerView;
     private CalenderAdapter cAdapter;
     FrameLayout mScreen;
     private FloatingActionButton btnPrev, btnNext;
-    private String[] months={"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
+    private String[][] months={{"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"},{"31","28","31","30","31","30","31","31","30","31","30","31"}};
 
     private OnFragmentInteractionListener mListener;
     private List<DayItems> dayList;
@@ -126,7 +125,7 @@ public class CalenderFragment extends android.app.Fragment {
         TextView dateInfo=(TextView) view.findViewById(R.id.DateInfo);
         btnNext = (FloatingActionButton) view.findViewById(R.id.btnNext);
         btnPrev = (FloatingActionButton) view.findViewById(R.id.btnPrev);
-        new CalenderFetcher(months[currentMonth], mCount, mRecyclerView, getActivity()).execute();
+        new CalenderFetcher(currentMonth, months[0][currentMonth], months[1][currentMonth], mRecyclerView, getActivity()).execute();
         //getDayJsonData();
         btnNext.setColorFilter(getTextColor());
         btnPrev.setColorFilter(getTextColor());
@@ -140,8 +139,8 @@ public class CalenderFragment extends android.app.Fragment {
                     toast.show();
                 }else {
                     currentMonth--;
-                    new CalenderFetcher(months[currentMonth], mCount, mRecyclerView, getActivity()).execute();
-                    Log.e("Current month", months[currentMonth]);
+                    new CalenderFetcher(currentMonth, months[0][currentMonth], months[1][currentMonth], mRecyclerView, getActivity()).execute();
+                    Log.e("Current month", months[0][currentMonth]);
                 }
             }
         });
@@ -155,8 +154,8 @@ public class CalenderFragment extends android.app.Fragment {
                     toast.show();
                 }else{
                     currentMonth++;
-                    new CalenderFetcher(months[currentMonth], mCount, mRecyclerView, getActivity()).execute();
-                    Log.e("Current month", months[currentMonth]);
+                    new CalenderFetcher(currentMonth, months[0][currentMonth], months[1][currentMonth], mRecyclerView, getActivity()).execute();
+                    Log.e("Current month", months[0][currentMonth]);
                 }
             }
         });

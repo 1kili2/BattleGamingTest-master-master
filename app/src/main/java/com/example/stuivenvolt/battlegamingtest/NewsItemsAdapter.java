@@ -3,11 +3,13 @@ package com.example.stuivenvolt.battlegamingtest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,6 +47,7 @@ public class NewsItemsAdapter extends
     public void onBindViewHolder(NewsItemsAdapter.WordViewHolder holder, int position) {
         final NewsItems newsItems = newsList.get(position);
         holder.newsItemView.setText(newsItems.getNewsTitle());
+        Log.e("News Title",newsItems.getNewsTitle());
     }
 
     @Override
@@ -54,7 +57,7 @@ public class NewsItemsAdapter extends
 
     public NewsItemsAdapter(Context context, List<NewsItems> newsList) {
         mInflater = LayoutInflater.from(context);
-        this.newsList = newsList;
+        Collections.reverse(this.newsList = newsList);
     }
 
     public int getTextColor(){
