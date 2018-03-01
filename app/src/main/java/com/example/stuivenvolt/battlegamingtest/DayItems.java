@@ -8,7 +8,7 @@ import android.graphics.Color;
 
 public class DayItems {
 
-    private String date, day, info;
+    private String date, day, info, month;
     private int dayColor;
 
     public String getDate(){return date;}
@@ -19,14 +19,17 @@ public class DayItems {
 
     public int getDayColor(){return dayColor;}
 
+    public String getMonth(){return month;}
+
     public void setDayInfo(String info){
         this.info=info;
     }
 
-    public DayItems(String date, String day, String info, int dayColor){
+    public DayItems(String date, String day, String info, int dayColor, String month){
         this.date=date;
         this.day=day;
         this.info=info;
         this.dayColor=dayColor;
+        this.month=month;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.stuivenvolt.battlegamingtest;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -16,6 +17,12 @@ import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -200,6 +207,23 @@ public class SettingsFragment extends android.app.Fragment {
             }
         });
 
+        final Button resetbackground = (Button) view.findViewById(R.id.reset);
+        resetbackground.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                resetData();
+                Toast toast = Toast.makeText(getActivity(), "Changes have been reset.", Toast.LENGTH_SHORT);
+                toast.show();
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("test/0/Entrene/17:00");
+                //DatabaseReference testref;
+                //Map<String, String> entrenes = new HashMap<>();
+                //entrenes.put("Torrent", "Ancient Legends");
+                myRef.child("Descampado").setValue("Arcadia");
+
+            }
+        });
+
         return view;
     }
 
@@ -218,6 +242,33 @@ public class SettingsFragment extends android.app.Fragment {
         mListener = null;
     }
 
+    private void resetData(){
+        Context context = getActivity();
+        SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = prefs.edit();
+        int bgColor = 0xff000000
+                + seekR * 0x10000
+                + seekG * 0x100
+                + seekB;
+        seekR=255;
+        seekG=255;
+        seekB=255;
+        int tColor = 0xff000000;
+        seekTR=0;
+        seekTG=0;
+        seekTB=0;
+        edit.putInt("BGColor", bgColor);
+        edit.putInt("TColor", tColor);
+        edit.putInt("seekR",seekR);
+        edit.putInt("seekG",seekG);
+        edit.putInt("seekB",seekB);
+        edit.putInt("seekTR",seekTR);
+        edit.putInt("seekTG",seekTG);
+        edit.putInt("seekTB",seekTB);
+        edit.commit();
+        final android.app.FragmentManager fm = ((Activity) context).getFragmentManager();
+        fm.beginTransaction().replace(R.id.content_frame,new SettingsFragment()).commit();
+    }
 
 
 

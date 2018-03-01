@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Battle Gaming Test</string>
+    <string name="app_name">Battle Gaming</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -7,7 +7,6 @@
     <string name="action_settings">Settings</string>
     <string name="calendar_name">Calendario</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hola_mundo">Hola Mundo</string>
     <string name="color_del_texto">Color del texto</string>
@@ -17,4 +16,41 @@
     <string name="_03">03</string>
     <string name="loading">Loading...</string>
     <string name="title">Title</string>
+    <string name="location">Lugar de entrene</string>
+    <string name="guild">Gremio</string>
+    <string name="new_session">Nueva Session</string>
+    <string name="input_training_error">Error! Campo vacio.</string>
+
+    <string-array name="hours">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>00</item>
+    </string-array>
+    <string-array name="minutes">
+        <item>00</item>
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+    </string-array>
 </resources>

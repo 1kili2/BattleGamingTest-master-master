@@ -59,6 +59,7 @@ public class CalenderAdapter extends
             bundle.putString("Day",element.getDay());
             bundle.putString("DayInfo",element.getDayInfo());
             bundle.putInt("DayColor",element.getDayColor());
+            bundle.putString("Month",element.getMonth());
             final android.app.FragmentManager fm = ((Activity) context).getFragmentManager();
             DateFragment df = new DateFragment();
             df.setArguments(bundle);

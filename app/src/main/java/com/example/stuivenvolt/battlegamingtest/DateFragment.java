@@ -1,5 +1,7 @@
 package com.example.stuivenvolt.battlegamingtest;
 
+import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -7,10 +9,10 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 
@@ -108,6 +110,22 @@ public class DateFragment extends android.app.Fragment {
             }
         });
 
+        final FloatingActionButton addbtn = (FloatingActionButton) view.findViewById(R.id.addtraining);
+        addbtn.setColorFilter(getTextColor());
+        addbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                DialogFragment newFragment = new CreateTrainingSession();
+                Bundle bundle = new Bundle();
+                bundle.putString("Date",getArguments().getString("Date"));
+                bundle.putString("Month",getArguments().getString("Month"));
+                Log.e("Month", getArguments().getString("Month"));
+                final android.app.FragmentManager fm = ((Activity) getActivity()).getFragmentManager();
+                newFragment.setArguments(bundle);
+                newFragment.show(getFragmentManager(),"missiles");
+            }
+        });
+
         return view;
     }
 
@@ -117,6 +135,7 @@ public class DateFragment extends android.app.Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+
 
     @Override
     public void onAttach(Context context) {

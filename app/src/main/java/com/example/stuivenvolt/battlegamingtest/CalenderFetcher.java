@@ -108,11 +108,11 @@ public class CalenderFetcher extends AsyncTask<Void, Void, String> {
                     JSONObject jo = array.getJSONObject(x);
                     dayname=firstday[1][row1];
                     if(jo.getString("Day").equals(date)) {
-                        di = new DayItems(jo.getString("Day"), dayname, jo.getString("Entrene"), Color.rgb(255,127,127));
+                        di = new DayItems(jo.getString("Day"), dayname, jo.getString("Entrene"), Color.rgb(255,127,127),month);
                         Log.e("Day name in try",firstday[1][row1]);
                         break;
                     }else{
-                        di = new DayItems(date,dayname,"",Color.rgb(255, 203, 99));
+                        di = new DayItems(date,dayname,"",Color.rgb(255, 203, 99),month);
                         Log.e("Day name in try",firstday[1][row1]);
                     }
                 }

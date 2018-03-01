@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity
         CalenderFragment.OnFragmentInteractionListener,
         DateFragment.OnFragmentInteractionListener,
         NewsItemFragment.OnFragmentInteractionListener,
-        NewsFragment.OnFragmentInteractionListener{
+        NewsFragment.OnFragmentInteractionListener,
+        SettingsFragment.OnFragmentInteractionListener{
     FragmentManager fragmentManager = getFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
