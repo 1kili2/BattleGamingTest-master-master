@@ -19,8 +19,8 @@
 
         <ImageView
             android:id="@+id/NewsImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="262dp"
+            android:layout_height="104dp"
             android:layout_marginBottom="2dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
@@ -36,7 +36,7 @@
             android:id="@+id/Title"
             android:layout_width="match_parent"
             android:layout_height="35sp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="2dp"
             android:text="@string/title"
             android:textAlignment="center"
             android:textSize="25sp"
@@ -47,7 +47,7 @@
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="match_parent"
-            android:layout_height="409dp"
+            android:layout_height="335dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             app:layout_constraintEnd_toEndOf="@+id/Title"
@@ -62,6 +62,33 @@
                 android:textSize="20sp"
 
                 tools:layout_editor_absoluteX="6dp" />
+
         </ScrollView>
+
+        <TextView
+            android:id="@+id/Date"
+            android:layout_width="match_parent"
+            android:layout_height="15sp"
+            android:layout_marginTop="0dp"
+            android:text=""
+            android:textAlignment="textEnd"
+            android:textSize="12sp"
+            android:textColor="@color/dateColor"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+            android:gravity="end" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/backbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginStart="2dp"
+            android:clickable="true"
+            android:src="@android:drawable/ic_media_previous"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="2dp" />
+
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

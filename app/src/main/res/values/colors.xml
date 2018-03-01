@@ -8,4 +8,5 @@
     <color name="background_color">#ffffff</color>
     <color name="textColor">#ffffff</color>
     <color name="testColor">#c60000</color>
+    <color name="dateColor">#c1c1c1</color>
 </resources>

@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -26,14 +29,17 @@ public class NewsItemsAdapter extends
     private SharedPreferences prefs;
     private TextView newsTitle;
     private Context context;
+    private ViewGroup parent;
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public final TextView newsItemView;
+        public final ImageView newsImage;
         final NewsItemsAdapter nAdapter;
 
         public WordViewHolder(View itemView, NewsItemsAdapter adapter) {
             super(itemView);
             newsItemView = (TextView) itemView.findViewById(R.id.NewsTitle);
+            newsImage = (ImageView) itemView.findViewById(R.id.newsFoto);
             this.nAdapter = adapter;
             itemView.setOnClickListener(this);
         }
@@ -45,6 +51,8 @@ public class NewsItemsAdapter extends
             Bundle bundle = new Bundle();
             bundle.putString("Title",element.getNewsTitle());
             bundle.putString("Article",element.getNewsInfo());
+            bundle.putString("Image",element.getImage());
+            bundle.putString("Date",element.getDate());
             final android.app.FragmentManager fm = ((Activity) context).getFragmentManager();
             NewsItemFragment nif = new NewsItemFragment();
             nif.setArguments(bundle);
@@ -62,7 +70,17 @@ public class NewsItemsAdapter extends
         newsTitle=(TextView) mItemView.findViewById(R.id.NewsTitle);
         newsTitle.setTextColor(getTextColor());
         context=parent.getContext();
+        parent=parent;
         return new WordViewHolder(mItemView, this);
+    }
+
+    public void getView(int position, View convertView, ViewGroup parent) {
+        ImageView view = (ImageView) convertView;
+        if (view == null) {
+            view = new ImageView(context);
+        }
+        final NewsItems newsItems = newsList.get(position);
+        Picasso.with(context).load(newsItems.getImage()).into(view);
     }
 
     @Override
@@ -70,6 +88,7 @@ public class NewsItemsAdapter extends
         final NewsItems newsItems = newsList.get(position);
         holder.newsItemView.setText(newsItems.getNewsTitle());
         Log.e("News Title",newsItems.getNewsTitle());
+        getView(position, holder.newsImage, parent);
     }
 
     @Override

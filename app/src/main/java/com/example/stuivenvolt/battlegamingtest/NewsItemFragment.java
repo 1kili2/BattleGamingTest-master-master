@@ -1,5 +1,6 @@
 package com.example.stuivenvolt.battlegamingtest;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -7,11 +8,18 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+
 
 
 /**
@@ -33,6 +41,7 @@ public class NewsItemFragment extends android.app.Fragment {
     private String mParam2;
     ConstraintLayout mScreen;
     private TextView title,article,date;
+    private ImageView image;
 
 
     private OnFragmentInteractionListener mListener;
@@ -78,6 +87,8 @@ public class NewsItemFragment extends android.app.Fragment {
         mScreen.setBackgroundColor(getBackgroundColor());
         title=(TextView) view.findViewById(R.id.Title);
         article=(TextView) view.findViewById(R.id.Article);
+        image=(ImageView) view.findViewById(R.id.NewsImage);
+        date=(TextView) view.findViewById(R.id.Date);
 
         GradientDrawable gd = new GradientDrawable();
         gd.setShape(GradientDrawable.RECTANGLE);
@@ -88,8 +99,20 @@ public class NewsItemFragment extends android.app.Fragment {
         title.setTextColor(getTextColor());
         article.setTextColor(getTextColor());
 
+        Picasso.with(getActivity()).load(getArguments().getString("Image")).into(image);
         title.setText(getArguments().getString("Title"));
         article.setText(getArguments().getString("Article"));
+        date.setText(getArguments().getString("Date"));
+
+        final FloatingActionButton backbtn = (FloatingActionButton) view.findViewById(R.id.backbutton);
+        backbtn.setColorFilter(getTextColor());
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                final android.app.FragmentManager fm = (getActivity()).getFragmentManager();
+                fm.beginTransaction().replace(R.id.content_frame, new NewsFragment()).commit();
+            }
+        });
         return view;
     }
 

@@ -28,7 +28,6 @@ public class NewsFetcher extends AsyncTask<Void, Void, String> {
     private RecyclerView mRecyclerView;
     private Context context;
     private NewsItems ni;
-    //final ProgressDialog pd=new ProgressDialog(context);
 
 
     public NewsFetcher(RecyclerView rv, Context ctx) {
@@ -39,8 +38,6 @@ public class NewsFetcher extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... voids) {
-        //pd.setMessage("Loading...");
-        //pd.show();
         return NewsConnection.getNewsItems();
     }
 
@@ -48,7 +45,6 @@ public class NewsFetcher extends AsyncTask<Void, Void, String> {
         newsList = new ArrayList<>();
         super.onPostExecute(result);
         int test = 0;
-        //pd.dismiss();
         try {
             JSONObject jsonO = new JSONObject(result);
             JSONArray array = jsonO.getJSONArray("noticias");
@@ -57,7 +53,7 @@ public class NewsFetcher extends AsyncTask<Void, Void, String> {
 
             for (int x = 0; x < test ; x++) {
                 JSONObject jo = array.getJSONObject(x);
-                ni = new NewsItems(jo.getString("Title"),jo.getString("Article"));
+                ni = new NewsItems(jo.getString("Title"),jo.getString("Article"),jo.getString("Image"),jo.getString("Date"));
                 newsList.add(ni);
             }
 
@@ -74,27 +70,27 @@ public class NewsFetcher extends AsyncTask<Void, Void, String> {
             //     //JSONObject jsonObject = new JSONObject(result);
             //     JSONObject itemsArray = new JSONObject(result);
             //     Log.d(LOG_TAG,result);
-//
+
             //         String day = ""+itemsArray;
             //         //String day=null;
             //         //JSONObject volumeInfo = book.getJSONObject("sessionInfo");
-//
-//
-//
-//
-//
+
+
+
+
+
             //         if (day != null ){
             //             mTextView.setText(mTextView.getText()+" "+day);
-//
+
             //         }
-//
-//
+
+
             //     if(mTextView.getText()==null) {
             //         mTextView.setText(dayn+"No Results Found");
             //     }
-//
-//
-//
+
+
+
             // } catch (Exception ex){
             //     mTextView.setText(dayn+"No Results Found"+test);
             //     ex.printStackTrace();

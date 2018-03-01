@@ -6,17 +6,20 @@ package com.example.stuivenvolt.battlegamingtest;
 
 public class NewsItems {
 
-    private String image, title, info;
+    private String image, title, info, date;
 
-    //public String getImage(){return image;}
+    public String getImage(){return image;}
 
     public String getNewsTitle(){return title;}
 
     public String getNewsInfo(){return info;}
 
-    public NewsItems(String ttl, String info){
-        //this.image=img;
+    public String getDate(){return date;}
+
+    public NewsItems(String ttl, String info, String img, String date){
+        this.image=img;
         this.title=ttl;
         this.info=info;
+        this.date=date;
     }
 }

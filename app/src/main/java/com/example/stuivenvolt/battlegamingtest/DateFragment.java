@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,6 +97,17 @@ public class DateFragment extends android.app.Fragment {
         }
         dateInfo.setText(joininfo);
         day.setBackgroundColor(getArguments().getInt("DayColor"));
+
+        final FloatingActionButton backbtn = (FloatingActionButton) view.findViewById(R.id.backbutton);
+        backbtn.setColorFilter(getTextColor());
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                final android.app.FragmentManager fm = (getActivity()).getFragmentManager();
+                fm.beginTransaction().replace(R.id.content_frame, new CalenderFragment()).commit();
+            }
+        });
+
         return view;
     }
 
