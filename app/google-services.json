@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "757375580586",
+    "firebase_url": "https://battle-gaming-agenda.firebaseio.com",
+    "project_id": "battle-gaming-agenda",
+    "storage_bucket": "battle-gaming-agenda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757375580586:android:31dd0cc4a3eb01a3",
+        "android_client_info": {
+          "package_name": "com.example.stuivenvolt.battlegamingtest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "757375580586-t9iv3264b5grjhih753upcq9ob30oj3n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.stuivenvolt.battlegamingtest",
+            "certificate_hash": "a0241fd293219e9627122b13137af29a018b9939"
+          }
+        },
+        {
+          "client_id": "757375580586-4q6n006283qggapp5gcs0ucit2fuobsg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuB1HwUzQE2uzwQyFZdNDoLdoNSclEs5U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "757375580586-4q6n006283qggapp5gcs0ucit2fuobsg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
