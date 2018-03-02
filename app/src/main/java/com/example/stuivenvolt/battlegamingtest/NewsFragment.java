@@ -79,7 +79,7 @@ public class NewsFragment extends android.app.Fragment {
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
-        int bgColor = prefs.getInt("BGColor", 0xff000000);
+        int bgColor = prefs.getInt("BGColor", 0xffffffff);
 
         return bgColor;
 
