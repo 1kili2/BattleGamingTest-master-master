@@ -23,6 +23,12 @@
     <string name="ranking">Ranking</string>
     <string name="championship">Campeonato</string>
     <string name="participants">Participantes</string>
+    <string name="name">Nombre</string>
+    <string name="surname">Apellido</string>
+    <string name="password">Contraseña</string>
+    <string name="email">MyMail@Email.com</string>
+    <string name="login">Entrar</string>
+    <string name="register">Registrar</string>
 
     <string-array name="hours">
         <item>01</item>

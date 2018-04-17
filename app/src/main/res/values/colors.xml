@@ -9,4 +9,7 @@
     <color name="textColor">#ffffff</color>
     <color name="testColor">#c60000</color>
     <color name="dateColor">#c1c1c1</color>
+    <color name="darkLayer">#ccc</color>
+    <color name="hintText">#cc999999</color>
+    <color name="transparentBackground">#cc000000</color>
 </resources>
