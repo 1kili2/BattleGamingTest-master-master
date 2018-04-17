@@ -169,6 +169,11 @@ public class CalenderFragment extends android.app.Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((ActionBarTitleSetter) context).setTitle("this is a test");
+    }
 
 
     @Override

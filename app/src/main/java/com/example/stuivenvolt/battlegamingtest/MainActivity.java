@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public void setTitle(String title) {
+        String newTitle = title;
+        setTitle(newTitle);
+    }
+
     /*
         **************************Opciones derecho***************************
         @Override

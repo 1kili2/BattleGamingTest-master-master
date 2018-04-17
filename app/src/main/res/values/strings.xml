@@ -20,6 +20,9 @@
     <string name="guild">Gremio</string>
     <string name="new_session">Nueva Session</string>
     <string name="input_training_error">Error! Campo vacio.</string>
+    <string name="ranking">Ranking</string>
+    <string name="championship">Campeonato</string>
+    <string name="participants">Participantes</string>
 
     <string-array name="hours">
         <item>01</item>
