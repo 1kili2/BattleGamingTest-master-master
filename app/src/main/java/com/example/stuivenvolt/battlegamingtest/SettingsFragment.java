@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class SettingsFragment extends android.app.Fragment {
     private boolean bgcvisible=false, tcvisible=false;
     private View view, main;
     private TextView bgroundColor,textColor;
+    private ImageView arrow;
 
 
     private int seekR, seekG, seekB,seekTR, seekTG, seekTB;
@@ -165,16 +167,19 @@ public class SettingsFragment extends android.app.Fragment {
         bgcvisibility.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+                arrow = (ImageView) view.findViewById(R.id.settings_arrow_1);
                 if(bgcvisible==false){
                     redSeekBar.setVisibility(View.VISIBLE);
                     greenSeekBar.setVisibility(View.VISIBLE);
                     blueSeekBar.setVisibility(View.VISIBLE);
                     bgcvisible=true;
+                    arrow.setRotation(90);
                 }else{
                     redSeekBar.setVisibility(View.GONE);
                     greenSeekBar.setVisibility(View.GONE);
                     blueSeekBar.setVisibility(View.GONE);
                     bgcvisible=false;
+                    arrow.setRotation(0);
                 }
             }
         });
@@ -184,15 +189,18 @@ public class SettingsFragment extends android.app.Fragment {
             @Override
             public void onClick(final View v) {
                 if(tcvisible==false){
+                    arrow = (ImageView) view.findViewById(R.id.settings_arrow_2);
                     titleR.setVisibility(View.VISIBLE);
                     titleG.setVisibility(View.VISIBLE);
                     titleB.setVisibility(View.VISIBLE);
                     tcvisible=true;
+                    arrow.setRotation(90);
                 }else{
                     titleR.setVisibility(View.GONE);
                     titleG.setVisibility(View.GONE);
                     titleB.setVisibility(View.GONE);
                     tcvisible=false;
+                    arrow.setRotation(0);
                 }
             }
         });

@@ -29,7 +29,7 @@
     <string name="email">MyMail@Email.com</string>
     <string name="login">Entrar</string>
     <string name="register">Registrar</string>
-    <string name="nickname">Mote</string>
+    <string name="nickname">(opcional) Mote</string>
 
     <string-array name="hours">
         <item>17</item>

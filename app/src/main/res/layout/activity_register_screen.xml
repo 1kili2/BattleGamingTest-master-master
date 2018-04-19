@@ -10,7 +10,7 @@
     android:backgroundTint="@color/darkLayer">
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/user_name"
         android:layout_width="288dp"
         android:layout_height="35dp"
         android:layout_marginEnd="8dp"
@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/user_surname"
         android:layout_width="288dp"
         android:layout_height="35dp"
         android:layout_marginLeft="8dp"
@@ -39,13 +39,13 @@
         android:hint="@string/surname"
         android:inputType="textPersonName"
         android:textColorHint="@color/hintText"
-        app:layout_constraintEnd_toEndOf="@+id/editText4"
+        app:layout_constraintEnd_toEndOf="@+id/user_name"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editText4"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintStart_toStartOf="@+id/user_name"
+        app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/user_nickname"
         android:layout_width="288dp"
         android:layout_height="35dp"
         android:layout_marginLeft="8dp"
@@ -56,13 +56,13 @@
         android:hint="@string/nickname"
         android:inputType="textPersonName"
         android:textColorHint="@color/hintText"
-        app:layout_constraintEnd_toEndOf="@+id/editText5"
+        app:layout_constraintEnd_toEndOf="@+id/user_surname"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editText5"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        app:layout_constraintStart_toStartOf="@+id/user_surname"
+        app:layout_constraintTop_toBottomOf="@+id/user_surname" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/user_password"
         android:layout_width="288dp"
         android:layout_height="35dp"
         android:layout_marginLeft="8dp"
@@ -73,13 +73,13 @@
         android:hint="@string/password"
         android:inputType="textPassword"
         android:textColorHint="@color/hintText"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="@+id/user_nickname"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintStart_toStartOf="@+id/user_nickname"
+        app:layout_constraintTop_toBottomOf="@+id/user_nickname" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/user_email"
         android:layout_width="288dp"
         android:layout_height="35dp"
         android:layout_marginLeft="8dp"
@@ -90,10 +90,10 @@
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:textColorHint="@color/hintText"
-        app:layout_constraintEnd_toEndOf="@+id/editText2"
+        app:layout_constraintEnd_toEndOf="@+id/user_password"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editText2"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintStart_toStartOf="@+id/user_password"
+        app:layout_constraintTop_toBottomOf="@+id/user_password" />
 
     <Button
         android:id="@+id/Register"
@@ -104,7 +104,8 @@
         android:layout_marginStart="48dp"
         android:text="@string/register"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:onClick="Register_User"/>
 
     <Button
         android:id="@+id/Login"
@@ -115,5 +116,6 @@
         android:layout_marginRight="48dp"
         android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="Login_User"/>
 </android.support.constraint.ConstraintLayout>
