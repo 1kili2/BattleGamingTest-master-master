@@ -105,8 +105,12 @@ public class DateFragment extends android.app.Fragment {
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+                CalenderFragment newFragment = new CalenderFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("Month",getArguments().getString("Month"));
                 final android.app.FragmentManager fm = (getActivity()).getFragmentManager();
-                fm.beginTransaction().replace(R.id.content_frame, new CalenderFragment()).commit();
+                newFragment.setArguments(bundle);
+                fm.beginTransaction().replace(R.id.content_frame, newFragment).commit();
             }
         });
 

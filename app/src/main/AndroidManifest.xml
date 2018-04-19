@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginScreen"></activity>
+        <activity android:name=".RegisterScreen"></activity>
     </application>
 
 </manifest>

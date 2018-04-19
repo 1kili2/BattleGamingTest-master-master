@@ -62,10 +62,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void setTitle(String title) {
-        String newTitle = title;
-        setTitle(newTitle);
-    }
 
     /*
         **************************Opciones derecho***************************
@@ -103,12 +99,14 @@ public class MainActivity extends AppCompatActivity
                 switch (item.getItemId()) {
                     case R.id.nav_news:
                         fm.beginTransaction().replace(R.id.content_frame, new NewsFragment()).commit();
+                        setTitle("Battle Gaming");
                         break;
                     case R.id.nav_date:
                         fm.beginTransaction().replace(R.id.content_frame, new CalenderFragment()).commit();
                         break;
                     case R.id.nav_manage:
                         fm.beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
+                        setTitle("Battle Gaming");
                         break;
                     default:
                 }
