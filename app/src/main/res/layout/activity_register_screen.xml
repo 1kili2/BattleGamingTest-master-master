@@ -17,12 +17,13 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="136dp"
         android:background="@color/transparentBackground"
         android:ems="10"
         android:hint="@string/name"
         android:inputType="textPersonName"
         android:textColorHint="@color/hintText"
+        android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,44 +40,29 @@
         android:hint="@string/surname"
         android:inputType="textPersonName"
         android:textColorHint="@color/hintText"
+        android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="@+id/user_name"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/user_name"
         app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
     <EditText
-        android:id="@+id/user_nickname"
-        android:layout_width="288dp"
-        android:layout_height="35dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/transparentBackground"
-        android:ems="10"
-        android:hint="@string/nickname"
-        android:inputType="textPersonName"
-        android:textColorHint="@color/hintText"
-        app:layout_constraintEnd_toEndOf="@+id/user_surname"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/user_surname"
-        app:layout_constraintTop_toBottomOf="@+id/user_surname" />
-
-    <EditText
         android:id="@+id/user_password"
         android:layout_width="288dp"
         android:layout_height="35dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="24dp"
         android:background="@color/transparentBackground"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:textColorHint="@color/hintText"
-        app:layout_constraintEnd_toEndOf="@+id/user_nickname"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/user_nickname"
-        app:layout_constraintTop_toBottomOf="@+id/user_nickname" />
+        android:textColor="@color/textColor"
+        app:layout_constraintEnd_toEndOf="@+id/user_email"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/user_email"
+        app:layout_constraintTop_toBottomOf="@+id/user_email" />
 
     <EditText
         android:id="@+id/user_email"
@@ -90,10 +76,11 @@
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:textColorHint="@color/hintText"
-        app:layout_constraintEnd_toEndOf="@+id/user_password"
+        android:textColor="@color/textColor"
+        app:layout_constraintEnd_toEndOf="@+id/user_surname"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/user_password"
-        app:layout_constraintTop_toBottomOf="@+id/user_password" />
+        app:layout_constraintStart_toStartOf="@+id/user_surname"
+        app:layout_constraintTop_toBottomOf="@+id/user_surname" />
 
     <Button
         android:id="@+id/Register"
