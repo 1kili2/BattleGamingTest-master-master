@@ -47,8 +47,17 @@ public class RegisterScreen extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
+                        try{
+                            this.wait(10000);
+                        }catch (Exception e){
+                            Log.w(TAG, e);
+                        }
                         Login(email, password);
+                        try{
+                            this.wait(10000);
+                        }catch (Exception e){
+                            Log.w(TAG, e);
+                        }
                         SetInfo();
                         } else {
                         // If sign in fails, display a message to the user.
@@ -87,13 +96,22 @@ public class RegisterScreen extends AppCompatActivity {
     }
 
     private void SetInfo(){
-        String username = nameET.getText().toString();
-        FirebaseUser user = mAuth.getInstance().getCurrentUser();
+        String username = nameET.getText().toString() + " " + surnameET.getText().toString();
+        FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             // User is signed in
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(username)
                     .build();
+            user.updateProfile(profileUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("profile: ", "User profile updated.");
+                            }
+                        }
+                    });
 
         } else {
             // No user is signed in
@@ -105,10 +123,6 @@ public class RegisterScreen extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         Register();
         startActivity(intent);
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null) {
-            Toast.makeText(RegisterScreen.this, "Bienvenido " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
-        }
     }
 
     public void Login_User(View view) {

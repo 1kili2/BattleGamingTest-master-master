@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -20,8 +21,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -36,15 +40,16 @@ public class MainActivity extends AppCompatActivity
     private static final String LOG_TAG =
             MainActivity.class.getSimpleName();
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -98,6 +103,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(final MenuItem item) {
         // Handle navigation view item clicks here.
+
         final android.app.FragmentManager fm = getFragmentManager();
         Handler h = new Handler();
         h.postDelayed(new Runnable() {
@@ -115,6 +121,17 @@ public class MainActivity extends AppCompatActivity
                         fm.beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
                         setTitle("Battle Gaming");
                         break;
+                    case R.id.nav_test1:
+                        SetInfo();
+                        setTitle("Battle Gaming");
+                        break;
+                    case R.id.nav_test2:
+
+                        if (user != null) {
+                            Toast.makeText(MainActivity.this, user.getUid() + "    " + user.getDisplayName(), Toast.LENGTH_LONG).show();
+                        }
+                        setTitle("Battle Gaming");
+                        break;
                     default:
                 }
             }
@@ -124,6 +141,29 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void SetInfo(){
+        String username = "Mike Stuivenvolt";
+        if (user != null) {
+            // User is signed in
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(username)
+                    .build();
+            user.updateProfile(profileUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(LOG_TAG, "User profile updated.");
+                            }
+                        }
+                    });
+
+        } else {
+            // No user is signed in
+            Toast.makeText(MainActivity.this, "No user Logged in.", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
