@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,7 +21,9 @@ public class LoginScreen extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String email, password;
     private EditText emailET, passwordET;
+    private ImageButton ibLogin;
     FirebaseUser user;
+    private boolean isBig = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +31,17 @@ public class LoginScreen extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         passwordET = (EditText) findViewById(R.id.login_password);
         emailET = (EditText) findViewById(R.id.login_email);
+        ibLogin = (ImageButton) findViewById(R.id.imageButton3);
         super.onCreate(savedInstanceState);
     }
 
     public void Login_User(View view) {
         if(emailET.getText().toString().equals("") || passwordET.getText().toString().equals("")) {
-            Toast.makeText(LoginScreen.this,"Email: "+emailET.getText().toString()+"    Password: " +passwordET.getText().toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginScreen.this, R.string.empty_login_field, Toast.LENGTH_SHORT).show();
         }else{
+            changebutton();
             email = emailET.getText().toString();
             password = passwordET.getText().toString();
-            Toast.makeText(LoginScreen.this,"authenticating", Toast.LENGTH_SHORT).show();
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
@@ -47,18 +52,41 @@ public class LoginScreen extends AppCompatActivity {
                                 Log.d("Login Succes:", "signInWithEmail:success");
                                 user = mAuth.getCurrentUser();
                                 Intent intent = new Intent(LoginScreen.this, MainActivity.class);
+                                HideLoadingAnimation();
                                 startActivity(intent);
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("Login Fail:", "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginScreen.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                HideLoadingAnimation();
+                                Toast.makeText(LoginScreen.this, R.string.failed_login_message, Toast.LENGTH_SHORT).show();
+                                changebutton();
                             }
                         }
                     });
         }
+    }
+    //show
+    public void ShowLoadingAnimation()
+    {
+        RelativeLayout pageLoading = (RelativeLayout) findViewById(R.id.main_layoutPageLoading);
+        pageLoading.setVisibility(View.VISIBLE);
+    }
 
+    //hide
+    public void HideLoadingAnimation()
+    {
+        RelativeLayout pageLoading = (RelativeLayout) findViewById(R.id.main_layoutPageLoading);
+        pageLoading.setVisibility(View.GONE);
+    }
 
-
-
+    private void changebutton(){
+        if(isBig == false) {
+            ibLogin.setImageResource(R.drawable.young_viking_200);
+            isBig = true;
+            ShowLoadingAnimation();
+        }else{
+            ibLogin.setImageResource(R.drawable.veteran_viking_200);
+            isBig = false;
+        }
     }
 }

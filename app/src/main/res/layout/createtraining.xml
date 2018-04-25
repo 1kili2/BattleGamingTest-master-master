@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
     <TextView
         android:text="@string/new_session"
-        android:textColor="@color/textColor"
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:scaleType="center"
@@ -14,7 +14,7 @@
         android:textSize="40sp"/>
     <TextView
         android:text="@string/input_training_error"
-        android:textColor="@color/testColor"
+        android:textColor="@color/red"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/app_name"

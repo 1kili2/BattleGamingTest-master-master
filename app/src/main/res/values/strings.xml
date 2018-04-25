@@ -23,17 +23,20 @@
     <string name="ranking">Ranking</string>
     <string name="championship">Campeonato</string>
     <string name="participants">Participantes</string>
-    <string name="name">Nombre</string>
-    <string name="surname">Apellido</string>
+    <string name="name">Nombre&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(Opcional)</string>
+    <string name="surname">Apellido&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(Opcional)</string>
     <string name="password">Contraseña</string>
     <string name="email">MyMail@Email.com</string>
-    <string name="login">Entrar</string>
-    <string name="register">Registrar</string>
-    <string name="nickname">(opcional) Mote</string>
-    <string name="login_email_hint">Email@email.com</string>
-    <string name="login_password">Password</string>
-    <string name="empty_login_field">Campo vacio!</string>
+    <string name="login">&#160;&#160;&#160;Ya eres un guerrero? Inicia session!&#160;&#160;&#160;</string>
+    <string name="register">&#160;&#160;&#160;Conviertete en un guerrero. Registrate!&#160;&#160;&#160;</string>
+    <string name="nickname">(Opcional) Mote</string>
     <string name="log_in_button_description">Log in</string>
+    <string name="failed_login_message">Log in fallado&#8230; Intentalo de nuevo en un par de minutos.</string>
+    <string name="empty_login_field">Campo vacio, por favor rellena todos los campos</string>
+    <string name="password_check">Comproba contraseña</string>
+    <string name="password_mismatch">Las contraseñas no son iguales</string>
+    <string name="empty_register_password_field">No has introducido contraseña.</string>
+    <string name="empty_register_email_field">No has introducido Email</string>
 
     <string-array name="hours">
         <item>17</item>

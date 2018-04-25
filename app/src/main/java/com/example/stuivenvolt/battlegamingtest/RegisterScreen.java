@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,7 +21,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 public class RegisterScreen extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String email, password;
-    private EditText nameET, surnameET,apodoET, emailET, passwordET;
+    private EditText nameET, surnameET, apodoET, emailET, passwordET, checkPasswordET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +37,15 @@ public class RegisterScreen extends AppCompatActivity {
         passwordET = (EditText) findViewById(R.id.user_password);
         nameET = (EditText) findViewById(R.id.user_name);
         surnameET = (EditText) findViewById(R.id.user_surname);
+        checkPasswordET = (EditText) findViewById(R.id.user_password_check);
 
     }
 
     private void Register(){
+        ShowLoadingAnimation();
         email = emailET.getText().toString();
         password = passwordET.getText().toString();
-        if(email != null && password != null) {
+        if(!email.equals("") && !password.equals("")) {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 public static final String TAG = "";
@@ -64,16 +67,18 @@ public class RegisterScreen extends AppCompatActivity {
                             Log.w(TAG, e);
                         }
                         SetInfo();
-                        } else {
+                    } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                        Toast.makeText(RegisterScreen.this, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show();
+                        HideLoadingAnimation();
+                        Toast.makeText(RegisterScreen.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
 
                         // ...
                 }
             });
+        }else{
+            Toast.makeText(RegisterScreen.this, R.string.empty_register_email_field, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -88,11 +93,13 @@ public class RegisterScreen extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            HideLoadingAnimation();
                             Intent intent = new Intent(RegisterScreen.this, MainActivity.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            HideLoadingAnimation();
                             Toast.makeText(RegisterScreen.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -127,7 +134,15 @@ public class RegisterScreen extends AppCompatActivity {
     }
 
     public void Register_User(View view) {
-        Register();
+        if(!passwordET.getText().toString().equals("")) {
+            if (passwordET.getText().toString().equals(checkPasswordET.getText().toString())) {
+                Register();
+            } else {
+                Toast.makeText(RegisterScreen.this, R.string.password_mismatch, Toast.LENGTH_LONG).show();
+            }
+        }else{
+            Toast.makeText(RegisterScreen.this, R.string.empty_register_password_field, Toast.LENGTH_LONG).show();
+        }
     }
 
     public void Login_User(View view) {
@@ -136,5 +151,20 @@ public class RegisterScreen extends AppCompatActivity {
         Login(email, password);*/
         Intent intent = new Intent(this, LoginScreen.class);
         startActivity(intent);
+    }
+
+    //show
+    public void ShowLoadingAnimation()
+    {
+        RelativeLayout pageLoading = (RelativeLayout) findViewById(R.id.main_layoutPageLoading);
+        pageLoading.setVisibility(View.VISIBLE);
+    }
+
+
+    //hide
+    public void HideLoadingAnimation()
+    {
+        RelativeLayout pageLoading = (RelativeLayout) findViewById(R.id.main_layoutPageLoading);
+        pageLoading.setVisibility(View.GONE);
     }
 }
