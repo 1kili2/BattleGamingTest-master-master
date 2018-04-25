@@ -110,28 +110,40 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void run() {
                 switch (item.getItemId()) {
+
                     case R.id.nav_news:
                         fm.beginTransaction().replace(R.id.content_frame, new NewsFragment()).commit();
                         setTitle("Battle Gaming");
                         break;
+
                     case R.id.nav_date:
                         fm.beginTransaction().replace(R.id.content_frame, new CalenderFragment()).commit();
                         break;
+
                     case R.id.nav_manage:
                         fm.beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
                         setTitle("Battle Gaming");
                         break;
+
                     case R.id.nav_test1:
                         SetInfo();
                         setTitle("Battle Gaming");
                         break;
-                    case R.id.nav_test2:
 
+                    case R.id.nav_test2:
                         if (user != null) {
                             Toast.makeText(MainActivity.this, user.getUid() + "    " + user.getDisplayName(), Toast.LENGTH_LONG).show();
                         }
                         setTitle("Battle Gaming");
                         break;
+
+                    case R.id.nav_LogOut:
+                        mAuth.signOut();
+                        setTitle("Battle Gaming");
+                        Intent intent = new Intent(MainActivity.this, RegisterScreen.class);
+                        startActivity(intent);
+                        break;
+
                     default:
                 }
             }

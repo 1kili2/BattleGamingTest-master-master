@@ -30,6 +30,10 @@
     <string name="login">Entrar</string>
     <string name="register">Registrar</string>
     <string name="nickname">(opcional) Mote</string>
+    <string name="login_email_hint">Email@email.com</string>
+    <string name="login_password">Password</string>
+    <string name="empty_login_field">Campo vacio!</string>
+    <string name="log_in_button_description">Log in</string>
 
     <string-array name="hours">
         <item>17</item>

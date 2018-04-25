@@ -26,6 +26,11 @@ public class RegisterScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user != null){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
         setContentView(R.layout.activity_register_screen);
         emailET = (EditText) findViewById(R.id.user_email);
         passwordET = (EditText) findViewById(R.id.user_password);
@@ -34,7 +39,7 @@ public class RegisterScreen extends AppCompatActivity {
 
     }
 
-    public void Register(){
+    private void Register(){
         email = emailET.getText().toString();
         password = passwordET.getText().toString();
         if(email != null && password != null) {
@@ -72,7 +77,7 @@ public class RegisterScreen extends AppCompatActivity {
         }
     }
 
-    public void Login(String mail, String pass){
+    private void Login(String mail, String pass){
         mAuth.signInWithEmailAndPassword(mail, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     public static final String TAG = "";
@@ -83,6 +88,8 @@ public class RegisterScreen extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            Intent intent = new Intent(RegisterScreen.this, MainActivity.class);
+                            startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -120,14 +127,14 @@ public class RegisterScreen extends AppCompatActivity {
     }
 
     public void Register_User(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
         Register();
-        startActivity(intent);
     }
 
     public void Login_User(View view) {
-        email = emailET.getText().toString();
+        /*email = emailET.getText().toString();
         password = passwordET.getText().toString();
-        Login(email, password);
+        Login(email, password);*/
+        Intent intent = new Intent(this, LoginScreen.class);
+        startActivity(intent);
     }
 }
