@@ -27,6 +27,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +55,8 @@ public class CalenderFragment extends android.app.Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     private String mParam1;
     private String mParam2;
@@ -70,6 +74,8 @@ public class CalenderFragment extends android.app.Fragment {
 
     public CalenderFragment() {
         // Required empty public constructor
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
     }
 
     public static CalenderFragment newInstance(String param1, String param2) {

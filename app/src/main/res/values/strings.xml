@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Battle Gaming</string>
+    <string name="register_screen">Registra</string>
+    <string name="login_screen">Inicia session</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -37,6 +39,15 @@
     <string name="password_mismatch">Las contraseñas no son iguales</string>
     <string name="empty_register_password_field">No has introducido contraseña.</string>
     <string name="empty_register_email_field">No has introducido Email</string>
+    <string name="profile_Nickname">Apodo</string>
+    <string name="profile_Name">Nombre:</string>
+    <string name="profile_Surname">Apellidos:</string>
+    <string name="profile_Email">Email:</string>
+    <string name="profile_Guild">Gremio:</string>
+    <string name="profile_Phone_Number">Numero:</string>
+    <string name="profile_Adress">Localitzacion:</string>
+    <string name="btn_profile_Save">Save profile</string>
+    <string name="profile_Motto">Motto</string>
 
     <string-array name="hours">
         <item>17</item>

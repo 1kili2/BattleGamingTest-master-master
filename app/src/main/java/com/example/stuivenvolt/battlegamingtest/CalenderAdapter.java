@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,6 +31,8 @@ public class CalenderAdapter extends
     private TextView day,date,dateInfo;
     private SharedPreferences prefs;
     private String dayn;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
 
 
@@ -43,6 +48,8 @@ public class CalenderAdapter extends
 
         public WordViewHolder(View itemView, CalenderAdapter adapter) {
             super(itemView);
+            mAuth = FirebaseAuth.getInstance();
+            user = mAuth.getCurrentUser();
             calenderDateView = (TextView) itemView.findViewById(R.id.Date);
             calenderDateInfoView = (TextView) itemView.findViewById(R.id.DateInfo);
             calenderDayView = (TextView) itemView.findViewById(R.id.Day);

@@ -15,6 +15,9 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +36,9 @@ import java.util.Random;
  */
 
 public class CalenderFetcher extends AsyncTask<Void, Void, String> {
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+
 
     TextView mTextView,calenderDateView;
     String date,month,dayname;
@@ -53,6 +59,8 @@ public class CalenderFetcher extends AsyncTask<Void, Void, String> {
         context=ctx;
         month=mnt;
         monthnum=mntnum;
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
 
     }
 

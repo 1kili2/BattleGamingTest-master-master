@@ -17,11 +17,22 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
+
+import static java.lang.Thread.sleep;
 
 public class RegisterScreen extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String email, password;
     private EditText nameET, surnameET, apodoET, emailET, passwordET, checkPasswordET;
+    boolean inserted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,25 +59,18 @@ public class RegisterScreen extends AppCompatActivity {
         if(!email.equals("") && !password.equals("")) {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                public static final String TAG = "";
+                        private static final String TAG = "";
 
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success");
-                        try{
-                            this.wait(10000);
-                        }catch (Exception e){
-                            Log.w(TAG, e);
-                        }
+
                         Login(email, password);
-                        try{
-                            this.wait(10000);
-                        }catch (Exception e){
-                            Log.w(TAG, e);
-                        }
+
                         SetInfo();
+                        addToDatabase();
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -85,14 +89,13 @@ public class RegisterScreen extends AppCompatActivity {
     private void Login(String mail, String pass){
         mAuth.signInWithEmailAndPassword(mail, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    public static final String TAG = "";
+                    private static final String TAG = "";
 
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
                             HideLoadingAnimation();
                             Intent intent = new Intent(RegisterScreen.this, MainActivity.class);
                             startActivity(intent);
@@ -154,7 +157,7 @@ public class RegisterScreen extends AppCompatActivity {
     }
 
     //show
-    public void ShowLoadingAnimation()
+    private void ShowLoadingAnimation()
     {
         RelativeLayout pageLoading = (RelativeLayout) findViewById(R.id.main_layoutPageLoading);
         pageLoading.setVisibility(View.VISIBLE);
@@ -162,9 +165,36 @@ public class RegisterScreen extends AppCompatActivity {
 
 
     //hide
-    public void HideLoadingAnimation()
+    private void HideLoadingAnimation()
     {
         RelativeLayout pageLoading = (RelativeLayout) findViewById(R.id.main_layoutPageLoading);
         pageLoading.setVisibility(View.GONE);
+    }
+
+    private void addToDatabase(){
+        String mail = emailET.getText().toString().replace("."," ");
+        String name = nameET.getText().toString() + " " + surnameET.getText().toString();
+        //Toast.makeText(RegisterScreen.this, mail, Toast.LENGTH_LONG).show();
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("usuarios");
+
+        //Toast.makeText(RegisterScreen.this, "in ondatachange", Toast.LENGTH_LONG).show();
+        Log.e("database: ", "start database fill");
+
+        myRef.child(mail).child("Public").child("Guild").setValue("None");
+        myRef.child(mail).child("Public").child("IsSmith").setValue("false");
+        myRef.child(mail).child("Public").child("IsTrusted").setValue("false");
+        myRef.child(mail).child("Public").child("Name").setValue(name);
+        myRef.child(mail).child("Public").child("NickName").setValue("NickName");
+        myRef.child(mail).child("Public").child("Rank").setValue("Member");
+
+        myRef.child(mail).child("Private").child("Phone Number").setValue("000-00-00-00");
+        myRef.child(mail).child("Private").child("Adress").setValue("The Viking Inn");
+        Log.e("database: ", "finish database fill");
+
+            /*try {
+                sleep(1300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
     }
 }
