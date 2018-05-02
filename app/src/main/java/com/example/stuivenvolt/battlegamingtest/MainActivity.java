@@ -131,8 +131,9 @@ public class MainActivity extends AppCompatActivity
                         break;
 
                     case R.id.nav_test1:
-                        SetInfo();
+                        //SetInfo();
                         setTitle("Battle Gaming");
+
                         break;
 
                     case R.id.nav_test2:
@@ -160,28 +161,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void SetInfo(){
-        String username = "Mike Stuivenvolt";
-        if (user != null) {
-            // User is signed in
-            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(username)
-                    .build();
-            user.updateProfile(profileUpdates)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.d(LOG_TAG, "User profile updated.");
-                            }
-                        }
-                    });
-
-        } else {
-            // No user is signed in
-            Toast.makeText(MainActivity.this, "No user Logged in.", Toast.LENGTH_LONG).show();
-        }
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {

@@ -1,13 +1,6 @@
 package com.example.stuivenvolt.battlegamingtest;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +13,7 @@ import java.net.URL;
  * Created by i7-4770 on 25/02/2018.
  */
 
-public class NewsConnection {
+public class ProfileConnection {
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
     private static final String CALENDER_BASE_URL =  "https://battle-gaming-agenda.firebaseio.com"; // Base URI for the Books API
     private static final String AGENDA = "/agenda/eventos";
