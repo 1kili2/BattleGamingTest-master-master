@@ -10,13 +10,17 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,10 +40,11 @@ import java.util.Random;
  */
 
 public class CalenderFetcher extends AsyncTask<Void, Void, String> {
-    private FirebaseAuth mAuth;
-    private FirebaseUser user;
+    FirebaseAuth mAuth;
+    FirebaseUser user;
 
-
+    private boolean wait = true;
+    private String idToken, stringNewsItems;
     TextView mTextView,calenderDateView;
     String date,month,dayname;
     int monthnum,row1, dayn;
@@ -77,8 +82,24 @@ public class CalenderFetcher extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... voids) {
+        user.getIdToken(false)
+                .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                    public void onComplete(@NonNull Task<GetTokenResult> task) {
+                        if (task.isSuccessful()) {
+                            idToken = task.getResult().getToken();
+                            Log.e("get token", "success");
 
-        return NetworkUtils.getCalenderInfo();
+                            wait = false;
+                        } else {
+                            // Handle error -> task.getException();
+                            Log.e("get token", "fail");
+                            wait = false;
+                        }
+                    }
+                });
+        while(wait == true){ }
+        stringNewsItems = NetworkUtils.getCalenderInfo(idToken);
+        return stringNewsItems;
     }
 
     protected void onPostExecute(String result) {

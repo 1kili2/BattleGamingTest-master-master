@@ -2,10 +2,17 @@ package com.example.stuivenvolt.battlegamingtest;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +27,10 @@ import java.util.List;
 
 public class NewsFetcher extends AsyncTask<Void, Void, String> {
 
+    private boolean wait = true;
+    private String idToken, stringNewsItems;
+    FirebaseAuth mAuth;
+    FirebaseUser user;
     TextView mTextView,calenderDateView;
     String dayn,date,month;
     private static final String LOG_TAG = CalenderFetcher.class.getSimpleName();
@@ -33,15 +44,35 @@ public class NewsFetcher extends AsyncTask<Void, Void, String> {
     public NewsFetcher(RecyclerView rv, Context ctx) {
         mRecyclerView=rv;
         context=ctx;
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
 
     }
 
     @Override
     protected String doInBackground(Void... voids) {
-        return NewsConnection.getNewsItems();
+        user.getIdToken(false)
+                .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                    public void onComplete(@NonNull Task<GetTokenResult> task) {
+                        if (task.isSuccessful()) {
+                            idToken = task.getResult().getToken();
+                            Log.e("get token", "success");
+
+                            wait = false;
+                        } else {
+                            // Handle error -> task.getException();
+                            Log.e("get token", "fail");
+                            wait = false;
+                        }
+                    }
+                });
+       while(wait == true){ }
+        stringNewsItems = NewsConnection.getNewsItemsAuth(idToken);
+        return stringNewsItems;
     }
 
     protected void onPostExecute(String result) {
+        Log.e("Empty string",""+result);
         newsList = new ArrayList<>();
         super.onPostExecute(result);
         int test = 0;

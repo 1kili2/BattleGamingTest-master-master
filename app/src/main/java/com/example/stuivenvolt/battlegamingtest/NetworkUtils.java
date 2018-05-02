@@ -23,14 +23,14 @@ public class NetworkUtils {
     private static final String DAY = "/Days";
     private static final String JSON = ".json"; // Parameter for the search string
 
-    static String getCalenderInfo(){
+    static String getCalenderInfo(String idToken){
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String calenderJSONString = null;
 
 
         try {
-            URL requestURL = new URL("https://battle-gaming-agenda.firebaseio.com/agenda/eventos/2018.json");
+            URL requestURL = new URL("https://battle-gaming-agenda.firebaseio.com/agenda/eventos/2018.json?auth="+idToken);
 
             urlConnection = (HttpURLConnection) requestURL.openConnection();
             urlConnection.setRequestMethod("GET");

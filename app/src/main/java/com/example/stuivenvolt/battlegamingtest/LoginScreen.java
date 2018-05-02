@@ -53,6 +53,7 @@ public class LoginScreen extends AppCompatActivity {
                                 user = mAuth.getCurrentUser();
                                 Intent intent = new Intent(LoginScreen.this, MainActivity.class);
                                 HideLoadingAnimation();
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             } else {
                                 // If sign in fails, display a message to the user.

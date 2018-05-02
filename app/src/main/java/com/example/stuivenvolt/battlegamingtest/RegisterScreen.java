@@ -29,7 +29,7 @@ import java.util.List;
 import static java.lang.Thread.sleep;
 
 public class RegisterScreen extends AppCompatActivity {
-    private FirebaseAuth mAuth;
+    FirebaseAuth mAuth;
     private String email, password;
     private EditText nameET, surnameET, apodoET, emailET, passwordET, checkPasswordET;
     boolean inserted = false;
@@ -41,6 +41,7 @@ public class RegisterScreen extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         if(user != null){
             Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
         setContentView(R.layout.activity_register_screen);

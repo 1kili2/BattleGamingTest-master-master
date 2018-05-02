@@ -37,15 +37,20 @@ public class MainActivity extends AppCompatActivity
     FragmentManager fragmentManager = getFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-    private static final String LOG_TAG =
-            MainActivity.class.getSimpleName();
-    private FirebaseAuth mAuth;
-    private FirebaseUser user;
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    FirebaseAuth mAuth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+        if(user != null){
+
+        }else{
+            Intent intent = new Intent(this, RegisterScreen.class);
+            startActivity(intent);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -67,11 +72,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        /*if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }
+        }*/
     }
 
 
