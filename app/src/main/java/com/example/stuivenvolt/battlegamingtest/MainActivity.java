@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity
         DateFragment.OnFragmentInteractionListener,
         NewsItemFragment.OnFragmentInteractionListener,
         NewsFragment.OnFragmentInteractionListener,
-        SettingsFragment.OnFragmentInteractionListener{
+        SettingsFragment.OnFragmentInteractionListener,
+        ProfileFragment.OnFragmentInteractionListener{
     FragmentManager fragmentManager = getFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -132,13 +133,14 @@ public class MainActivity extends AppCompatActivity
 
                     case R.id.nav_test1:
                         //SetInfo();
-                        setTitle("Battle Gaming");
+                        fm.beginTransaction().replace(R.id.content_frame, new ProfileFragment()).commit();
+                        setTitle("Profile");
 
                         break;
 
                     case R.id.nav_test2:
                         if (user != null) {
-                            Toast.makeText(MainActivity.this, user.getUid() + "    " + user.getDisplayName(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, user.getEmail() + "    " + user.getDisplayName(), Toast.LENGTH_LONG).show();
                         }
                         setTitle("Battle Gaming");
                         break;

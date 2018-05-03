@@ -15,4 +15,5 @@
     <color name="hintText">#cc999999</color>
     <color name="transparentBackground">#cc000000</color>
     <color name="black">#000</color>
+    <color name="lightGrey">#d3d3d3</color>
 </resources>

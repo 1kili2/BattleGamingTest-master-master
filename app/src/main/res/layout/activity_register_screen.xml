@@ -27,7 +27,7 @@
             android:ems="10"
             android:hint="@string/name"
             android:textColorHint="@color/colorPrimaryDark"
-            android:inputType="textPersonName"
+            android:inputType="textPersonName|textCapSentences"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +42,7 @@
             android:ems="10"
             android:hint="@string/surname"
             android:textColorHint="@color/colorPrimaryDark"
-            android:inputType="textPersonName"
+            android:inputType="textPersonName|textCapSentences"
             app:layout_constraintEnd_toEndOf="@+id/user_name"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/user_name"

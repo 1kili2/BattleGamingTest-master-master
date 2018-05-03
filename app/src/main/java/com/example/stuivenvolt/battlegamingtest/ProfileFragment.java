@@ -8,12 +8,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -24,7 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends android.app.Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,10 +39,14 @@ public class ProfileFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private EditText profileName;
     DatabaseReference myRef;
     FirebaseUser user;
     FirebaseAuth mAuth;
+    private Button saveBTN;
+    private String[] fullName;
+    private View view;
+    boolean dataSet = false;
+    private EditText profilePhone, profileName, profileSurname, profileEmail, profileNickName, profileMotto;
 
     private OnFragmentInteractionListener mListener;
 
@@ -78,15 +88,53 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         myRef = FirebaseDatabase.getInstance().getReference("usuarios");
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        String mail = user.getEmail().replace("."," ");
+        view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-
+        profilePhone = (EditText)view.findViewById(R.id.profile_set_Phone_Number);
+        setData("Phone Number", profilePhone);
 
         profileName = (EditText)view.findViewById(R.id.profile_set_Name);
-        profileName.setText(myRef.child(mail).child("Name").getKey());
+        setData("Name", profileName);
 
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        profileSurname = (EditText)view.findViewById(R.id.profile_set_Surname);
+        setData("Name", profileSurname);
+
+        profileEmail = (EditText)view.findViewById(R.id.profile_set_Email);
+        profileEmail.setText(user.getEmail());
+
+        profileNickName = (EditText)view.findViewById(R.id.profile_set_Nickname);
+        setData("NickName", profileNickName);
+
+        profileMotto = (EditText)view.findViewById(R.id.profile_Motto);
+        setData("Motto", profileMotto);
+
+
+
+
+
+        saveBTN = (Button)view.findViewById(R.id.btn_save_profile);
+        saveBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                String name = profileName.getText().toString() + " " + profileSurname.getText().toString();
+                String mail = user.getEmail().replace("."," ");
+                DatabaseReference saveRef = FirebaseDatabase.getInstance().getReference("usuarios/"+mail);
+
+                //Toast.makeText(RegisterScreen.this, "in ondatachange", Toast.LENGTH_LONG).show();
+                Log.e("database: ", "start database fill");
+
+                saveRef.child("Public").child("IsSmith").setValue("false");
+                saveRef.child("Public").child("IsTrusted").setValue("false");
+                saveRef.child("Public").child("Name").setValue(name);
+                saveRef.child("Public").child("NickName").setValue(profileNickName.getText().toString());
+                saveRef.child("Public").child("Rank").setValue("Member");
+                saveRef.child("Public").child("Motto").setValue(profileMotto.getText().toString());
+
+                saveRef.child("Private").child("Phone Number").setValue(profilePhone.getText().toString());
+                saveRef.child("Private").child("Adress").setValue("The Viking Inn");
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -113,8 +161,72 @@ public class ProfileFragment extends Fragment {
         mListener = null;
     }
 
-    public void UpdateProfile(View view) {
-        Log.e("msg", "this is a message");
+    private void setData(final String child, final EditText field){
+        final String mail = user.getEmail().replace("."," ");
+        try {
+            DatabaseReference profileRef = myRef.child(mail).child("Public").child(child);
+            dataSet = false;
+            profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String data = dataSnapshot.getValue(String.class);
+                    if(data != null) {
+                        if (field.equals(view.findViewById(R.id.profile_set_Name))) {
+                            try {
+                                fullName = data.split(" ");
+                            } catch (Throwable e) {
+                                fullName[0] = data;
+                                fullName[1] = " ";
+                            }
+                            field.setText(fullName[0]);
+                        } else if (field.equals(view.findViewById(R.id.profile_set_Surname))) {
+                            String surname = "";
+                            try {
+                                for (int i = 1; i < fullName.length; i++) {
+                                    surname = surname + " " + fullName[i];
+                                }
+                            } catch (Throwable e) { Log.e(" public Profile " + child, "error: " + e); }
+                            field.setText(surname.trim());
+                        } else {
+                            field.setText(data);
+                            dataSet = true;
+                        }
+                    } else {
+                        DatabaseReference profilePrivateRef = myRef.child(mail).child("Private").child(child);
+                        profilePrivateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                String data = dataSnapshot.getValue(String.class);
+                                if (field.equals(view.findViewById(R.id.profile_set_Name))) {
+                                    try {
+                                        fullName = data.split(" ");
+                                    } catch (Throwable e) {
+                                        fullName[0] = data;
+                                        fullName[1] = "";
+                                    }
+                                    field.setText(fullName[0]);
+                                } else if (field.equals(view.findViewById(R.id.profile_set_Surname))) {
+                                    String surname = "";
+                                    try {
+                                        for (int i = 1; i < fullName.length; i++) {
+                                            surname = surname + " " + fullName[i];
+                                        }
+                                    } catch (Throwable e) { Log.e(" private Profile " + child, "error: " + e); }
+                                    field.setText(surname.trim());
+                                } else {
+                                    field.setText(data);
+                                    dataSet = true;
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) { }
+                        });
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) { }
+            });
+        }catch (Throwable e) { }
     }
 
     /**

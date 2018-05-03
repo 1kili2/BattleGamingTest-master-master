@@ -47,7 +47,7 @@
     <string name="profile_Phone_Number">Numero:</string>
     <string name="profile_Adress">Localitzacion:</string>
     <string name="btn_profile_Save">Save profile</string>
-    <string name="profile_Motto">Motto</string>
+    <string name="profile_Motto">No importa perder la batalla, mientras ganas la guerra!</string>
 
     <string-array name="hours">
         <item>17</item>

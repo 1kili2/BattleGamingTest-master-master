@@ -55,7 +55,7 @@ public class RegisterScreen extends AppCompatActivity {
 
     private void Register(){
         ShowLoadingAnimation();
-        email = emailET.getText().toString();
+        email = emailET.getText().toString().toLowerCase();
         password = passwordET.getText().toString();
         if(!email.equals("") && !password.equals("")) {
             mAuth.createUserWithEmailAndPassword(email, password)
@@ -187,6 +187,7 @@ public class RegisterScreen extends AppCompatActivity {
         myRef.child(mail).child("Public").child("Name").setValue(name);
         myRef.child(mail).child("Public").child("NickName").setValue("NickName");
         myRef.child(mail).child("Public").child("Rank").setValue("Member");
+        myRef.child(mail).child("Public").child("Motto").setValue(R.string.profile_Motto);
 
         myRef.child(mail).child("Private").child("Phone Number").setValue("000-00-00-00");
         myRef.child(mail).child("Private").child("Adress").setValue("The Viking Inn");
