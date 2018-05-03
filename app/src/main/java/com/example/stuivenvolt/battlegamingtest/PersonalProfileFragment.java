@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,12 +24,12 @@ import com.google.firebase.database.ValueEventListener;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ProfileFragment.OnFragmentInteractionListener} interface
+ * {@link PersonalProfileFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ProfileFragment#newInstance} factory method to
+ * Use the {@link PersonalProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends android.app.Fragment {
+public class PersonalProfileFragment extends android.app.Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -50,7 +49,7 @@ public class ProfileFragment extends android.app.Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ProfileFragment() {
+    public PersonalProfileFragment() {
         // Required empty public constructor
     }
 
@@ -60,11 +59,11 @@ public class ProfileFragment extends android.app.Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
+     * @return A new instance of fragment PersonalProfileFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
+    public static PersonalProfileFragment newInstance(String param1, String param2) {
+        PersonalProfileFragment fragment = new PersonalProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -88,7 +87,7 @@ public class ProfileFragment extends android.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         myRef = FirebaseDatabase.getInstance().getReference("usuarios");
-        view = inflater.inflate(R.layout.fragment_profile, container, false);
+        view = inflater.inflate(R.layout.fragment_personal_profile, container, false);
 
         profilePhone = (EditText)view.findViewById(R.id.profile_set_Phone_Number);
         setData("Phone Number", profilePhone);
@@ -120,9 +119,6 @@ public class ProfileFragment extends android.app.Fragment {
                 String mail = user.getEmail().replace("."," ");
                 DatabaseReference saveRef = FirebaseDatabase.getInstance().getReference("usuarios/"+mail);
 
-                //Toast.makeText(RegisterScreen.this, "in ondatachange", Toast.LENGTH_LONG).show();
-                Log.e("database: ", "start database fill");
-
                 saveRef.child("Public").child("IsSmith").setValue("false");
                 saveRef.child("Public").child("IsTrusted").setValue("false");
                 saveRef.child("Public").child("Name").setValue(name);
@@ -132,6 +128,8 @@ public class ProfileFragment extends android.app.Fragment {
 
                 saveRef.child("Private").child("Phone Number").setValue(profilePhone.getText().toString());
                 saveRef.child("Private").child("Adress").setValue("The Viking Inn");
+
+                Toast.makeText(getActivity(), R.string.successful_save, Toast.LENGTH_LONG).show();
             }
         });
         return view;
