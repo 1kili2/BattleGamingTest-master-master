@@ -138,14 +138,22 @@ public class RegisterScreen extends AppCompatActivity {
     }
 
     public void Register_User(View view) {
-        if(!passwordET.getText().toString().equals("")) {
-            if (passwordET.getText().toString().equals(checkPasswordET.getText().toString())) {
-                Register();
+        if(emailET.getText().toString().contains("@") && emailET.getText().toString().contains(".")) {
+            if (!passwordET.getText().toString().equals("")) {
+                if (passwordET.getText().toString().length() >= 6) {
+                    if (passwordET.getText().toString().equals(checkPasswordET.getText().toString())) {
+                        Register();
+                    } else {
+                        Toast.makeText(RegisterScreen.this, R.string.password_mismatch, Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(RegisterScreen.this, R.string.pass_length, Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(RegisterScreen.this, R.string.password_mismatch, Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterScreen.this, R.string.empty_register_password_field, Toast.LENGTH_LONG).show();
             }
-        }else{
-            Toast.makeText(RegisterScreen.this, R.string.empty_register_password_field, Toast.LENGTH_LONG).show();
+        }else {
+            Toast.makeText(RegisterScreen.this, R.string.valid_email, Toast.LENGTH_LONG).show();
         }
     }
 

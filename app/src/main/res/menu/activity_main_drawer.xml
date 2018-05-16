@@ -22,6 +22,11 @@
             android:title="Ajustes" />
 
         <item
+            android:id="@+id/nav_fights"
+            android:icon="@drawable/legolas"
+            android:title="Torneos" />
+
+        <item
             android:id="@+id/nav_test2"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="test" />

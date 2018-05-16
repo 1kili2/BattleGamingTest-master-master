@@ -12,11 +12,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -32,17 +38,33 @@ public class MainActivity extends AppCompatActivity
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     FirebaseAuth mAuth;
     FirebaseUser user;
+    DatabaseReference myRef;
+    private String guild;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+        myRef = FirebaseDatabase.getInstance().getReference("usuarios");
         if(user != null){
 
         }else{
             Intent intent = new Intent(this, RegisterScreen.class);
             startActivity(intent);
         }
+        final String mail = user.getEmail().replace("."," ");
+        DatabaseReference profileRef = myRef.child(mail).child("Public").child("Guild");
+        profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String data = dataSnapshot.getValue(String.class);
+                guild = data;
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -122,6 +144,11 @@ public class MainActivity extends AppCompatActivity
                         setTitle("Battle Gaming");
                         break;
 
+                    case R.id.nav_fights:
+                        fm.beginTransaction().replace(R.id.content_frame, new ChampionshipCreatorFragment()).commit();
+                        setTitle("Battle Gaming");
+                        break;
+
                     case R.id.nav_test1:
                         //SetInfo();
                         fm.beginTransaction().replace(R.id.content_frame, new PersonalProfileFragment()).commit();
@@ -153,7 +180,9 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+    public String getGuild(){
+        return guild;
+    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {

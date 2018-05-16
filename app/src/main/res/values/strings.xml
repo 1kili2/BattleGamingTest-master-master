@@ -49,6 +49,9 @@
     <string name="btn_profile_Save">Save profile</string>
     <string name="profile_Motto">No importa perder la batalla, mientras ganas la guerra!</string>
     <string name="successful_save">Cambios guardados!</string>
+    <string name="pass_length">La contraseña tiene que ser de minimo 6 caracteres.</string>
+    <string name="valid_email">No has introducido un correo electronico valido</string>
+    <string name="errorMessage2">Error! Menos de 2 participantes.</string>
 
     <string-array name="hours">
         <item>17</item>

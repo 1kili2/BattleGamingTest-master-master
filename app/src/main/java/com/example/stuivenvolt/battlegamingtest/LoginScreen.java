@@ -39,31 +39,35 @@ public class LoginScreen extends AppCompatActivity {
         if(emailET.getText().toString().equals("") || passwordET.getText().toString().equals("")) {
             Toast.makeText(LoginScreen.this, R.string.empty_login_field, Toast.LENGTH_SHORT).show();
         }else{
-            changebutton();
-            email = emailET.getText().toString();
-            password = passwordET.getText().toString();
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            if(emailET.getText().toString().contains("@") && emailET.getText().toString().contains(".")) {
+                changebutton();
+                email = emailET.getText().toString();
+                password = passwordET.getText().toString();
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("Login Succes:", "signInWithEmail:success");
-                                user = mAuth.getCurrentUser();
-                                Intent intent = new Intent(LoginScreen.this, MainActivity.class);
-                                HideLoadingAnimation();
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("Login Fail:", "signInWithEmail:failure", task.getException());
-                                HideLoadingAnimation();
-                                Toast.makeText(LoginScreen.this, R.string.failed_login_message, Toast.LENGTH_SHORT).show();
-                                changebutton();
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d("Login Succes:", "signInWithEmail:success");
+                                    user = mAuth.getCurrentUser();
+                                    Intent intent = new Intent(LoginScreen.this, MainActivity.class);
+                                    HideLoadingAnimation();
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w("Login Fail:", "signInWithEmail:failure", task.getException());
+                                    HideLoadingAnimation();
+                                    Toast.makeText(LoginScreen.this, R.string.failed_login_message, Toast.LENGTH_SHORT).show();
+                                    changebutton();
+                                }
                             }
-                        }
-                    });
+                        });
+            }else{
+                Toast.makeText(LoginScreen.this, R.string.valid_email, Toast.LENGTH_SHORT).show();
+            }
         }
     }
     //show
