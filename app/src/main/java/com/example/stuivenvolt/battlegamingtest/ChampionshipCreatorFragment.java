@@ -88,12 +88,12 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_champioship_creator, container, false);
 
-        final FloatingActionButton backbtn = (FloatingActionButton) view.findViewById(R.id.backbutton);
-        backbtn.setColorFilter(getTextColor());
-        backbtn.setOnClickListener(new View.OnClickListener() {
+        final FloatingActionButton addbtn = (FloatingActionButton) view.findViewById(R.id.addTournament);
+        addbtn.setColorFilter(getTextColor());
+        addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                DialogFragment newFragment = new CreateTrainingSession();
+                DialogFragment newFragment = new CreateTournament();
                 Bundle bundle = new Bundle();
                 /*bundle.putString("Date",getArguments().getString("Date"));
                 bundle.putString("Month",getArguments().getString("Month"));*/

@@ -29,7 +29,7 @@ import static java.lang.Thread.sleep;
  */
 
 public class CreateTournament extends DialogFragment implements AdapterView.OnItemSelectedListener{
-    Spinner hours,minutes;
+    Spinner score,type;
     private String mSpinnerLabel = "";
     private TextView guild,location,error;
     boolean inserted=false;
@@ -73,8 +73,8 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                     error.setVisibility(View.VISIBLE);
 
                 }else {
-                    final String hour = hours.getSelectedItem().toString();
-                    final String minute = minutes.getSelectedItem().toString();
+                    final String hour = score.getSelectedItem().toString();
+                    final String minute = type.getSelectedItem().toString();
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     Log.e("Month in create session", getArguments().getString("Month"));
@@ -124,21 +124,21 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                 }
             }
         });
-        hours = (Spinner) view.findViewById(R.id.Hour_Spinner);
+        score = (Spinner) view.findViewById(R.id.Score_Spinner);
         ArrayAdapter<CharSequence> houradapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.hours, android.R.layout.simple_spinner_item);
+                R.array.score, android.R.layout.simple_spinner_item);
         houradapter.setDropDownViewResource
                 (android.R.layout.simple_spinner_dropdown_item);
-        if (hours != null) {
-            hours.setAdapter(houradapter);
+        if (score != null) {
+            score.setAdapter(houradapter);
         }
-        minutes = (Spinner) view.findViewById(R.id.Minute_Spinner);
+        type = (Spinner) view.findViewById(R.id.Type_Spinner);
         ArrayAdapter<CharSequence> minuteadapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.minutes, android.R.layout.simple_spinner_item);
+                R.array.type, android.R.layout.simple_spinner_item);
         minuteadapter.setDropDownViewResource
                 (android.R.layout.simple_spinner_dropdown_item);
-        if (minutes != null) {
-            minutes.setAdapter(minuteadapter);
+        if (type != null) {
+            type.setAdapter(minuteadapter);
         }
         // Create the AlertDialog object and return it
         return alert;

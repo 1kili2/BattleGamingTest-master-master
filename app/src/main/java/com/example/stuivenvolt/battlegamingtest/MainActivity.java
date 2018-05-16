@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity
         NewsItemFragment.OnFragmentInteractionListener,
         NewsFragment.OnFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener,
-        PersonalProfileFragment.OnFragmentInteractionListener{
+        PersonalProfileFragment.OnFragmentInteractionListener,
+        ChampionshipCreatorFragment.OnFragmentInteractionListener{
     FragmentManager fragmentManager = getFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -179,9 +180,6 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-    public String getGuild(){
-        return guild;
     }
 
     @Override
