@@ -17,7 +17,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <style name="SwitchTheme" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">#660000</item>
+        <item name="colorControlActivated">#f4a300</item>
     </style>
 
 </resources>
