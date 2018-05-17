@@ -52,6 +52,9 @@
     <string name="pass_length">La contraseña tiene que ser de minimo 6 caracteres.</string>
     <string name="valid_email">No has introducido un correo electronico valido</string>
     <string name="errorMessage2">Error! Menos de 2 participantes.</string>
+    <string name="guilds_players_switch">Gremios:</string>
+    <string name="tournament_type">Tipo:</string>
+    <string name="tournament_win_battle_score">Puntuacion:</string>
 
     <string-array name="hours">
         <item>17</item>

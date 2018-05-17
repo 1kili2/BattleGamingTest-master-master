@@ -77,6 +77,7 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
         View view = inflater.inflate(R.layout.fragment_champioship_creator, container, false);
 
         final FloatingActionButton addbtn = view.findViewById(R.id.addTournament);
+        addbtn.setVisibility(View.GONE);
         addbtn.setColorFilter(getTextColor());
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +91,7 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
                 newFragment.show(getFragmentManager(), "Boom");
             }
         });
+        getTrusted(addbtn);
         return view;
     }
 
@@ -153,5 +155,28 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         return prefs.getInt("TColor", 0xff000000);
+    }
+
+    private void getTrusted(final FloatingActionButton addbtn) {
+        final String mail = user.getEmail().replace(".", " ");
+        try{
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final DatabaseReference myRef = database.getReference("usuarios");
+            DatabaseReference profileRef = myRef.child(mail).child("Public").child("IsTrusted");
+            profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String data = dataSnapshot.getValue(String.class);
+                    if(data.equals("true")){
+                        addbtn.setVisibility(View.VISIBLE);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        } catch (Throwable e) {
+        }
     }
 }

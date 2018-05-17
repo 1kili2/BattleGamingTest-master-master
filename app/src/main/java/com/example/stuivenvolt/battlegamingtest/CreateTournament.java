@@ -4,20 +4,33 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
 import static java.lang.Thread.sleep;
 
 /**
@@ -26,8 +39,15 @@ import static java.lang.Thread.sleep;
 
 public class CreateTournament extends DialogFragment implements AdapterView.OnItemSelectedListener{
     Spinner score,type;
-    private TextView guild,location,error;
+    Switch guilds;
+    private TextView error;
     boolean inserted=false;
+    RecyclerView participants;
+    RecyclerView.Adapter part_adap;
+    FirebaseUser user;
+    FirebaseAuth mAuth;
+    List<String> participantsList = new ArrayList<>();
+    boolean printed = false, test = true;
 
 
     public static CreateTournament newInstance(String param1, String param2) {
@@ -42,14 +62,48 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.createtournament, null);
+
         error = view.findViewById(R.id.ErrorMessage);
         error.setVisibility(View.GONE);
-        guild = view.findViewById(R.id.guildname);
-        location = view.findViewById(R.id.location);
         builder.setView(view);
         final AlertDialog alert = builder.create();
+
+        guilds = view.findViewById(R.id.Guilds_Players_switch);
+        score = view.findViewById(R.id.Score_Spinner);
+        type = view.findViewById(R.id.Type_Spinner);
+
+        participants = view.findViewById(R.id.tournament_participants);
+        participants.setVisibility(View.GONE);
+
+        //Setting the layout and Adapter for RecyclerView
+        participants.setLayoutManager(new LinearLayoutManager(getActivity()));
+        part_adap = new ParticipantsAdapter(participantsList);
+        participants.setAdapter(part_adap);
+
+        final int[] numpart = {1};
+        Button add = view.findViewById(R.id.add_participant);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    guilds.setEnabled(false);
+                    participantsList.add("participant" + numpart[0]);
+                    part_adap.notifyItemInserted(participantsList.size() - 1);
+                    participants.setVisibility(View.VISIBLE);
+                    participants.setMinimumHeight(20*numpart[0]);
+                    numpart[0]++;
+                } catch(NumberFormatException e) {
+                    Toast.makeText(getActivity(), "The field is empty",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         Button cancel = view.findViewById(R.id.cancel_action);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +117,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
             public void onClick(View v) {
                 //whatever you want
                 //Log.e("guild Text",guild.getText().toString());
-                if(guild.getText().toString().equals("") || location.getText().toString().equals("")){
+                if(!test){
                     error.setVisibility(View.VISIBLE);
 
                 }else {
@@ -71,32 +125,22 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                     final String minute = type.getSelectedItem().toString();
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    Log.e("Month in create session", getArguments().getString("Month"));
-                    final DatabaseReference myRef = database.getReference("agenda/eventos/2018/" + getArguments().getString("Month"));
+                    final DatabaseReference myRef = database.getReference("eventos");
+
                     myRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
                             GenericTypeIndicator<List<Object>> t = new GenericTypeIndicator<List<Object>>() {
                             };
-                            Log.e("test", "" + t);
                             List messages = snapshot.getValue(t);
-
-                            for (int i = 0; i < messages.size(); i++) {
-                                String[] splitinfo = myRef.child(messages.get(i).toString()).getKey().split(",");
-                                String[] ultimatesplit = splitinfo[splitinfo.length - 1].split("\\=|\\}");
-                                Log.e("ultimateSplit date", ultimatesplit[1]);
-                                Log.e("Arguments date", getArguments().getString("Date"));
-                                if (getArguments().getString("Date").equals(ultimatesplit[1])) {
-                                    myRef.child("" + i).child("Entrene").child(hour + ":" + minute).child(guild.getText().toString()).setValue(location.getText().toString());
-                                    inserted = true;
-                                    break;
+                            if(!printed) {
+                                myRef.child("" + messages.size()).child("Creation").setValue(getDate());
+                                myRef.child("" + messages.size()).child("Hosting Guild").setValue(getGuild());
+                                for (int i = 0; i < participantsList.size(); i++) {
+                                    myRef.child("" + messages.size()).child("Participants").child("" + i).setValue(participantsList.get(i));
                                 }
-
-                            }
-                            if (inserted == false) {
-                                myRef.child("" + messages.size()).child("Day").setValue(getArguments().getString("Date"));
-                                myRef.child("" + messages.size()).child("Entrene").child(hour + ":" + minute).child(guild.getText().toString()).setValue(location.getText().toString());
-                                inserted = true;
+                                myRef.child("" + messages.size()).child("Type").setValue(type.getSelectedItemPosition());
+                                printed = true;
                             }
                         }
 
@@ -107,6 +151,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                         }
 
                     });
+
                     try {
                         sleep(1300);
                     } catch (InterruptedException e) {
@@ -118,7 +163,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                 }
             }
         });
-        score = view.findViewById(R.id.Score_Spinner);
+
         ArrayAdapter<CharSequence> houradapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.score, android.R.layout.simple_spinner_item);
         houradapter.setDropDownViewResource
@@ -126,7 +171,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
         if (score != null) {
             score.setAdapter(houradapter);
         }
-        type = view.findViewById(R.id.Type_Spinner);
+
         ArrayAdapter<CharSequence> minuteadapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.type, android.R.layout.simple_spinner_item);
         minuteadapter.setDropDownViewResource
@@ -148,5 +193,31 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
         //Log.e(TAG, "onNothingSelected: ");
+    }
+
+    private String getDate(){
+        return new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+    }
+    private String getGuild() {
+        final String mail = user.getEmail().replace(".", " ");
+        final String[] guild = new String[1];
+        try{
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final DatabaseReference myRef = database.getReference("usuarios");
+            DatabaseReference profileRef = myRef.child(mail).child("Public").child("Guild");
+            profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String data = dataSnapshot.getValue(String.class);
+                    guild[0] = data;
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        } catch (Throwable e) {
+        }
+        return guild[0];
     }
 }

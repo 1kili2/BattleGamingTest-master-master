@@ -33,13 +33,13 @@
 
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/points_to_win"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="Score:"
+            android:text="@string/tournament_win_battle_score"
             android:textColor="@color/black"/>
 
         <Spinner
@@ -63,13 +63,13 @@
 
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/tournament_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="Type:"
+            android:text="@string/tournament_type"
             android:textColor="@color/black"/>
 
         <Spinner
@@ -93,25 +93,26 @@
 
 
         <Switch
-            android:id="@+id/switch1"
+            android:id="@+id/Guilds_Players_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:theme="@style/SwitchTheme"
-            android:text="Guilds:" android:layout_marginRight="50dp"
+            android:text="@string/guilds_players_switch" android:layout_marginRight="50dp"
             android:layout_marginEnd="50dp" />
 
 
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/tournament_participants"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="150dp" />
 
     <Button
-        android:id="@+id/ok_action2"
+        android:id="@+id/add_participant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
