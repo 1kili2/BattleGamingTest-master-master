@@ -1,6 +1,5 @@
 package com.example.stuivenvolt.battlegamingtest;
 
-import android.graphics.Color;
 
 /**
  * Created by i7-4770 on 23/02/2018.
@@ -25,7 +24,7 @@ public class DayItems {
         this.info=info;
     }
 
-    public DayItems(String date, String day, String info, int dayColor, String month){
+    DayItems(String date, String day, String info, int dayColor, String month){
         this.date=date;
         this.day=day;
         this.info=info;

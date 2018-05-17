@@ -19,7 +19,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginScreen extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private String email, password;
     private EditText emailET, passwordET;
     private ImageButton ibLogin;
     FirebaseUser user;
@@ -29,9 +28,9 @@ public class LoginScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_login_screen);
         mAuth = FirebaseAuth.getInstance();
-        passwordET = (EditText) findViewById(R.id.login_password);
-        emailET = (EditText) findViewById(R.id.login_email);
-        ibLogin = (ImageButton) findViewById(R.id.imageButton3);
+        passwordET = findViewById(R.id.login_password);
+        emailET = findViewById(R.id.login_email);
+        ibLogin = findViewById(R.id.imageButton3);
         super.onCreate(savedInstanceState);
     }
 
@@ -41,8 +40,8 @@ public class LoginScreen extends AppCompatActivity {
         }else{
             if(emailET.getText().toString().contains("@") && emailET.getText().toString().contains(".")) {
                 changebutton();
-                email = emailET.getText().toString();
-                password = passwordET.getText().toString();
+                String email = emailET.getText().toString();
+                String password = passwordET.getText().toString();
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
@@ -73,14 +72,14 @@ public class LoginScreen extends AppCompatActivity {
     //show
     public void ShowLoadingAnimation()
     {
-        RelativeLayout pageLoading = (RelativeLayout) findViewById(R.id.main_layoutPageLoading);
+        RelativeLayout pageLoading = findViewById(R.id.main_layoutPageLoading);
         pageLoading.setVisibility(View.VISIBLE);
     }
 
     //hide
     public void HideLoadingAnimation()
     {
-        RelativeLayout pageLoading = (RelativeLayout) findViewById(R.id.main_layoutPageLoading);
+        RelativeLayout pageLoading = findViewById(R.id.main_layoutPageLoading);
         pageLoading.setVisibility(View.GONE);
     }
 

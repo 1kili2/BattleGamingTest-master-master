@@ -1,9 +1,7 @@
 package com.example.stuivenvolt.battlegamingtest;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,8 +34,6 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     FirebaseAuth mAuth;
     FirebaseUser user;
     DatabaseReference myRef;
@@ -71,10 +66,6 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         myRef = FirebaseDatabase.getInstance().getReference("usuarios");
@@ -88,7 +79,7 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_champioship_creator, container, false);
 
-        final FloatingActionButton addbtn = (FloatingActionButton) view.findViewById(R.id.addTournament);
+        final FloatingActionButton addbtn = view.findViewById(R.id.addTournament);
         addbtn.setColorFilter(getTextColor());
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +89,7 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
                 /*bundle.putString("Date",getArguments().getString("Date"));
                 bundle.putString("Month",getArguments().getString("Month"));*/
                 bundle.putString("Guild", guild);
-                final android.app.FragmentManager fm = ((Activity) getActivity()).getFragmentManager();
+                final android.app.FragmentManager fm = (getActivity()).getFragmentManager();
                 newFragment.setArguments(bundle);
                 newFragment.show(getFragmentManager(), "Boom");
             }
@@ -151,8 +142,7 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
         profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String data = dataSnapshot.getValue(String.class);
-                guild = data;
+                guild = dataSnapshot.getValue(String.class);
 
             }
             @Override
@@ -162,14 +152,12 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
     public int getBackgroundColor(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int bgColor = prefs.getInt("BGColor", 0xffffffff);
-        return bgColor;
+        return prefs.getInt("BGColor", 0xffffffff);
     }
 
     public int getTextColor(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int tColor = prefs.getInt("TColor", 0xff000000);
-        return tColor;
+        return prefs.getInt("TColor", 0xff000000);
     }
 }

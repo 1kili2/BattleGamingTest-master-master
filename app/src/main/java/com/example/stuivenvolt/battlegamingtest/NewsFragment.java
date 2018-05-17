@@ -7,17 +7,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,19 +21,10 @@ import java.util.LinkedList;
  * create an instance of this fragment.
  */
 public class NewsFragment extends android.app.Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private final LinkedList<String> mWordList = new LinkedList<>();
-    private int mCount = 1;
-    private RecyclerView mRecyclerView;
-    private NewsItemsAdapter nAdapter;
     FrameLayout mScreen;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -69,19 +53,13 @@ public class NewsFragment extends android.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
     }
     public int getBackgroundColor(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
-        int bgColor = prefs.getInt("BGColor", 0xffffffff);
-
-        return bgColor;
+        return prefs.getInt("BGColor", 0xffffffff);
 
     }
 
@@ -91,12 +69,12 @@ public class NewsFragment extends android.app.Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_news, container, false);
         // Get a handle to the RecyclerView.
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclernews);
+        RecyclerView mRecyclerView = view.findViewById(R.id.recyclernews);
         // Create an adapter and supply the data to be displayed.
         // Connect the adapter with the RecyclerView.
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        mScreen = (FrameLayout) view.findViewById(R.id.myScreen);
+        mScreen = view.findViewById(R.id.myScreen);
         mScreen.setBackgroundColor(getBackgroundColor());
         new NewsFetcher(mRecyclerView, getActivity()).execute();
         return view;

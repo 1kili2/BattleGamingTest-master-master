@@ -1,23 +1,18 @@
 package com.example.stuivenvolt.battlegamingtest;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.squareup.picasso.Picasso;
 
 
@@ -31,17 +26,11 @@ import com.squareup.picasso.Picasso;
  * create an instance of this fragment.
  */
 public class NewsItemFragment extends android.app.Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     ConstraintLayout mScreen;
-    private TextView title,article,date;
-    private ImageView image;
 
 
     private OnFragmentInteractionListener mListener;
@@ -58,7 +47,7 @@ public class NewsItemFragment extends android.app.Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment NewsItemFragment.
      */
-    // TODO: Rename and change types and number of parameters
+
     public static NewsItemFragment newInstance(String param1, String param2) {
         NewsItemFragment fragment = new NewsItemFragment();
         Bundle args = new Bundle();
@@ -71,10 +60,6 @@ public class NewsItemFragment extends android.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
     }
 
@@ -83,12 +68,12 @@ public class NewsItemFragment extends android.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_news_item, container, false);
-        mScreen = (ConstraintLayout) view.findViewById(R.id.myScreen);
+        mScreen = view.findViewById(R.id.myScreen);
         mScreen.setBackgroundColor(getBackgroundColor());
-        title=(TextView) view.findViewById(R.id.Title);
-        article=(TextView) view.findViewById(R.id.Article);
-        image=(ImageView) view.findViewById(R.id.NewsImage);
-        date=(TextView) view.findViewById(R.id.Date);
+        TextView title = view.findViewById(R.id.Title);
+        TextView article = view.findViewById(R.id.Article);
+        ImageView image = view.findViewById(R.id.NewsImage);
+        TextView date = view.findViewById(R.id.Date);
 
         GradientDrawable gd = new GradientDrawable();
         gd.setShape(GradientDrawable.RECTANGLE);
@@ -104,7 +89,7 @@ public class NewsItemFragment extends android.app.Fragment {
         article.setText(getArguments().getString("Article"));
         date.setText(getArguments().getString("Date"));
 
-        final FloatingActionButton backbtn = (FloatingActionButton) view.findViewById(R.id.backbutton);
+        final FloatingActionButton backbtn = view.findViewById(R.id.backbutton);
         backbtn.setColorFilter(getTextColor());
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +101,6 @@ public class NewsItemFragment extends android.app.Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -143,15 +127,13 @@ public class NewsItemFragment extends android.app.Fragment {
     public int getBackgroundColor(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int bgColor = prefs.getInt("BGColor", 0xffffffff);
-        return bgColor;
+        return prefs.getInt("BGColor", 0xffffffff);
     }
 
     public int getTextColor(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int tColor = prefs.getInt("TColor", 0xff000000);
-        return tColor;
+        return prefs.getInt("TColor", 0xff000000);
     }
 
     /**
@@ -165,7 +147,6 @@ public class NewsItemFragment extends android.app.Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

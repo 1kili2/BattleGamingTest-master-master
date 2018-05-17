@@ -5,24 +5,19 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.List;
-
-import static android.content.ContentValues.TAG;
 import static java.lang.Thread.sleep;
 
 /**
@@ -31,7 +26,6 @@ import static java.lang.Thread.sleep;
 
 public class CreateTrainingSession extends DialogFragment implements AdapterView.OnItemSelectedListener{
     Spinner hours,minutes;
-    private String mSpinnerLabel = "";
     private TextView guild,location,error;
     boolean inserted=false;
 
@@ -48,23 +42,22 @@ public class CreateTrainingSession extends DialogFragment implements AdapterView
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
-        LayoutInflater inflater = getActivity().getLayoutInflater();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.createtraining, null);
-        error=(TextView) view.findViewById(R.id.ErrorMessage);
+        error = view.findViewById(R.id.ErrorMessage);
         error.setVisibility(View.GONE);
-        guild=(TextView) view.findViewById(R.id.guildname);
-        location=(TextView) view.findViewById(R.id.location);
+        guild = view.findViewById(R.id.guildname);
+        location = view.findViewById(R.id.location);
         builder.setView(view);
         final AlertDialog alert = builder.create();
-        Button cancel = (Button) view.findViewById(R.id.cancel_action);
+        Button cancel = view.findViewById(R.id.cancel_action);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alert.dismiss();
             }
         });
-        Button ok = (Button) view.findViewById(R.id.ok_action);
+        Button ok = view.findViewById(R.id.ok_action);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,7 +118,7 @@ public class CreateTrainingSession extends DialogFragment implements AdapterView
                 }
             }
         });
-        hours = (Spinner) view.findViewById(R.id.Hour_Spinner);
+        hours = view.findViewById(R.id.Hour_Spinner);
         ArrayAdapter<CharSequence> houradapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.hours, android.R.layout.simple_spinner_item);
         houradapter.setDropDownViewResource
@@ -133,7 +126,7 @@ public class CreateTrainingSession extends DialogFragment implements AdapterView
         if (hours != null) {
             hours.setAdapter(houradapter);
         }
-        minutes = (Spinner) view.findViewById(R.id.Minute_Spinner);
+        minutes = view.findViewById(R.id.Minute_Spinner);
         ArrayAdapter<CharSequence> minuteadapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.minutes, android.R.layout.simple_spinner_item);
         minuteadapter.setDropDownViewResource
@@ -147,7 +140,7 @@ public class CreateTrainingSession extends DialogFragment implements AdapterView
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        mSpinnerLabel = adapterView.getItemAtPosition(i).toString();
+        String mSpinnerLabel = adapterView.getItemAtPosition(i).toString();
         Log.e("Spinner Laber", mSpinnerLabel);
 
     }

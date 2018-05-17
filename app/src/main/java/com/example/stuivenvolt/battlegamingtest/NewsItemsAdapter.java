@@ -11,11 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -27,19 +24,17 @@ public class NewsItemsAdapter extends
     private final List<NewsItems> newsList;
     private LayoutInflater mInflater;
     private SharedPreferences prefs;
-    private TextView newsTitle;
     private Context context;
-    private ViewGroup parent;
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public final TextView newsItemView;
-        public final ImageView newsImage;
+        final TextView newsItemView;
+        final ImageView newsImage;
         final NewsItemsAdapter nAdapter;
 
-        public WordViewHolder(View itemView, NewsItemsAdapter adapter) {
+        WordViewHolder(View itemView, NewsItemsAdapter adapter) {
             super(itemView);
-            newsItemView = (TextView) itemView.findViewById(R.id.NewsTitle);
-            newsImage = (ImageView) itemView.findViewById(R.id.newsFoto);
+            newsItemView = itemView.findViewById(R.id.NewsTitle);
+            newsImage = itemView.findViewById(R.id.newsFoto);
             this.nAdapter = adapter;
             itemView.setOnClickListener(this);
         }
@@ -67,14 +62,13 @@ public class NewsItemsAdapter extends
     public NewsItemsAdapter.WordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         prefs = parent.getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         View mItemView = mInflater.inflate(R.layout.news_items, parent, false);
-        newsTitle=(TextView) mItemView.findViewById(R.id.NewsTitle);
+        TextView newsTitle = mItemView.findViewById(R.id.NewsTitle);
         newsTitle.setTextColor(getTextColor());
         context=parent.getContext();
-        parent=parent;
         return new WordViewHolder(mItemView, this);
     }
 
-    public void getView(int position, View convertView, ViewGroup parent) {
+    private void getView(int position, View convertView) {
         ImageView view = (ImageView) convertView;
         if (view == null) {
             view = new ImageView(context);
@@ -88,7 +82,7 @@ public class NewsItemsAdapter extends
         final NewsItems newsItems = newsList.get(position);
         holder.newsItemView.setText(newsItems.getNewsTitle());
         Log.e("News Title",newsItems.getNewsTitle());
-        getView(position, holder.newsImage, parent);
+        getView(position, holder.newsImage);
     }
 
     @Override
@@ -96,13 +90,12 @@ public class NewsItemsAdapter extends
         return newsList.size();
     }
 
-    public NewsItemsAdapter(Context context, List<NewsItems> newsList) {
+    NewsItemsAdapter(Context context, List<NewsItems> newsList) {
         mInflater = LayoutInflater.from(context);
         Collections.reverse(this.newsList = newsList);
     }
 
     public int getTextColor(){
-        int tColor = prefs.getInt("TColor", 0xff000000);
-        return tColor;
+        return prefs.getInt("TColor", 0xff000000);
     }
 }

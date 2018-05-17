@@ -1,8 +1,6 @@
 package com.example.stuivenvolt.battlegamingtest;
 
-import android.net.Uri;
 import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,12 +14,12 @@ import java.net.URL;
 
 public class NetworkUtils {
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
-    private static final String CALENDER_BASE_URL =  "https://battle-gaming-agenda.firebaseio.com"; // Base URI for the Books API
+    /*private static final String CALENDER_BASE_URL =  "https://battle-gaming-agenda.firebaseio.com"; // Base URI for the Books API
     private static final String AGENDA = "/agenda/eventos";
     private static final String YEAR = "/2018";
     private static final String MONTH = "/Marzo";
     private static final String DAY = "/Days";
-    private static final String JSON = ".json"; // Parameter for the search string
+    private static final String JSON = ".json"; // Parameter for the search string*/
 
     static String getCalenderInfo(String idToken){
         HttpURLConnection urlConnection = null;

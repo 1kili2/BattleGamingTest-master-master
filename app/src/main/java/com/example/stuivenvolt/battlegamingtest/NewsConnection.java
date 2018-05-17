@@ -1,14 +1,7 @@
 package com.example.stuivenvolt.battlegamingtest;
 
-import android.support.annotation.NonNull;
+
 import android.util.Log;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,13 +14,12 @@ import java.net.URL;
  */
 
 public class NewsConnection {
-    private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
-    private static final String CALENDER_BASE_URL =  "https://battle-gaming-agenda.firebaseio.com"; // Base URI for the Books API
+    /*private static final String CALENDER_BASE_URL =  "https://battle-gaming-agenda.firebaseio.com"; // Base URI for the Books API
     private static final String AGENDA = "/agenda/eventos";
     private static final String YEAR = "/2018";
     private static final String MONTH = "/Marzo";
     private static final String DAY = "/Days";
-    private static final String JSON = ".json"; // Parameter for the search string
+    private static final String JSON = ".json"; // Parameter for the search string*/
 
     static String getNewsItemsAuth(String idToken){
         HttpURLConnection urlConnection = null;
@@ -44,7 +36,6 @@ public class NewsConnection {
 
             InputStream inputStream = urlConnection.getInputStream();
             Log.e("inputstream", "News connection established");
-            Log.e("try", "message   " + newsJSONString);
             StringBuffer buffer = new StringBuffer();
             if (inputStream == null) {
                 // Nothing to do.

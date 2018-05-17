@@ -1,13 +1,7 @@
 package com.example.stuivenvolt.battlegamingtest;
 
-import android.app.Activity;
-import android.app.DownloadManager;
-import android.app.ProgressDialog;
-import android.app.VoiceInteractor;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,29 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 
 /**
@@ -58,18 +36,11 @@ public class CalenderFragment extends android.app.Fragment {
     FirebaseAuth mAuth;
     FirebaseUser user;
 
-    private String mParam1;
-    private String mParam2;
-    private final LinkedList<String> mDateList = new LinkedList<>();
     private RecyclerView mRecyclerView;
-    private CalenderAdapter cAdapter;
     FrameLayout mScreen;
-    private FloatingActionButton btnPrev, btnNext;
     private String[][] months={{"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"},{"31","28","31","30","31","30","31","31","30","31","30","31"}};
 
     private OnFragmentInteractionListener mListener;
-    private List<DayItems> dayList;
-    private String URL_DATA = "https://battle-gaming-agenda.firebaseio.com/agenda/eventos/2018.json";
     int currentMonth;
 
     public CalenderFragment() {
@@ -90,11 +61,6 @@ public class CalenderFragment extends android.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dayList = new ArrayList<>();
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -119,25 +85,23 @@ public class CalenderFragment extends android.app.Fragment {
         titlesetter(currentMonth);
 
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclercalender);
+        mRecyclerView = view.findViewById(R.id.recyclercalender);
         // Create an adapter and supply the data to be displayed.
 
         // Connect the adapter with the RecyclerView.
 
         // Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new GridLayoutManager(this.getActivity(), 2));
-        mScreen = (FrameLayout) view.findViewById(R.id.myScreen);
+        mScreen = view.findViewById(R.id.myScreen);
         mScreen.setBackgroundColor(getBackgroundColor());
-        TextView dateInfo=(TextView) view.findViewById(R.id.DateInfo);
-        btnNext = (FloatingActionButton) view.findViewById(R.id.btnNext);
-        btnPrev = (FloatingActionButton) view.findViewById(R.id.btnPrev);
+        FloatingActionButton btnNext = view.findViewById(R.id.btnNext);
+        FloatingActionButton btnPrev = view.findViewById(R.id.btnPrev);
         new CalenderFetcher(currentMonth, months[0][currentMonth], months[1][currentMonth], mRecyclerView, getActivity()).execute();
         //getDayJsonData();
         btnNext.setColorFilter(getTextColor());
         btnPrev.setColorFilter(getTextColor());
 
-        final FloatingActionButton previousMonth = (FloatingActionButton) view.findViewById(R.id.btnPrev);
-        previousMonth.setOnClickListener(new View.OnClickListener() {
+        btnPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 if(currentMonth==0){
@@ -152,8 +116,7 @@ public class CalenderFragment extends android.app.Fragment {
             }
         });
 
-        final FloatingActionButton nextMonth = (FloatingActionButton) view.findViewById(R.id.btnNext);
-        nextMonth.setOnClickListener(new View.OnClickListener() {
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 if(currentMonth==11) {
@@ -191,15 +154,13 @@ public class CalenderFragment extends android.app.Fragment {
     public int getBackgroundColor(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int bgColor = prefs.getInt("BGColor", 0xffffffff);
-        return bgColor;
+        return prefs.getInt("BGColor", 0xffffffff);
     }
 
     public int getTextColor(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int tColor = prefs.getInt("TColor", 0xff000000);
-        return tColor;
+        return prefs.getInt("TColor", 0xff000000);
     }
 
     public interface OnFragmentInteractionListener {

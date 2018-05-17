@@ -3,20 +3,15 @@ package com.example.stuivenvolt.battlegamingtest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,31 +23,24 @@ public class CalenderAdapter extends
 
     private LayoutInflater dInflater;
     private Context context;
-    private TextView day,date,dateInfo;
     private SharedPreferences prefs;
-    private String dayn;
-    private FirebaseAuth mAuth;
-    private FirebaseUser user;
-
-
-
 
 
     private final List<DayItems> dayList;
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public final TextView calenderDateView, calenderDateInfoView, calenderDayView;
+        final TextView calenderDateView, calenderDateInfoView, calenderDayView;
 
         final CalenderAdapter cAdapter;
 
 
-        public WordViewHolder(View itemView, CalenderAdapter adapter) {
+        WordViewHolder(View itemView, CalenderAdapter adapter) {
             super(itemView);
-            mAuth = FirebaseAuth.getInstance();
-            user = mAuth.getCurrentUser();
-            calenderDateView = (TextView) itemView.findViewById(R.id.Date);
-            calenderDateInfoView = (TextView) itemView.findViewById(R.id.DateInfo);
-            calenderDayView = (TextView) itemView.findViewById(R.id.Day);
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            FirebaseUser user = mAuth.getCurrentUser();
+            calenderDateView = itemView.findViewById(R.id.Date);
+            calenderDateInfoView = itemView.findViewById(R.id.DateInfo);
+            calenderDayView = itemView.findViewById(R.id.Day);
             this.cAdapter = adapter;
             itemView.setOnClickListener(this);
         }
@@ -81,9 +69,9 @@ public class CalenderAdapter extends
     public CalenderAdapter.WordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         prefs = parent.getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         View dItemView = dInflater.inflate(R.layout.calender_entries, parent, false);
-        day=(TextView) dItemView.findViewById(R.id.Day);
-        date=(TextView) dItemView.findViewById(R.id.Date);
-        dateInfo=(TextView) dItemView.findViewById(R.id.DateInfo);
+        TextView day = dItemView.findViewById(R.id.Day);
+        TextView date = dItemView.findViewById(R.id.Date);
+        TextView dateInfo = dItemView.findViewById(R.id.DateInfo);
         day.setTextColor(getTextColor());
         date.setTextColor(getTextColor());
         dateInfo.setTextColor(getTextColor());
@@ -106,7 +94,7 @@ public class CalenderAdapter extends
                 joininfo = joininfo + splitinfo[i] + "\n";
             }
         }
-        joininfo.replace("\"","t");
+        joininfo.replace("\""," ");
         holder.calenderDateInfoView.setText(joininfo);
         holder.calenderDayView.setBackgroundColor(dayItems.getDayColor());
         holder.calenderDayView.setText(dayItems.getDay());
@@ -118,15 +106,12 @@ public class CalenderAdapter extends
         return dayList.size();
     }
 
-    public CalenderAdapter(Context context, List<DayItems> dayList) {
+    CalenderAdapter(Context context, List<DayItems> dayList) {
         dInflater = LayoutInflater.from(context);
         this.dayList = dayList;
 
     }
     public int getTextColor(){
-        int tColor = prefs.getInt("TColor", 0xff000000);
-        return tColor;
-    }
-    public void setInfo(String day){
+        return prefs.getInt("TColor", 0xff000000);
     }
 }

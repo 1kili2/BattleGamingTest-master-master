@@ -25,16 +25,12 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class DateFragment extends android.app.Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
     ConstraintLayout mScreen;
-    private TextView day,date,dateInfo;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,10 +60,7 @@ public class DateFragment extends android.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -75,11 +68,11 @@ public class DateFragment extends android.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_date, container, false);
-        mScreen = (ConstraintLayout) view.findViewById(R.id.myScreen);
+        mScreen = view.findViewById(R.id.myScreen);
         mScreen.setBackgroundColor(getBackgroundColor());
-        day=(TextView) view.findViewById(R.id.Day);
-        date=(TextView) view.findViewById(R.id.Date);
-        dateInfo=(TextView) view.findViewById(R.id.DateInfo);
+        TextView day = view.findViewById(R.id.Day);
+        TextView date = view.findViewById(R.id.Date);
+        TextView dateInfo = view.findViewById(R.id.DateInfo);
 
         day.setTextColor(getTextColor());
         date.setTextColor(getTextColor());
@@ -100,7 +93,7 @@ public class DateFragment extends android.app.Fragment {
         dateInfo.setText(joininfo);
         day.setBackgroundColor(getArguments().getInt("DayColor"));
 
-        final FloatingActionButton backbtn = (FloatingActionButton) view.findViewById(R.id.backbutton);
+        final FloatingActionButton backbtn = view.findViewById(R.id.backbutton);
         backbtn.setColorFilter(getTextColor());
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +107,7 @@ public class DateFragment extends android.app.Fragment {
             }
         });
 
-        final FloatingActionButton addbtn = (FloatingActionButton) view.findViewById(R.id.addtraining);
+        final FloatingActionButton addbtn = view.findViewById(R.id.addtraining);
         addbtn.setColorFilter(getTextColor());
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +117,6 @@ public class DateFragment extends android.app.Fragment {
                 bundle.putString("Date",getArguments().getString("Date"));
                 bundle.putString("Month",getArguments().getString("Month"));
                 Log.e("Month", getArguments().getString("Month"));
-                final android.app.FragmentManager fm = ((Activity) getActivity()).getFragmentManager();
                 newFragment.setArguments(bundle);
                 newFragment.show(getFragmentManager(),"missiles");
             }
@@ -133,7 +125,6 @@ public class DateFragment extends android.app.Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -161,15 +152,13 @@ public class DateFragment extends android.app.Fragment {
     public int getBackgroundColor(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int bgColor = prefs.getInt("BGColor", 0xffffffff);
-        return bgColor;
+        return prefs.getInt("BGColor", 0xffffffff);
     }
 
     public int getTextColor(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int tColor = prefs.getInt("TColor", 0xff000000);
-        return tColor;
+        return prefs.getInt("TColor", 0xff000000);
     }
 
     /**

@@ -12,10 +12,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,50 +32,33 @@ public class MainActivity extends AppCompatActivity
         PersonalProfileFragment.OnFragmentInteractionListener,
         ChampionshipCreatorFragment.OnFragmentInteractionListener{
     FragmentManager fragmentManager = getFragmentManager();
-    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
     FirebaseAuth mAuth;
     FirebaseUser user;
     DatabaseReference myRef;
-    private String guild;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         myRef = FirebaseDatabase.getInstance().getReference("usuarios");
-        if(user != null){
-
-        }else{
+        if(user == null){
             Intent intent = new Intent(this, RegisterScreen.class);
             startActivity(intent);
         }
-        final String mail = user.getEmail().replace("."," ");
-        DatabaseReference profileRef = myRef.child(mail).child("Public").child("Guild");
-        profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String data = dataSnapshot.getValue(String.class);
-                guild = data;
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        });
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentManager fm = getFragmentManager();
@@ -86,7 +67,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         /*if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -177,7 +158,7 @@ public class MainActivity extends AppCompatActivity
 
 
         }, 50);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

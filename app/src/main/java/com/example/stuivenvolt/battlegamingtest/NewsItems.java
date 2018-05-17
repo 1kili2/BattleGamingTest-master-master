@@ -16,7 +16,7 @@ public class NewsItems {
 
     public String getDate(){return date;}
 
-    public NewsItems(String ttl, String info, String img, String date){
+    NewsItems(String ttl, String info, String img, String date){
         this.image=img;
         this.title=ttl;
         this.info=info;

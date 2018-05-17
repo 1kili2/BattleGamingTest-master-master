@@ -1,23 +1,20 @@
 package com.example.stuivenvolt.battlegamingtest;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,20 +25,17 @@ import java.util.List;
 public class NewsFetcher extends AsyncTask<Void, Void, String> {
 
     private boolean wait = true;
-    private String idToken, stringNewsItems;
+    private String idToken;
     FirebaseAuth mAuth;
     FirebaseUser user;
-    TextView mTextView,calenderDateView;
-    String dayn,date,month;
-    private static final String LOG_TAG = CalenderFetcher.class.getSimpleName();
-    private List<NewsItems> newsList;
-    private NewsItemsAdapter nAdapter;
+    String date,month;
+    @SuppressLint("StaticFieldLeak")
     private RecyclerView mRecyclerView;
+    @SuppressLint("StaticFieldLeak")
     private Context context;
-    private NewsItems ni;
 
 
-    public NewsFetcher(RecyclerView rv, Context ctx) {
+    NewsFetcher(RecyclerView rv, Context ctx) {
         mRecyclerView=rv;
         context=ctx;
         mAuth = FirebaseAuth.getInstance();
@@ -67,15 +61,14 @@ public class NewsFetcher extends AsyncTask<Void, Void, String> {
                     }
                 });
        while(wait == true){ }
-        stringNewsItems = NewsConnection.getNewsItemsAuth(idToken);
-        return stringNewsItems;
+        return NewsConnection.getNewsItemsAuth(idToken);
     }
 
     protected void onPostExecute(String result) {
         Log.e("Empty string",""+result);
-        newsList = new ArrayList<>();
+        List<NewsItems> newsList = new ArrayList<>();
         super.onPostExecute(result);
-        int test = 0;
+        int test;
         try {
             JSONObject jsonO = new JSONObject(result);
             JSONArray array = jsonO.getJSONArray("noticias");
@@ -84,12 +77,12 @@ public class NewsFetcher extends AsyncTask<Void, Void, String> {
 
             for (int x = 0; x < test ; x++) {
                 JSONObject jo = array.getJSONObject(x);
-                ni = new NewsItems(jo.getString("Title"),jo.getString("Article"),jo.getString("Image"),jo.getString("Date"));
+                NewsItems ni = new NewsItems(jo.getString("Title"), jo.getString("Article"), jo.getString("Image"), jo.getString("Date"));
                 newsList.add(ni);
             }
 
 
-            nAdapter = new NewsItemsAdapter(context, newsList);
+            NewsItemsAdapter nAdapter = new NewsItemsAdapter(context, newsList);
             mRecyclerView.setAdapter(nAdapter);
 
 
