@@ -28,12 +28,10 @@ import com.google.firebase.database.ValueEventListener;
  * create an instance of this fragment.
  */
 public class ChampionshipCreatorFragment extends android.app.Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     FirebaseAuth mAuth;
     FirebaseUser user;
     DatabaseReference myRef;
@@ -53,7 +51,6 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment ChampionshipCreatorFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static ChampionshipCreatorFragment newInstance(String param1, String param2) {
         ChampionshipCreatorFragment fragment = new ChampionshipCreatorFragment();
         Bundle args = new Bundle();
@@ -89,7 +86,6 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
                 /*bundle.putString("Date",getArguments().getString("Date"));
                 bundle.putString("Month",getArguments().getString("Month"));*/
                 bundle.putString("Guild", guild);
-                final android.app.FragmentManager fm = (getActivity()).getFragmentManager();
                 newFragment.setArguments(bundle);
                 newFragment.show(getFragmentManager(), "Boom");
             }
@@ -97,7 +93,6 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -132,7 +127,6 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 

@@ -56,7 +56,6 @@ public class SettingsFragment extends android.app.Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment CalenderFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static SettingsFragment newInstance(String param1, String param2) {
         SettingsFragment fragment = new SettingsFragment();
         Bundle args = new Bundle();
@@ -213,7 +212,6 @@ public class SettingsFragment extends android.app.Fragment {
     }
 
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -293,7 +291,6 @@ public class SettingsFragment extends android.app.Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
@@ -302,18 +299,15 @@ public class SettingsFragment extends android.app.Fragment {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress,
                                       boolean fromUser) {
-// TODO Auto-generated method stub
             updateBackground();
             updateTextcolor();
         }
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
-// TODO Auto-generated method stub
         }
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-// TODO Auto-generated method stub
         }
     };
 

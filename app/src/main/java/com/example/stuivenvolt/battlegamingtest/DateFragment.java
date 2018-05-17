@@ -47,7 +47,6 @@ public class DateFragment extends android.app.Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment DateFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static DateFragment newInstance(String param1, String param2) {
         DateFragment fragment = new DateFragment();
         Bundle args = new Bundle();
@@ -172,7 +171,6 @@ public class DateFragment extends android.app.Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
