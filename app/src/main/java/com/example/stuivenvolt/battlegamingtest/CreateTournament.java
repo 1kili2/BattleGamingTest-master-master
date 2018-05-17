@@ -40,6 +40,7 @@ import static java.lang.Thread.sleep;
 public class CreateTournament extends DialogFragment implements AdapterView.OnItemSelectedListener{
     Spinner score,type;
     Switch guilds;
+    String guild;
     private TextView error;
     boolean inserted=false;
     RecyclerView participants;
@@ -73,6 +74,8 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
         builder.setView(view);
         final AlertDialog alert = builder.create();
 
+        guild = getGuild();
+        Log.e("after function", "guild: "+guild);
         guilds = view.findViewById(R.id.Guilds_Players_switch);
         score = view.findViewById(R.id.Score_Spinner);
         type = view.findViewById(R.id.Type_Spinner);
@@ -134,8 +137,9 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                             };
                             List messages = snapshot.getValue(t);
                             if(!printed) {
+                                Log.e("test", "guild: "+guild);
                                 myRef.child("" + messages.size()).child("Creation").setValue(getDate());
-                                myRef.child("" + messages.size()).child("Hosting Guild").setValue(getGuild());
+                                myRef.child("" + messages.size()).child("Hosting Guild").setValue(guild);
                                 for (int i = 0; i < participantsList.size(); i++) {
                                     myRef.child("" + messages.size()).child("Participants").child("" + i).setValue(participantsList.get(i));
                                 }
@@ -210,6 +214,8 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String data = dataSnapshot.getValue(String.class);
                     guild[0] = data;
+                    Log.e("test", "guild: "+data);
+                    Log.e("test", "guild: "+guild[0]);
                 }
 
                 @Override
