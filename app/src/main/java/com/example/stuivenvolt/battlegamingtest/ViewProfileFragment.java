@@ -95,7 +95,7 @@ public class ViewProfileFragment extends android.app.Fragment {
 
         return view;
     }
-    
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
