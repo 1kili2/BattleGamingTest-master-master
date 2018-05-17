@@ -30,22 +30,18 @@ import com.google.firebase.database.ValueEventListener;
  * create an instance of this fragment.
  */
 public class PersonalProfileFragment extends android.app.Fragment {
-    // TODO: Rename parameter arguments, choose names that match
+
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     DatabaseReference myRef;
     FirebaseUser user;
     FirebaseAuth mAuth;
-    private Button saveBTN;
     private String[] fullName;
     private View view;
     boolean dataSet = false;
-    private EditText profilePhone, profileName, profileSurname, profileEmail, profileNickName, profileMotto;
+    private EditText profilePhone, profileName, profileSurname, profileNickName, profileMotto;
 
     private OnFragmentInteractionListener mListener;
 
@@ -74,10 +70,6 @@ public class PersonalProfileFragment extends android.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
     }
@@ -89,29 +81,26 @@ public class PersonalProfileFragment extends android.app.Fragment {
         myRef = FirebaseDatabase.getInstance().getReference("usuarios");
         view = inflater.inflate(R.layout.fragment_personal_profile, container, false);
 
-        profilePhone = (EditText)view.findViewById(R.id.profile_set_Phone_Number);
+        profilePhone = view.findViewById(R.id.profile_set_Phone_Number);
         setData("Phone Number", profilePhone);
 
-        profileName = (EditText)view.findViewById(R.id.profile_set_Name);
+        profileName = view.findViewById(R.id.profile_set_Name);
         setData("Name", profileName);
 
-        profileSurname = (EditText)view.findViewById(R.id.profile_set_Surname);
+        profileSurname = view.findViewById(R.id.profile_set_Surname);
         setData("Name", profileSurname);
 
-        profileEmail = (EditText)view.findViewById(R.id.profile_set_Email);
+        EditText profileEmail = view.findViewById(R.id.profile_set_Email);
         profileEmail.setText(user.getEmail());
 
-        profileNickName = (EditText)view.findViewById(R.id.profile_set_Nickname);
+        profileNickName = view.findViewById(R.id.profile_set_Nickname);
         setData("NickName", profileNickName);
 
-        profileMotto = (EditText)view.findViewById(R.id.profile_Motto);
+        profileMotto = view.findViewById(R.id.profile_Motto);
         setData("Motto", profileMotto);
 
 
-
-
-
-        saveBTN = (Button)view.findViewById(R.id.btn_save_profile);
+        Button saveBTN = view.findViewById(R.id.btn_save_profile);
         saveBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {

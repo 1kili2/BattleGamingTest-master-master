@@ -14,7 +14,6 @@ import java.net.URL;
  */
 
 public class ProfileConnection {
-    private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
     private static final String CALENDER_BASE_URL =  "https://battle-gaming-agenda.firebaseio.com"; // Base URI for the Books API
     private static final String AGENDA = "/agenda/eventos";
     private static final String YEAR = "/2018";

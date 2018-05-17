@@ -4,14 +4,10 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,21 +26,15 @@ import com.google.firebase.database.ValueEventListener;
  * create an instance of this fragment.
  */
 public class ViewProfileFragment extends android.app.Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     DatabaseReference myRef;
     FirebaseUser user;
     FirebaseAuth mAuth;
-    private String[] fullName;
     private View view;
     boolean dataSet = false;
-    private TextView profilePhone, profileName, profileSurname, profileEmail, profileNickName, profileMotto;
 
     private OnFragmentInteractionListener mListener;
 
@@ -60,7 +50,6 @@ public class ViewProfileFragment extends android.app.Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment PersonalProfileFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static ViewProfileFragment newInstance(String param1, String param2) {
         ViewProfileFragment fragment = new ViewProfileFragment();
         Bundle args = new Bundle();
@@ -73,10 +62,6 @@ public class ViewProfileFragment extends android.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
     }
@@ -88,19 +73,19 @@ public class ViewProfileFragment extends android.app.Fragment {
         myRef = FirebaseDatabase.getInstance().getReference("usuarios");
         view = inflater.inflate(R.layout.fragment_view_profile, container, false);
 
-        profilePhone = (TextView)view.findViewById(R.id.profile_set_Phone_Number);
+        TextView profilePhone = view.findViewById(R.id.profile_set_Phone_Number);
         setData("Phone Number", profilePhone);
 
-        profileName = (TextView)view.findViewById(R.id.profile_set_Name);
+        TextView profileName = view.findViewById(R.id.profile_set_Name);
         setData("Name", profileName);
 
-        profileEmail = (TextView)view.findViewById(R.id.profile_set_Email);
+        TextView profileEmail = view.findViewById(R.id.profile_set_Email);
         profileEmail.setText(user.getEmail());
 
-        profileNickName = (TextView)view.findViewById(R.id.profile_set_Nickname);
+        TextView profileNickName = view.findViewById(R.id.profile_set_Nickname);
         setData("NickName", profileNickName);
 
-        profileMotto = (TextView)view.findViewById(R.id.profile_Motto);
+        TextView profileMotto = view.findViewById(R.id.profile_Motto);
         setData("Motto", profileMotto);
 
 

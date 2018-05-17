@@ -3,11 +3,8 @@ package com.example.stuivenvolt.battlegamingtest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +15,8 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -35,17 +28,12 @@ import java.util.Map;
  * create an instance of this fragment.
  */
 public class SettingsFragment extends android.app.Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private boolean bgcvisible=false, tcvisible=false;
-    private View view, main;
-    private TextView bgroundColor,textColor;
+    private View view;
     private ImageView arrow;
 
 
@@ -81,46 +69,36 @@ public class SettingsFragment extends android.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
     public int getSeekR(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int seekR = prefs.getInt("seekR", 0xff000000);
-        return seekR;
+        return prefs.getInt("seekR", 0xff000000);
     }
     public int getSeekG(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int seekG = prefs.getInt("seekG", 0xff000000);
-        return seekG;
+        return prefs.getInt("seekG", 0xff000000);
     }
     public int getSeekB(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int seekB = prefs.getInt("seekB", 0xff000000);
-        return seekB;
+        return prefs.getInt("seekB", 0xff000000);
     }
     public int getSeekTR(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int seekTR = prefs.getInt("seekTR", 0xff000000);
-        return seekTR;
+        return prefs.getInt("seekTR", 0xff000000);
     }
     public int getSeekTG(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int seekTG = prefs.getInt("seekTG", 0xff000000);
-        return seekTG;
+        return prefs.getInt("seekTG", 0xff000000);
     }
     public int getSeekTB(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        int seekTB = prefs.getInt("seekTB", 0xff000000);
-        return seekTB;
+        return prefs.getInt("seekTB", 0xff000000);
     }
 
 
@@ -130,15 +108,14 @@ public class SettingsFragment extends android.app.Fragment {
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_settings, container, false);
-        main = inflater.inflate(R.layout.activity_main, container, false);
 
-        mScreen = (FrameLayout) view.findViewById(R.id.myScreen);
-        redSeekBar = (SeekBar) view.findViewById(R.id.mySeekingBar_R);
-        greenSeekBar = (SeekBar) view.findViewById(R.id.mySeekingBar_G);
-        blueSeekBar = (SeekBar) view.findViewById(R.id.mySeekingBar_B);
-        titleR = (SeekBar) view.findViewById(R.id.titleSeekingBar_R);
-        titleG = (SeekBar) view.findViewById(R.id.titleSeekingBar_G);
-        titleB = (SeekBar) view.findViewById(R.id.titleSeekingBar_B);
+        mScreen = view.findViewById(R.id.myScreen);
+        redSeekBar = view.findViewById(R.id.mySeekingBar_R);
+        greenSeekBar = view.findViewById(R.id.mySeekingBar_G);
+        blueSeekBar = view.findViewById(R.id.mySeekingBar_B);
+        titleR = view.findViewById(R.id.titleSeekingBar_R);
+        titleG = view.findViewById(R.id.titleSeekingBar_G);
+        titleB = view.findViewById(R.id.titleSeekingBar_B);
 
         redSeekBar.setOnSeekBarChangeListener(seekBarChangeListener);
         greenSeekBar.setOnSeekBarChangeListener(seekBarChangeListener);
@@ -205,7 +182,7 @@ public class SettingsFragment extends android.app.Fragment {
             }
         });
 
-        final Button savebackground = (Button) view.findViewById(R.id.save);
+        final Button savebackground = view.findViewById(R.id.save);
         savebackground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -215,7 +192,7 @@ public class SettingsFragment extends android.app.Fragment {
             }
         });
 
-        final Button resetbackground = (Button) view.findViewById(R.id.reset);
+        final Button resetbackground = view.findViewById(R.id.reset);
         resetbackground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -273,7 +250,7 @@ public class SettingsFragment extends android.app.Fragment {
         edit.putInt("seekTR",seekTR);
         edit.putInt("seekTG",seekTG);
         edit.putInt("seekTB",seekTB);
-        edit.commit();
+        edit.apply();
         final android.app.FragmentManager fm = ((Activity) context).getFragmentManager();
         fm.beginTransaction().replace(R.id.content_frame,new SettingsFragment()).commit();
     }
@@ -300,7 +277,7 @@ public class SettingsFragment extends android.app.Fragment {
         edit.putInt("seekTR",seekTR);
         edit.putInt("seekTG",seekTG);
         edit.putInt("seekTB",seekTB);
-        edit.commit();
+        edit.apply();
     }
 
 
@@ -352,8 +329,8 @@ public class SettingsFragment extends android.app.Fragment {
         );
     }
     private void updateTextcolor() {
-        textColor=(TextView) view.findViewById(R.id.textcolor);
-        bgroundColor=(TextView) view.findViewById(R.id.bgcolor);
+        TextView textColor = view.findViewById(R.id.textcolor);
+        TextView bgroundColor = view.findViewById(R.id.bgcolor);
         seekTR = titleR.getProgress();
         seekTG = titleG.getProgress();
         seekTB = titleB.getProgress();
