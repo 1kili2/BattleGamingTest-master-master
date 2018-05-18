@@ -1,4 +1,4 @@
-package com.example.stuivenvolt.battlegamingtest.Tournament.Guilds;
+package com.example.stuivenvolt.battlegamingtest.Tournament.Members;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,17 +13,22 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+
 import com.example.stuivenvolt.battlegamingtest.Calender.CalenderFragment;
-import com.example.stuivenvolt.battlegamingtest.News.NewsFetcher;
 import com.example.stuivenvolt.battlegamingtest.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-
-public class Guilds extends DialogFragment implements AdapterView.OnItemSelectedListener{
+public class Members extends DialogFragment implements AdapterView.OnItemSelectedListener{
 
 
     /**
@@ -43,8 +48,8 @@ public class Guilds extends DialogFragment implements AdapterView.OnItemSelected
     boolean printed = false, test = true;
 
 
-    public static com.example.stuivenvolt.battlegamingtest.Tournament.Guilds.Guilds newInstance(String param1, String param2) {
-        com.example.stuivenvolt.battlegamingtest.Tournament.Guilds.Guilds fragment = new com.example.stuivenvolt.battlegamingtest.Tournament.Guilds.Guilds();
+    public static Members newInstance(String param1, String param2) {
+        Members fragment = new Members();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -59,14 +64,14 @@ public class Guilds extends DialogFragment implements AdapterView.OnItemSelected
         user = mAuth.getCurrentUser();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = getActivity().getLayoutInflater().inflate(R.layout.guildlist, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.memberslist, null);
 
         builder.setView(view);
         final AlertDialog alert = builder.create();
 
-        RecyclerView mRecyclerView = view.findViewById(R.id.guild_recycler);
+        RecyclerView mRecyclerView = view.findViewById(R.id.member_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        new GuildsFetcher(mRecyclerView, getActivity()).execute();
+        new MembersFetcher(getArguments().getString("Guild"),mRecyclerView, getActivity()).execute();
 
         Button ok = view.findViewById(R.id.Done);
         ok.setOnClickListener(new View.OnClickListener() {

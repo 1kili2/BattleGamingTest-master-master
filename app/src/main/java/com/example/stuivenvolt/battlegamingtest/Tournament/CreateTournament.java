@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.stuivenvolt.battlegamingtest.Calender.CalenderFragment;
 import com.example.stuivenvolt.battlegamingtest.R;
+import com.example.stuivenvolt.battlegamingtest.Tournament.Guilds.Guilds;
+import com.example.stuivenvolt.battlegamingtest.Tournament.Members.Members;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -118,11 +120,20 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
             @Override
             public void onClick(View v) {
                 if(guilds.isChecked()){
+                    DialogFragment newFragment = new Guilds();
+                    Bundle bundle = new Bundle();
 
+
+                    newFragment.setArguments(bundle);
+                    newFragment.show(getFragmentManager(), "Boom");
                 }else{
-
+                    DialogFragment newFragment = new Members();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Guild", guild[0]);
+                    newFragment.setArguments(bundle);
+                    newFragment.show(getFragmentManager(), "Boom");
                 }
-                try {
+                /*try {
                     guilds.setEnabled(false);
                     participantsList.add("participant" + numpart[0]);
                     part_adap.notifyItemInserted(participantsList.size() - 1);
@@ -132,7 +143,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                 } catch(NumberFormatException e) {
                     Toast.makeText(getActivity(), "The field is empty",
                             Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
 

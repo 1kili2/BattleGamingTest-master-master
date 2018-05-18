@@ -16,7 +16,7 @@
         android:textSize="40sp" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/guild_recycler"
+        android:id="@+id/member_recycler"
         android:layout_width="match_parent"
         android:layout_height="300dp">
 
