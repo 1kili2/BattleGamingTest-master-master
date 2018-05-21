@@ -154,6 +154,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                     bundle.putStringArrayList("Participants", three);
                     newFragment.setArguments(bundle);
                     newFragment.show(getFragmentManager(), "Boom");
+                    alert.dismiss();
                 }else{
                     DialogFragment newFragment = new Members();
                     Bundle bundle = new Bundle();
@@ -164,6 +165,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                     bundle.putString("Guild", guild[0]);
                     newFragment.setArguments(bundle);
                     newFragment.show(getFragmentManager(), "Boom");
+                    alert.dismiss();
                 }
                 /*try {
                     guilds.setEnabled(false);

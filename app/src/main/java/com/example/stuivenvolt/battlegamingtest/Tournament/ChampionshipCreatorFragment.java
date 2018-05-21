@@ -86,6 +86,10 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
             public void onClick(final View v) {
                 DialogFragment newFragment = new CreateTournament();
                 Bundle bundle = new Bundle();
+                bundle.putInt("Switch_Pos",0);
+                bundle.putInt("Score",0);
+                bundle.putInt("Type",0);
+                bundle.putStringArrayList("Participants", null);
                 /*bundle.putString("Date",getArguments().getString("Date"));
                 bundle.putString("Month",getArguments().getString("Month"));*/
                 bundle.putString("Guild", guild);

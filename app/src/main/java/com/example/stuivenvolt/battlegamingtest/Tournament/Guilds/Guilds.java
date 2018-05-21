@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.example.stuivenvolt.battlegamingtest.Calender.CalenderFragment;
 import com.example.stuivenvolt.battlegamingtest.News.NewsFetcher;
 import com.example.stuivenvolt.battlegamingtest.R;
+import com.example.stuivenvolt.battlegamingtest.Tournament.CreateTournament;
+import com.example.stuivenvolt.battlegamingtest.Tournament.Members.Members;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
@@ -75,8 +77,16 @@ public class Guilds extends DialogFragment implements AdapterView.OnItemSelected
                 //whatever you want
                 //Log.e("guild Text",guild.getText().toString());
                 if(!test){
-
-
+                    DialogFragment newFragment = new CreateTournament();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("Switch_Pos",getArguments().getInt("Switch_Pos"));
+                    bundle.putInt("Score",getArguments().getInt("Score"));
+                    bundle.putInt("Type",getArguments().getInt("Type"));
+                    bundle.putStringArrayList("Participants", getArguments().getStringArrayList("Participants"));
+                    bundle.putString("Guild", getArguments().getString("Guild"));
+                    newFragment.setArguments(bundle);
+                    newFragment.show(getFragmentManager(), "Boom");
+                    alert.dismiss();
                 }else {
 
                     final android.app.FragmentManager fm = (getActivity()).getFragmentManager();
