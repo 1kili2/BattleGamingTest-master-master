@@ -53,6 +53,12 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
     FirebaseAuth mAuth;
     List<String> participantsList = new ArrayList<>();
     boolean printed = false, test = true;
+    int switch_pos = getArguments().getInt("Switch_Pos");
+    List<String> guildNames = getArguments().getStringArrayList("Participants");
+    int setScore = getArguments().getInt("Score");
+    int setType = getArguments().getInt("Type");
+
+
 
 
     public static CreateTournament newInstance(String param1, String param2) {
@@ -92,6 +98,23 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
         part_adap = new ParticipantsAdapter(participantsList);
         participants.setAdapter(part_adap);
 
+        if(switch_pos==1){
+            guilds.setEnabled(false);
+        }else if(switch_pos==2){
+            guilds.setChecked(true);
+            guilds.setEnabled(false);
+        }
+        score.setSelection(setScore);
+        type.setSelection(setType);
+        if(guildNames!=null){
+            for(int i=0;i>guildNames.size();i++) {
+                participantsList.add(guildNames.get(i));
+                part_adap.notifyItemInserted(participantsList.size() - 1);
+                participants.setVisibility(View.VISIBLE);
+            }
+        }
+
+
         final String mail = user.getEmail().replace(".", " ");
         final String[] guild = new String[1];
         try{
@@ -119,16 +142,25 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int one = (int) score.getSelectedItemId();
+                int two = (int) type.getSelectedItemId();
+                ArrayList<String> three = (ArrayList<String>) participantsList;
                 if(guilds.isChecked()){
                     DialogFragment newFragment = new Guilds();
                     Bundle bundle = new Bundle();
-
-
+                    bundle.putInt("Switch_Pos",2);
+                    bundle.putInt("Score",one);
+                    bundle.putInt("Type",two);
+                    bundle.putStringArrayList("Participants", three);
                     newFragment.setArguments(bundle);
                     newFragment.show(getFragmentManager(), "Boom");
                 }else{
                     DialogFragment newFragment = new Members();
                     Bundle bundle = new Bundle();
+                    bundle.putInt("Switch_Pos",1);
+                    bundle.putInt("Score",one);
+                    bundle.putInt("Type",two);
+                    bundle.putStringArrayList("Participants", three);
                     bundle.putString("Guild", guild[0]);
                     newFragment.setArguments(bundle);
                     newFragment.show(getFragmentManager(), "Boom");
