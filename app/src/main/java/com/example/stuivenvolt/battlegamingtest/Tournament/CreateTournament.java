@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -98,7 +99,11 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
         part_adap = new ParticipantsAdapter(participantsList);
         participants.setAdapter(part_adap);
 
-        if(switch_pos==1){
+        if(switch_pos==0){
+            guilds.setEnabled(false);
+            getTrusted(guilds);
+        }else if(switch_pos==1){
+            guilds.setChecked(false);
             guilds.setEnabled(false);
         }else if(switch_pos==2){
             guilds.setChecked(true);
@@ -300,5 +305,28 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
         }
         Log.e("end of getguild", "guild: "+guild[0]);
         return guild[0];
+    }
+
+    private void getTrusted(final Switch guild_Switch) {
+        final String mail = user.getEmail().replace(".", " ");
+        try{
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final DatabaseReference myRef = database.getReference("usuarios");
+            DatabaseReference profileRef = myRef.child(mail).child("Public").child("IsTrusted");
+            profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String data = dataSnapshot.getValue(String.class);
+                    if(data.equals("true")){
+                        guild_Switch.setEnabled(true);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        } catch (Throwable e) {
+        }
     }
 }

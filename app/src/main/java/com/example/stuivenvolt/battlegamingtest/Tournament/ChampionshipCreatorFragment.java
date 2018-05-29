@@ -90,8 +90,6 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
                 bundle.putInt("Score",0);
                 bundle.putInt("Type",0);
                 bundle.putStringArrayList("Participants", null);
-                /*bundle.putString("Date",getArguments().getString("Date"));
-                bundle.putString("Month",getArguments().getString("Month"));*/
                 bundle.putString("Guild", guild);
                 newFragment.setArguments(bundle);
                 newFragment.show(getFragmentManager(), "Boom");
