@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.stuivenvolt.battlegamingtest.Calender.CalenderFragment;
 import com.example.stuivenvolt.battlegamingtest.Calender.DateFragment;
+import com.example.stuivenvolt.battlegamingtest.Guild_Hub.GuildHubFragment;
 import com.example.stuivenvolt.battlegamingtest.News.NewsFragment;
 import com.example.stuivenvolt.battlegamingtest.News.NewsItemFragment;
 import com.example.stuivenvolt.battlegamingtest.Profile.PersonalProfileFragment;
@@ -35,7 +36,8 @@ public class MainActivity extends AppCompatActivity
         NewsFragment.OnFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener,
         PersonalProfileFragment.OnFragmentInteractionListener,
-        ChampionshipCreatorFragment.OnFragmentInteractionListener{
+        ChampionshipCreatorFragment.OnFragmentInteractionListener,
+        GuildHubFragment.OnFragmentInteractionListener{
     FragmentManager fragmentManager = getFragmentManager();
 
     FirebaseAuth mAuth;
@@ -139,6 +141,13 @@ public class MainActivity extends AppCompatActivity
                     case R.id.nav_test1:
                         //SetInfo();
                         fm.beginTransaction().replace(R.id.content_frame, new PersonalProfileFragment()).commit();
+                        setTitle("Profile");
+
+                        break;
+
+                    case R.id.Guild:
+                        //SetInfo();
+                        fm.beginTransaction().replace(R.id.content_frame, new GuildHubFragment()).commit();
                         setTitle("Profile");
 
                         break;

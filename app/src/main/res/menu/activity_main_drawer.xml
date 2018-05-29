@@ -32,6 +32,11 @@
             android:title="test" />
 
         <item
+            android:id="@+id/Guild"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Guild" />
+
+        <item
             android:id="@+id/nav_test1"
             android:icon="@drawable/usericon"
             android:title="Perfil" />

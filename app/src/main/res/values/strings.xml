@@ -46,7 +46,7 @@
     <string name="profile_Guild">Gremio:</string>
     <string name="profile_Phone_Number">Numero:</string>
     <string name="profile_Adress">Localitzacion:</string>
-    <string name="btn_profile_Save">Save profile</string>
+    <string name="btn_profile_Save">Guardar</string>
     <string name="profile_Motto">No importa perder la batalla, mientras ganas la guerra!</string>
     <string name="successful_save">Cambios guardados!</string>
     <string name="pass_length">La contraseña tiene que ser de minimo 6 caracteres.</string>

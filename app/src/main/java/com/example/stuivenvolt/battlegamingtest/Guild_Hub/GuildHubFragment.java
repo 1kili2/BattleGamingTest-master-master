@@ -19,7 +19,7 @@ import com.example.stuivenvolt.battlegamingtest.R;
  * Use the {@link GuildHubFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GuildHubFragment extends Fragment {
+public class GuildHubFragment extends android.app.Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";

@@ -216,13 +216,13 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                             };
                             List messages = snapshot.getValue(t);
                             if(!printed) {
-                                Log.e("test", "guild: "+guild);
                                 myRef.child("" + messages.size()).child("Creation").setValue(getDate());
                                 myRef.child("" + messages.size()).child("Hosting Guild").setValue(guild[0]);
                                 for (int i = 0; i < participantsList.size(); i++) {
                                     myRef.child("" + messages.size()).child("Participants").child("" + i).setValue(participantsList.get(i));
                                 }
                                 myRef.child("" + messages.size()).child("Type").setValue(type.getSelectedItemPosition());
+                                myRef.child("" + messages.size()).child("Win Score").setValue(score.getSelectedItemPosition()+1);
                                 printed = true;
                             }
                         }
