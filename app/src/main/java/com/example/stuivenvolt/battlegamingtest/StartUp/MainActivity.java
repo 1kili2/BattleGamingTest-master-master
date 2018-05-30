@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.stuivenvolt.battlegamingtest.Calender.CalenderFragment;
 import com.example.stuivenvolt.battlegamingtest.Calender.DateFragment;
 import com.example.stuivenvolt.battlegamingtest.Guild_Hub.GuildHubFragment;
+import com.example.stuivenvolt.battlegamingtest.Guild_Hub.Members_List.GuildMembersFragment;
 import com.example.stuivenvolt.battlegamingtest.News.NewsFragment;
 import com.example.stuivenvolt.battlegamingtest.News.NewsItemFragment;
 import com.example.stuivenvolt.battlegamingtest.Profile.PersonalProfileFragment;
@@ -37,7 +38,8 @@ public class MainActivity extends AppCompatActivity
         SettingsFragment.OnFragmentInteractionListener,
         PersonalProfileFragment.OnFragmentInteractionListener,
         ChampionshipCreatorFragment.OnFragmentInteractionListener,
-        GuildHubFragment.OnFragmentInteractionListener{
+        GuildHubFragment.OnFragmentInteractionListener,
+        GuildMembersFragment.OnFragmentInteractionListener {
     FragmentManager fragmentManager = getFragmentManager();
 
     FirebaseAuth mAuth;

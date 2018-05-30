@@ -1,14 +1,29 @@
 package com.example.stuivenvolt.battlegamingtest.Guild_Hub;
 
+import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.stuivenvolt.battlegamingtest.Calender.DateFragment;
+import com.example.stuivenvolt.battlegamingtest.Guild_Hub.Members_List.GuildMembersFragment;
 import com.example.stuivenvolt.battlegamingtest.R;
+import com.example.stuivenvolt.battlegamingtest.Tournament.CreateTournament;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -23,6 +38,11 @@ public class GuildHubFragment extends android.app.Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    FirebaseAuth mAuth;
+    FirebaseUser user;
+    DatabaseReference myRef;
+    private String guild;
+
 
 
     private OnFragmentInteractionListener mListener;
@@ -51,13 +71,29 @@ public class GuildHubFragment extends android.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        setGuild();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guild_hub, container, false);
+        View view = inflater.inflate(R.layout.fragment_guild_hub, container, false);
+        final Button membersList = view.findViewById(R.id.access_members);
+        membersList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                final android.app.FragmentManager fm = (getActivity()).getFragmentManager();
+                GuildMembersFragment gmf = new GuildMembersFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("Guild", guild);
+                gmf.setArguments(bundle);
+                fm.beginTransaction().replace(R.id.content_frame, gmf).commit();
+            }
+        });
+        return view;
     }
 
     public void onButtonPressed(Uri uri) {
@@ -95,5 +131,21 @@ public class GuildHubFragment extends android.app.Fragment {
      */
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void setGuild(){
+        final String mail = user.getEmail().replace("."," ");
+        Log.e("mail test", "email: "+mail);
+        myRef = FirebaseDatabase.getInstance().getReference("usuarios");
+        DatabaseReference profileRef = myRef.child(mail).child("Public").child("Guild");
+        profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                guild = dataSnapshot.getValue(String.class);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
     }
 }
