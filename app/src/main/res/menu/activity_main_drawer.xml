@@ -23,7 +23,7 @@
 
         <item
             android:id="@+id/nav_fights"
-            android:icon="@drawable/legolas"
+            android:icon="@drawable/swords"
             android:title="Torneos" />
 
         <item
@@ -33,8 +33,8 @@
 
         <item
             android:id="@+id/Guild"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Guild" />
+            android:icon="@drawable/legolas"
+            android:title="Gremio" />
 
         <item
             android:id="@+id/nav_test1"
