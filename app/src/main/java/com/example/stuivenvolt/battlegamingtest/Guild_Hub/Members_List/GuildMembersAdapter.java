@@ -18,22 +18,21 @@ public class GuildMembersAdapter extends RecyclerView.Adapter<GuildMembersAdapte
 
     public GuildMembersAdapter(List<String> passedListItem) {
         this.listItem = passedListItem;
-        Log.e("member adapter", "lets see if he gets here");
     }
 
     @Override
     public GuildMembersAdapter.myViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.tournament_participant, parent, false);
-        Log.e("member adapter", "and here?");
-        GuildMembersAdapter.myViewHolder holder = new GuildMembersAdapter.myViewHolder(itemView);
-        return holder;
+                .inflate(R.layout.guild_members, parent, false);
+
+        return new myViewHolder(itemView);
     }
 
 
     @Override
-    public void onBindViewHolder(GuildMembersAdapter.myViewHolder holder, int position) {
+    public void onBindViewHolder(myViewHolder holder, int position) {
         int itemNumber = position + 1;
+        Log.e("textview Name","The ID is: "+holder.itemTextView.getId());
         Log.e("member Name",listItem.get(position));
         holder.itemTextView.setText(listItem.get(position));
     }
@@ -48,7 +47,7 @@ public class GuildMembersAdapter extends RecyclerView.Adapter<GuildMembersAdapte
 
         public myViewHolder(View view) {
             super(view);
-            itemTextView = view.findViewById(R.id.guild_members);
+            itemTextView = view.findViewById(R.id.members);
         }
     }
 }

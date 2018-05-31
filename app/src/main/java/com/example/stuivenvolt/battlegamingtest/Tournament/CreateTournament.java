@@ -54,10 +54,10 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
     FirebaseAuth mAuth;
     List<String> participantsList = new ArrayList<>();
     boolean printed = false, test = true;
-    int switch_pos = getArguments().getInt("Switch_Pos");
-    List<String> guildNames = getArguments().getStringArrayList("Participants");
-    int setScore = getArguments().getInt("Score");
-    int setType = getArguments().getInt("Type");
+    int switch_pos = 0;
+    List<String> guildNames = null;
+    int setScore = 0;
+    int setType = 0;
 
 
 
@@ -74,6 +74,13 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
+
+        if(getArguments() != null){
+            switch_pos = getArguments().getInt("Switch_Pos", 0);
+            guildNames = getArguments().getStringArrayList("Participants");
+            setScore = getArguments().getInt("Score", 0);
+            setType = getArguments().getInt("Type", 0);
+        }
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 

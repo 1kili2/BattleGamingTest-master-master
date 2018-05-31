@@ -23,7 +23,6 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.myViewHo
     public MembersAdapter.myViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.tournament_participant, parent, false);
-
         MembersAdapter.myViewHolder holder = new MembersAdapter.myViewHolder(itemView);
         return holder;
     }
