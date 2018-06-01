@@ -15,11 +15,10 @@
             android:icon="@drawable/ic_menu_date"
             android:title="Calendario" />
 
-
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Ajustes" />
+            android:id="@+id/nav_Guild"
+            android:icon="@drawable/legolas"
+            android:title="Gremio" />
 
         <item
             android:id="@+id/nav_fights"
@@ -27,23 +26,23 @@
             android:title="Torneos" />
 
         <item
-            android:id="@+id/nav_test2"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="test" />
-
-        <item
-            android:id="@+id/Guild"
-            android:icon="@drawable/legolas"
-            android:title="Gremio" />
-
-        <item
             android:id="@+id/nav_test1"
             android:icon="@drawable/usericon"
             android:title="Perfil" />
 
         <item
-            android:id="@+id/nav_LogOut"
+            android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
+            android:title="Ajustes" />
+
+        <item
+            android:id="@+id/nav_LogOut"
+            android:icon="@drawable/logout_inverted"
             android:title="log out" />
+
+        <item
+            android:id="@+id/nav_test2"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="test" />
     </group>
 </menu>

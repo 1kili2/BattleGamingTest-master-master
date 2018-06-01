@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity
 
                         break;
 
-                    case R.id.Guild:
+                    case R.id.nav_Guild:
                         //SetInfo();
                         fm.beginTransaction().replace(R.id.content_frame, new GuildHubFragment()).commit();
                         setTitle("Profile");
