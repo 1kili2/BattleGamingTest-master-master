@@ -27,6 +27,7 @@ public class GuildsAdapter extends RecyclerView.Adapter<com.example.stuivenvolt.
     String participant;
     List<String> listItem;
     private Context context;
+    Bundle bundle;
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         final TextView GuildName;
@@ -43,27 +44,20 @@ public class GuildsAdapter extends RecyclerView.Adapter<com.example.stuivenvolt.
         public void onClick(View view) {
             int mPosition = getLayoutPosition();
             String element = listItem.get(mPosition);
-            Bundle bundle = new Bundle();
             bundle.putString("Guild",element);
-            final android.app.FragmentManager fm = ((Activity) context).getFragmentManager();
-            NewsItemFragment nif = new NewsItemFragment();
-            nif.setArguments(bundle);
-            fm.beginTransaction().replace(R.id.content_frame, nif).commit();
-            //test=element.getDayInfo()+"Clicked!";
-            //element.setDayInfo(test);
-            //cAdapter.notifyDataSetChanged();
             Log.e("Adapter onClick", "test");
         }
     }
 
-    public GuildsAdapter(List<String> passedListItem) {
+    public GuildsAdapter(List<String> passedListItem, Bundle bndl) {
         this.listItem = passedListItem;
+        bundle = bndl;
     }
 
     @Override
     public com.example.stuivenvolt.battlegamingtest.Tournament.Guilds.GuildsAdapter.myViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.tournament_participant, parent, false);
+                .inflate(R.layout.guild_members, parent, false);
 
         com.example.stuivenvolt.battlegamingtest.Tournament.Guilds.GuildsAdapter.myViewHolder holder = new com.example.stuivenvolt.battlegamingtest.Tournament.Guilds.GuildsAdapter.myViewHolder(itemView);
         return holder;
@@ -86,7 +80,7 @@ public class GuildsAdapter extends RecyclerView.Adapter<com.example.stuivenvolt.
 
         public myViewHolder(View view) {
             super(view);
-            itemTextView = view.findViewById(R.id.participant);
+            itemTextView = view.findViewById(R.id.members);
         }
     }
 }

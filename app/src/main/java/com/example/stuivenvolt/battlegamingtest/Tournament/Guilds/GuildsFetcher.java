@@ -4,6 +4,7 @@ package com.example.stuivenvolt.battlegamingtest.Tournament.Guilds;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -34,17 +35,20 @@ public class GuildsFetcher extends AsyncTask<Void, Void, String> {
     FirebaseAuth mAuth;
     FirebaseUser user;
     String date,month;
+    Bundle bundle;
     @SuppressLint("StaticFieldLeak")
     private RecyclerView mRecyclerView;
     @SuppressLint("StaticFieldLeak")
     private Context context;
 
 
-    GuildsFetcher(RecyclerView rv, Context ctx) {
+    GuildsFetcher(RecyclerView rv, Context ctx, Bundle bndl) {
         mRecyclerView=rv;
         context=ctx;
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+        bundle = bndl;
+
 
     }
 
@@ -86,7 +90,7 @@ public class GuildsFetcher extends AsyncTask<Void, Void, String> {
             }
 
 
-            GuildsAdapter nAdapter = new GuildsAdapter(guildList);
+            GuildsAdapter nAdapter = new GuildsAdapter(guildList, bundle);
             mRecyclerView.setAdapter(nAdapter);
 
 

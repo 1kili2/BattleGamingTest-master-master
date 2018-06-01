@@ -75,12 +75,20 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
 
-        if(getArguments() != null){
-            switch_pos = getArguments().getInt("Switch_Pos", 0);
-            guildNames = getArguments().getStringArrayList("Participants");
-            setScore = getArguments().getInt("Score", 0);
-            setType = getArguments().getInt("Type", 0);
+        if(getArguments().get("Switch_Pos") != null){
+            switch_pos = getArguments().getInt("Switch_Pos");
         }
+        if(getArguments().getStringArrayList("Participants") != null){
+            guildNames = getArguments().getStringArrayList("Participants");
+        }
+        if(getArguments().getInt("Score") != 0){
+            setScore = getArguments().getInt("Score");
+        }
+        if(getArguments().getInt("Type") != 0){
+            setType = getArguments().getInt("Type");
+        }
+
+
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
@@ -118,6 +126,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
         }
         score.setSelection(setScore);
         type.setSelection(setType);
+
         if(guildNames!=null){
             for(int i=0;i>guildNames.size();i++) {
                 participantsList.add(guildNames.get(i));
@@ -210,8 +219,6 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                     error.setVisibility(View.VISIBLE);
 
                 }else {
-                    final String hour = score.getSelectedItem().toString();
-                    final String minute = type.getSelectedItem().toString();
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     final DatabaseReference myRef = database.getReference("eventos");
@@ -223,7 +230,9 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                             };
                             List messages = snapshot.getValue(t);
                             if(!printed) {
+
                                 myRef.child("" + messages.size()).child("Creation").setValue(getDate());
+                                myRef.child("" + messages.size()).child("Guilds").setValue(guilds.isChecked());
                                 myRef.child("" + messages.size()).child("Hosting Guild").setValue(guild[0]);
                                 for (int i = 0; i < participantsList.size(); i++) {
                                     myRef.child("" + messages.size()).child("Participants").child("" + i).setValue(participantsList.get(i));

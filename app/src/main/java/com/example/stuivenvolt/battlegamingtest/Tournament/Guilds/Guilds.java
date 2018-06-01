@@ -76,23 +76,16 @@ public class Guilds extends DialogFragment implements AdapterView.OnItemSelected
             public void onClick(View v) {
                 //whatever you want
                 //Log.e("guild Text",guild.getText().toString());
-                if(!test){
-                    DialogFragment newFragment = new CreateTournament();
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("Switch_Pos",getArguments().getInt("Switch_Pos"));
-                    bundle.putInt("Score",getArguments().getInt("Score"));
-                    bundle.putInt("Type",getArguments().getInt("Type"));
-                    bundle.putStringArrayList("Participants", getArguments().getStringArrayList("Participants"));
-                    bundle.putString("Guild", getArguments().getString("Guild"));
-                    newFragment.setArguments(bundle);
-                    newFragment.show(getFragmentManager(), "Boom");
-                    alert.dismiss();
-                }else {
-
-                    final android.app.FragmentManager fm = (getActivity()).getFragmentManager();
-                    fm.beginTransaction().replace(R.id.content_frame, new CalenderFragment()).commit();
-                    alert.dismiss();
-                }
+                DialogFragment newFragment = new CreateTournament();
+                Bundle bundle = new Bundle();
+                bundle.putInt("Switch_Pos",getArguments().getInt("Switch_Pos"));
+                bundle.putInt("Score",getArguments().getInt("Score"));
+                bundle.putInt("Type",getArguments().getInt("Type"));
+                bundle.putStringArrayList("Participants", getArguments().getStringArrayList("Participants"));
+                bundle.putString("Guild", getArguments().getString("Guild"));
+                newFragment.setArguments(bundle);
+                newFragment.show(getFragmentManager(), "Boom");
+                alert.dismiss();
             }
         });
 

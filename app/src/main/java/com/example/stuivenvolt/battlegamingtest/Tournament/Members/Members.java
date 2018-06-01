@@ -84,8 +84,6 @@ public class Members extends DialogFragment implements AdapterView.OnItemSelecte
 
                 }else {
 
-                    final android.app.FragmentManager fm = (getActivity()).getFragmentManager();
-                    fm.beginTransaction().replace(R.id.content_frame, new CalenderFragment()).commit();
                     alert.dismiss();
                 }
             }

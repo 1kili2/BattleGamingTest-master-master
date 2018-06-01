@@ -80,45 +80,12 @@ public class NewsFetcher extends AsyncTask<Void, Void, String> {
                 NewsItems ni = new NewsItems(jo.getString("Title"), jo.getString("Article"), jo.getString("Image"), jo.getString("Date"));
                 newsList.add(ni);
             }
-
-
             NewsItemsAdapter nAdapter = new NewsItemsAdapter(context, newsList);
             mRecyclerView.setAdapter(nAdapter);
-
-
         } catch (JSONException je){
             je.printStackTrace();
             Toast toast = Toast.makeText(context, "No hay mas informacion", Toast.LENGTH_SHORT);
             toast.show();
-            // try {
-            //     //JSONObject jsonObject = new JSONObject(result);
-            //     JSONObject itemsArray = new JSONObject(result);
-            //     Log.d(LOG_TAG,result);
-
-            //         String day = ""+itemsArray;
-            //         //String day=null;
-            //         //JSONObject volumeInfo = book.getJSONObject("sessionInfo");
-
-
-
-
-
-            //         if (day != null ){
-            //             mTextView.setText(mTextView.getText()+" "+day);
-
-            //         }
-
-
-            //     if(mTextView.getText()==null) {
-            //         mTextView.setText(dayn+"No Results Found");
-            //     }
-
-
-
-            // } catch (Exception ex){
-            //     mTextView.setText(dayn+"No Results Found"+test);
-            //     ex.printStackTrace();
-            // }
         }
     }
 }
