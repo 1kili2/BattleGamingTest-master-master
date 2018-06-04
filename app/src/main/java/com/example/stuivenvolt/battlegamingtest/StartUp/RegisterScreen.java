@@ -173,6 +173,7 @@ public class RegisterScreen extends AppCompatActivity {
 
     private void addToDatabase(){
         String mail = emailET.getText().toString().replace("."," ");
+
         String name = nameET.getText().toString() + " " + surnameET.getText().toString();
         //Toast.makeText(RegisterScreen.this, mail, Toast.LENGTH_LONG).show();
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("usuarios");

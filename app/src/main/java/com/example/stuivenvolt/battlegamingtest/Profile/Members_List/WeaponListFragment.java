@@ -1,10 +1,9 @@
-package com.example.stuivenvolt.battlegamingtest.Guild_Hub.Members_List;
+package com.example.stuivenvolt.battlegamingtest.Profile.Members_List;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,12 +16,12 @@ import com.example.stuivenvolt.battlegamingtest.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link GuildMembersFragment.OnFragmentInteractionListener} interface
+ * {@link WeaponListFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link GuildMembersFragment#newInstance} factory method to
+ * Use the {@link WeaponListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GuildMembersFragment extends android.app.Fragment {
+public class WeaponListFragment extends android.app.Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,7 +33,7 @@ public class GuildMembersFragment extends android.app.Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public GuildMembersFragment() {
+    public WeaponListFragment() {
         // Required empty public constructor
     }
 
@@ -47,8 +46,8 @@ public class GuildMembersFragment extends android.app.Fragment {
      * @return A new instance of fragment WeaponListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static GuildMembersFragment newInstance(String param1, String param2) {
-        GuildMembersFragment fragment = new GuildMembersFragment();
+    public static WeaponListFragment newInstance(String param1, String param2) {
+        WeaponListFragment fragment = new WeaponListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -73,7 +72,7 @@ public class GuildMembersFragment extends android.app.Fragment {
         RecyclerView mRecyclerView = view.findViewById(R.id.guild_members);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
-        new MembersFetcher(getArguments().getString("Guild"), mRecyclerView, getActivity()).execute();
+        new WeaponFetcher(getArguments().getString("Guild"), mRecyclerView, getActivity()).execute();
         return view;
     }
 

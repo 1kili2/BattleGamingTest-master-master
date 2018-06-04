@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.stuivenvolt.battlegamingtest.R;
@@ -43,6 +44,7 @@ public class PersonalProfileFragment extends android.app.Fragment {
     private View view;
     boolean dataSet = false;
     private EditText profilePhone, profileName, profileSurname, profileNickName, profileMotto;
+    Switch isSmith;
 
     private OnFragmentInteractionListener mListener;
 
@@ -99,6 +101,9 @@ public class PersonalProfileFragment extends android.app.Fragment {
         profileMotto = view.findViewById(R.id.profile_Motto);
         setData("Motto", profileMotto);
 
+        isSmith = view.findViewById(R.id.isSmith);
+        setData("IsSmith", isSmith);
+
 
         Button saveBTN = view.findViewById(R.id.btn_save_profile);
         saveBTN.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +113,7 @@ public class PersonalProfileFragment extends android.app.Fragment {
                 String mail = user.getEmail().replace("."," ");
                 DatabaseReference saveRef = FirebaseDatabase.getInstance().getReference("usuarios/"+mail);
 
-                saveRef.child("Public").child("IsSmith").setValue("false");
+                saveRef.child("Public").child("IsSmith").setValue(isSmith.isChecked());
                 saveRef.child("Public").child("IsTrusted").setValue("false");
                 saveRef.child("Public").child("Name").setValue(name);
                 saveRef.child("Public").child("NickName").setValue(profileNickName.getText().toString());
@@ -201,6 +206,40 @@ public class PersonalProfileFragment extends android.app.Fragment {
                                     field.setText(surname.trim());
                                 } else {
                                     field.setText(data);
+                                    dataSet = true;
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) { }
+                        });
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) { }
+            });
+        }catch (Throwable e) { }
+    }
+
+    private void setData(final String child, final Switch field){
+        final String mail = user.getEmail().replace("."," ");
+        try {
+            DatabaseReference profileRef = myRef.child(mail).child("Public").child(child);
+            dataSet = false;
+            profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.getValue() != null) {
+                        field.setChecked(dataSnapshot.getValue(boolean.class));
+                        Log.e("in public smith", ""+dataSnapshot.getValue(boolean.class));
+                        dataSet = true;
+                    } else {
+                        DatabaseReference profilePrivateRef = myRef.child(mail).child("Private").child(child);
+                        profilePrivateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.getValue() != null) {
+                                    field.setChecked(dataSnapshot.getValue(boolean.class));
+                                    Log.e("in private smith", ""+dataSnapshot.getValue(boolean.class));
                                     dataSet = true;
                                 }
                             }

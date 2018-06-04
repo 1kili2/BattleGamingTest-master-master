@@ -155,52 +155,52 @@
             android:id="@+id/profile_set_Name"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginLeft="58dp"
-            android:layout_marginStart="58dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginTop="34dp"
             android:ems="10"
             android:inputType="textPersonName|textCapSentences"
             android:text=""
-            app:layout_constraintStart_toEndOf="@+id/profile_Name"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <EditText
             android:id="@+id/profile_set_Surname"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginLeft="48dp"
-            android:layout_marginStart="48dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginTop="19dp"
             android:ems="10"
             android:inputType="textPersonName|textCapSentences"
             android:text=""
-            app:layout_constraintStart_toEndOf="@+id/profile_Surname"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_set_Name" />
 
         <EditText
             android:id="@+id/profile_set_Email"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginStart="80dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginTop="19dp"
             android:ems="10"
             android:inputType="textEmailAddress|textCapSentences"
             android:text=""
-            app:layout_constraintStart_toEndOf="@+id/profile_Email"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_set_Surname" />
 
         <EditText
             android:id="@+id/profile_set_Phone_Number"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginLeft="60dp"
-            android:layout_marginStart="60dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginTop="78dp"
             android:ems="10"
             android:inputType="phone"
             android:text=""
-            app:layout_constraintStart_toEndOf="@+id/profile_Phone_Number"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_set_Email" />
 
         <Button
@@ -208,12 +208,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:text="@string/btn_profile_Save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_Adress" />
+            app:layout_constraintTop_toBottomOf="@+id/isSmith" />
 
         <EditText
             android:id="@+id/profile_Motto"
@@ -233,6 +233,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <Switch
+            android:id="@+id/isSmith"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/smith"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_Adress" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

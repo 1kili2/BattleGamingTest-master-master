@@ -56,6 +56,7 @@
     <string name="tournament_type">Tipo:</string>
     <string name="tournament_win_battle_score">Puntuacion:</string>
     <string name="guilds">Gremios</string>
+    <string name="smith">Herrero:</string>
 
     <string-array name="hours">
         <item>17</item>
