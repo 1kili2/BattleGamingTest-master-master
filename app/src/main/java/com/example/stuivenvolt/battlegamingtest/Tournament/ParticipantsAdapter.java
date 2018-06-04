@@ -32,7 +32,7 @@ public class ParticipantsAdapter extends RecyclerView.Adapter<ParticipantsAdapte
     @Override
     public void onBindViewHolder(myViewHolder holder, int position) {
         int itemNumber = position + 1;
-        holder.itemTextView.setText("Item Number " + itemNumber + ": " + listItem.get(position));
+        holder.itemTextView.setText("- " + listItem.get(position));
     }
 
     @Override

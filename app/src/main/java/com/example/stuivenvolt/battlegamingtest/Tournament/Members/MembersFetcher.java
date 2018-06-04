@@ -33,18 +33,20 @@ public class MembersFetcher extends AsyncTask<Void, Void, String> {
     FirebaseAuth mAuth;
     FirebaseUser user;
     String guild;
+    ArrayList<String> bundle;
     @SuppressLint("StaticFieldLeak")
     private RecyclerView mRecyclerView;
     @SuppressLint("StaticFieldLeak")
     private Context context;
 
 
-    MembersFetcher(String str, RecyclerView rv, Context ctx) {
+    MembersFetcher(String str, RecyclerView rv, Context ctx, ArrayList<String> bndl) {
         mRecyclerView=rv;
         context=ctx;
         guild = str;
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+        bundle = bndl;
 
     }
 
@@ -93,7 +95,7 @@ public class MembersFetcher extends AsyncTask<Void, Void, String> {
             }
 
 
-            MembersAdapter nAdapter = new MembersAdapter(guildList);
+            MembersAdapter nAdapter = new MembersAdapter(guildList, bundle);
             mRecyclerView.setAdapter(nAdapter);
 
 

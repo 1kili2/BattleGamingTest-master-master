@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.stuivenvolt.battlegamingtest.Calender.CalenderFragment;
 import com.example.stuivenvolt.battlegamingtest.R;
+import com.example.stuivenvolt.battlegamingtest.Tournament.CreateTournament;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +45,7 @@ public class Members extends DialogFragment implements AdapterView.OnItemSelecte
     RecyclerView.Adapter part_adap;
     FirebaseUser user;
     FirebaseAuth mAuth;
+    ArrayList<String> strList = new ArrayList<>();
     List<String> participantsList = new ArrayList<>();
     boolean printed = false, test = true;
 
@@ -71,21 +73,23 @@ public class Members extends DialogFragment implements AdapterView.OnItemSelecte
 
         RecyclerView mRecyclerView = view.findViewById(R.id.member_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        new MembersFetcher(getArguments().getString("Guild"),mRecyclerView, getActivity()).execute();
+        new MembersFetcher(getArguments().getString("Guild"),mRecyclerView, getActivity(), strList).execute();
 
         Button ok = view.findViewById(R.id.Done);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //whatever you want
-                //Log.e("guild Text",guild.getText().toString());
-                if(!test){
+                DialogFragment newFragment = new CreateTournament();
+                Bundle bundle = new Bundle();
+                bundle.putInt("Switch_Pos",getArguments().getInt("Switch_Pos"));
+                bundle.putInt("Score",getArguments().getInt("Score"));
+                bundle.putInt("Type",getArguments().getInt("Type"));
+                bundle.putStringArrayList("Participants", strList);
+                bundle.putString("Guild", getArguments().getString("Guild"));
+                newFragment.setArguments(bundle);
+                newFragment.show(getFragmentManager(), "Boom");
+                alert.dismiss();
 
-
-                }else {
-
-                    alert.dismiss();
-                }
             }
         });
 

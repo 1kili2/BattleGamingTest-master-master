@@ -11,9 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".StartUp.RegisterScreen"
-        android:background="@drawable/legolas"
-        android:backgroundTintMode="multiply"
-        android:backgroundTint="@color/darkLayer">
+        android:background="@drawable/legolas">
 
         <EditText
             android:id="@+id/user_name"

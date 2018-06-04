@@ -35,14 +35,14 @@ public class GuildsFetcher extends AsyncTask<Void, Void, String> {
     FirebaseAuth mAuth;
     FirebaseUser user;
     String date,month;
-    Bundle bundle;
+    ArrayList<String> bundle;
     @SuppressLint("StaticFieldLeak")
     private RecyclerView mRecyclerView;
     @SuppressLint("StaticFieldLeak")
     private Context context;
 
 
-    GuildsFetcher(RecyclerView rv, Context ctx, Bundle bndl) {
+    GuildsFetcher(RecyclerView rv, Context ctx, ArrayList<String> bndl) {
         mRecyclerView=rv;
         context=ctx;
         mAuth = FirebaseAuth.getInstance();

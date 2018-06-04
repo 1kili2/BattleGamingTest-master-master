@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -124,11 +125,11 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
             guilds.setChecked(true);
             guilds.setEnabled(false);
         }
-        score.setSelection(setScore);
-        type.setSelection(setType);
+
+
 
         if(guildNames!=null){
-            for(int i=0;i>guildNames.size();i++) {
+            for(int i=0;i<guildNames.size();i++) {
                 participantsList.add(guildNames.get(i));
                 part_adap.notifyItemInserted(participantsList.size() - 1);
                 participants.setVisibility(View.VISIBLE);
@@ -256,8 +257,6 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    final android.app.FragmentManager fm = (getActivity()).getFragmentManager();
-                    fm.beginTransaction().replace(R.id.content_frame, new CalenderFragment()).commit();
                     alert.dismiss();
                 }
             }
@@ -280,6 +279,15 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
         }
         // Create the AlertDialog object and return it
         return alert;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        score.setSelection(setScore);
+        Log.e("setscore", "" + setScore +" "+ score.getItemAtPosition(setScore));
+        type.setSelection(setType);
+        Log.e("setType", "" + setType +" "+ type.getItemAtPosition(setType));
     }
 
     @Override

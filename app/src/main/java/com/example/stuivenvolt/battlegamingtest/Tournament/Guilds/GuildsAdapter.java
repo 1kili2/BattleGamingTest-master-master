@@ -21,35 +21,15 @@ import com.example.stuivenvolt.battlegamingtest.News.NewsItems;
 import com.example.stuivenvolt.battlegamingtest.News.NewsItemsAdapter;
 import com.example.stuivenvolt.battlegamingtest.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuildsAdapter extends RecyclerView.Adapter<com.example.stuivenvolt.battlegamingtest.Tournament.Guilds.GuildsAdapter.myViewHolder> {
-    String participant;
     List<String> listItem;
-    private Context context;
-    Bundle bundle;
+    ArrayList<String> bundle;
 
-    class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        final TextView GuildName;
-        final GuildsAdapter nAdapter;
 
-        WordViewHolder(View itemView, GuildsAdapter adapter) {
-            super(itemView);
-            GuildName = itemView.findViewById(R.id.participant);
-            this.nAdapter = adapter;
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            int mPosition = getLayoutPosition();
-            String element = listItem.get(mPosition);
-            bundle.putString("Guild",element);
-            Log.e("Adapter onClick", "test");
-        }
-    }
-
-    public GuildsAdapter(List<String> passedListItem, Bundle bndl) {
+    public GuildsAdapter(List<String> passedListItem, ArrayList<String> bndl) {
         this.listItem = passedListItem;
         bundle = bndl;
     }
@@ -67,6 +47,7 @@ public class GuildsAdapter extends RecyclerView.Adapter<com.example.stuivenvolt.
     @Override
     public void onBindViewHolder(com.example.stuivenvolt.battlegamingtest.Tournament.Guilds.GuildsAdapter.myViewHolder holder, int position) {
         int itemNumber = position + 1;
+        Log.e("Adapter setText", "test");
         holder.itemTextView.setText(listItem.get(position));
     }
 
@@ -75,12 +56,22 @@ public class GuildsAdapter extends RecyclerView.Adapter<com.example.stuivenvolt.
         return listItem.size();
     }
 
-    public class myViewHolder extends RecyclerView.ViewHolder {
+    public class myViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView itemTextView;
 
         public myViewHolder(View view) {
             super(view);
             itemTextView = view.findViewById(R.id.members);
+            itemTextView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int mPosition = getLayoutPosition();
+            String element = listItem.get(mPosition);
+            bundle.add(element);
+            Log.e("Adapter onClick", "test "+ element);
+            itemTextView.setOnClickListener(null);
         }
     }
 }

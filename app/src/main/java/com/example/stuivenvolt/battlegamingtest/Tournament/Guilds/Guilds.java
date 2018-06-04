@@ -41,6 +41,7 @@ public class Guilds extends DialogFragment implements AdapterView.OnItemSelected
     RecyclerView.Adapter part_adap;
     FirebaseUser user;
     FirebaseAuth mAuth;
+    ArrayList<String> strList = new ArrayList<>();
     List<String> participantsList = new ArrayList<>();
     boolean printed = false, test = true;
 
@@ -68,20 +69,18 @@ public class Guilds extends DialogFragment implements AdapterView.OnItemSelected
 
         RecyclerView mRecyclerView = view.findViewById(R.id.guild_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        new GuildsFetcher(mRecyclerView, getActivity()).execute();
+        new GuildsFetcher(mRecyclerView, getActivity(), strList).execute();
 
         Button ok = view.findViewById(R.id.Done);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //whatever you want
-                //Log.e("guild Text",guild.getText().toString());
                 DialogFragment newFragment = new CreateTournament();
                 Bundle bundle = new Bundle();
                 bundle.putInt("Switch_Pos",getArguments().getInt("Switch_Pos"));
                 bundle.putInt("Score",getArguments().getInt("Score"));
                 bundle.putInt("Type",getArguments().getInt("Type"));
-                bundle.putStringArrayList("Participants", getArguments().getStringArrayList("Participants"));
+                bundle.putStringArrayList("Participants", strList);
                 bundle.putString("Guild", getArguments().getString("Guild"));
                 newFragment.setArguments(bundle);
                 newFragment.show(getFragmentManager(), "Boom");
