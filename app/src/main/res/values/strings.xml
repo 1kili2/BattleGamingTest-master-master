@@ -63,6 +63,7 @@
     <string name="weapon_price">Precio:</string>
     <string name="weapon_name">Nombre:</string>
     <string name="Guildless">Sin Gremio</string>
+    <string name="fill_all_fields">Porfavor rellena todos los campos</string>
 
     <string-array name="hours">
         <item>17</item>

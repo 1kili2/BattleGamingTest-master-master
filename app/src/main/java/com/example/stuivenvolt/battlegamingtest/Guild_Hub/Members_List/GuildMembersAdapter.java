@@ -81,7 +81,6 @@ public class GuildMembersAdapter extends RecyclerView.Adapter<GuildMembersAdapte
             Info.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     int mPosition = getLayoutPosition();
                     SimpleMembers element = listItem.get(mPosition);
                     Bundle bundle = new Bundle();
@@ -90,6 +89,20 @@ public class GuildMembersAdapter extends RecyclerView.Adapter<GuildMembersAdapte
                     ViewProfileFragment vpf = new ViewProfileFragment();
                     vpf.setArguments(bundle);
                     fm.beginTransaction().replace(R.id.content_frame, vpf).commit();
+                }
+            });
+
+            Smith.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int mPosition = getLayoutPosition();
+                    SimpleMembers element = listItem.get(mPosition);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Email",element.getEmail());
+                    android.app.FragmentManager fm = ((Activity) context).getFragmentManager();
+                    WeaponListFragment wlf = new WeaponListFragment();
+                    wlf.setArguments(bundle);
+                    fm.beginTransaction().replace(R.id.content_frame, wlf).commit();
                 }
             });
         }

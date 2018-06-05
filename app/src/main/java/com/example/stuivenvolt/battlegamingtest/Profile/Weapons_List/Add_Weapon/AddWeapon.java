@@ -13,9 +13,11 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.stuivenvolt.battlegamingtest.Profile.Weapons_List.WeaponListFragment;
 import com.example.stuivenvolt.battlegamingtest.R;
+import com.example.stuivenvolt.battlegamingtest.StartUp.MainActivity;
 import com.example.stuivenvolt.battlegamingtest.Tournament.CreateTournament;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -87,40 +89,44 @@ public class AddWeapon extends DialogFragment implements AdapterView.OnItemSelec
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 final DatabaseReference myRef = database.getReference("usuarios/"+id+"/Weapon List");
 
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        GenericTypeIndicator<List<Object>> t = new GenericTypeIndicator<List<Object>>() {
-                        };
-                        List messages = snapshot.getValue(t);
-                        if(!printed) {
+                if(name.getText()==null || price.getText()==null || desc.getText()==null){
+                    Toast.makeText(getActivity(), R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
+                }else {
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            GenericTypeIndicator<List<Object>> t = new GenericTypeIndicator<List<Object>>() {
+                            };
+                            List messages = snapshot.getValue(t);
+                            if (!printed) {
 
-                            myRef.child("" + messages.size()).child("Name").setValue(name.getText().toString());
-                            myRef.child("" + messages.size()).child("Price").setValue(price.getText().toString());
-                            myRef.child("" + messages.size()).child("Description").setValue(desc.getText().toString());
+                                myRef.child("" + messages.size()).child("Name").setValue(name.getText().toString());
+                                myRef.child("" + messages.size()).child("Price").setValue(price.getText().toString());
+                                myRef.child("" + messages.size()).child("Description").setValue(desc.getText().toString());
 
-                            printed = true;
+                                printed = true;
+                            }
                         }
+
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+
+                    });
+
+                    try {
+                        sleep(1300);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
 
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-
-                });
-
-                try {
-                    sleep(1300);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    final android.app.FragmentManager fm = getFragmentManager();
+                    fm.beginTransaction().replace(R.id.content_frame, new WeaponListFragment()).commit();
+                    alert.dismiss();
                 }
-
-
-                final android.app.FragmentManager fm = getFragmentManager();
-                fm.beginTransaction().replace(R.id.content_frame, new WeaponListFragment()).commit();
-                alert.dismiss();
             }
         });
 

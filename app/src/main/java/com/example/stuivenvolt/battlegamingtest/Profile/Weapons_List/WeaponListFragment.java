@@ -76,7 +76,7 @@ public class WeaponListFragment extends android.app.Fragment {
         }
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        mail = user.getEmail().replace("."," ");
+        mail = getArguments().getString("Email");
         Log.d("Email", "mail: "+mail);
     }
 
@@ -89,7 +89,7 @@ public class WeaponListFragment extends android.app.Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         add = view.findViewById(R.id.addWeapon);
-        add.setVisibility(View.VISIBLE);
+        add.setVisibility(View.GONE);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -116,6 +116,15 @@ public class WeaponListFragment extends android.app.Fragment {
         new WeaponFetcher(mRecyclerView, getActivity(), mail).execute();
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(getArguments().getString("Email").equals(user.getEmail().replace(".", " "))){
+            add.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

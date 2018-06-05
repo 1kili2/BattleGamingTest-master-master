@@ -1,5 +1,6 @@
 package com.example.stuivenvolt.battlegamingtest.Profile;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -113,8 +114,13 @@ public class PersonalProfileFragment extends android.app.Fragment {
         armory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                final android.app.FragmentManager fm = getFragmentManager();
-                fm.beginTransaction().replace(R.id.content_frame, new WeaponListFragment()).commit();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("Email", user.getEmail().replace("."," "));
+                android.app.FragmentManager fm = getFragmentManager();
+                WeaponListFragment wlf = new WeaponListFragment();
+                wlf.setArguments(bundle);
+                fm.beginTransaction().replace(R.id.content_frame, wlf).commit();
             }
         });
         if(isSmith.isChecked()){
