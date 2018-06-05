@@ -187,6 +187,20 @@
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/profile_Email" />
+
+                <TextView
+                    android:id="@+id/profile_set_Guild"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="19dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textEmailAddress|textCapSentences"
+                    android:text=""
+                    app:layout_constraintStart_toEndOf="@+id/profile_Email"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_set_Surname" />
             </LinearLayout>
 
             <LinearLayout
@@ -238,6 +252,20 @@
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/profile_Phone_Number" />
+
+                <TextView
+                    android:id="@+id/profile_set_Adress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="19dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textEmailAddress|textCapSentences"
+                    android:text=""
+                    app:layout_constraintStart_toEndOf="@+id/profile_Email"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_set_Surname" />
             </LinearLayout>
 
         </LinearLayout>

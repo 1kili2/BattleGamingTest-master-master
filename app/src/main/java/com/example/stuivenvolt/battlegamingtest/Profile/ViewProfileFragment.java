@@ -82,13 +82,19 @@ public class ViewProfileFragment extends android.app.Fragment {
         setData("Name", profileName);
 
         TextView profileEmail = view.findViewById(R.id.profile_set_Email);
-        profileEmail.setText(user.getEmail());
+        profileEmail.setText(getArguments().getString("Email").replace(" ","."));
 
         TextView profileNickName = view.findViewById(R.id.profile_set_Nickname);
         setData("NickName", profileNickName);
 
         TextView profileMotto = view.findViewById(R.id.profile_Motto);
         setData("Motto", profileMotto);
+
+        TextView profileGuild = view.findViewById(R.id.profile_set_Guild);
+        setData("Guild", profileGuild);
+
+        TextView profileAdress = view.findViewById(R.id.profile_set_Adress);
+        setData("Adress", profileAdress);
 
 
 
@@ -122,7 +128,7 @@ public class ViewProfileFragment extends android.app.Fragment {
     }
 
     private void setData(final String child, final TextView field){
-        final String mail = user.getEmail().replace("."," ");
+        final String mail = getArguments().getString("Email");
         try {
             DatabaseReference profileRef = myRef.child(mail).child("Public").child(child);
             dataSet = false;
@@ -132,12 +138,17 @@ public class ViewProfileFragment extends android.app.Fragment {
                     String data = dataSnapshot.getValue(String.class);
                     if(data != null) {
                         field.setText(data);
-                    } else {
-                        if(child.equals("Name")) {
-                            view.findViewById(R.id.profile_Name_field).setVisibility(View.GONE);
-                        }else if (child.equals("Name")){
-                            view.findViewById(R.id.profile_Phone_field).setVisibility(View.GONE);
-                        }
+                    } else if(child.equals("Name")) {
+                        field.setVisibility(View.GONE);
+                        view.findViewById(R.id.profile_Name_field).setVisibility(View.GONE);
+                    }else if (child.equals("Phone Number")){
+                        field.setVisibility(View.GONE);
+                        view.findViewById(R.id.profile_Phone_field).setVisibility(View.GONE);
+                    }else if (child.equals("Guild")){
+                        field.setText(R.string.Guildless);
+                    }else if (child.equals("Adress")){
+                        field.setVisibility(View.GONE);
+                        view.findViewById(R.id.profile_Adress ).setVisibility(View.GONE);
                     }
                 }
                 @Override

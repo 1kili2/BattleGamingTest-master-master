@@ -62,6 +62,7 @@
     <string name="edit_weapon_name">Nombre</string>
     <string name="weapon_price">Precio:</string>
     <string name="weapon_name">Nombre:</string>
+    <string name="Guildless">Sin Gremio</string>
 
     <string-array name="hours">
         <item>17</item>

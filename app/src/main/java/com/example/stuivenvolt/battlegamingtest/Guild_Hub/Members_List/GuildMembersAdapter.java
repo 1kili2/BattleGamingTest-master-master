@@ -86,13 +86,6 @@ public class GuildMembersAdapter extends RecyclerView.Adapter<GuildMembersAdapte
                     SimpleMembers element = listItem.get(mPosition);
                     Bundle bundle = new Bundle();
                     bundle.putString("Email",element.getEmail());
-
-                    /*final android.app.FragmentManager fm = ((Activity) context).getFragmentManager();
-                    NewsItemFragment nif = new NewsItemFragment();
-                    nif.setArguments(bundle);
-                    fm.beginTransaction().replace(R.id.content_frame, nif).commit();*/
-
-
                     android.app.FragmentManager fm = ((Activity) context).getFragmentManager();
                     ViewProfileFragment vpf = new ViewProfileFragment();
                     vpf.setArguments(bundle);
