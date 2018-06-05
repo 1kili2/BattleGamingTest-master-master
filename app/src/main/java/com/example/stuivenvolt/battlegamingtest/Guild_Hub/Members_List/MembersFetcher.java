@@ -71,7 +71,7 @@ public class MembersFetcher extends AsyncTask<Void, Void, String> {
 
     protected void onPostExecute(String result) {
         Log.e("Empty string",""+result);
-        List<String> guildList = new ArrayList<>();
+        List<SimpleMembers> guildList = new ArrayList<>();
         super.onPostExecute(result);
         int array1, array2;
         try {
@@ -90,15 +90,15 @@ public class MembersFetcher extends AsyncTask<Void, Void, String> {
                     Log.e("Array2 Length", "Members fetcher: "+array2);
                     for (int y = 0; y < array2 ; y++) {
                         JSONObject jo2 = members.getJSONObject(y);
-
-                        guildList.add(jo2.getString("Name"));
+                        SimpleMembers sm = new SimpleMembers(jo2.getString("Name"),jo2.getBoolean("IsSmith"),jo2.getString("Email"),jo2.getString("Rank"));
+                        guildList.add(sm);
                         Log.e("member name", "in json parser: "+jo2.getString("Name"));
                     }
                 }
             }
 
 
-            GuildMembersAdapter nAdapter = new GuildMembersAdapter(guildList);
+            GuildMembersAdapter nAdapter = new GuildMembersAdapter(guildList, context);
             mRecyclerView.setAdapter(nAdapter);
 
 
