@@ -233,7 +233,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                             if(!printed) {
 
                                 myRef.child("" + messages.size()).child("Creation").setValue(getDate());
-                                myRef.child("" + messages.size()).child("Guilds").setValue(guilds.isChecked());
+                                myRef.child("" + messages.size()).child("AddWeapon").setValue(guilds.isChecked());
                                 myRef.child("" + messages.size()).child("Hosting Guild").setValue(guild[0]);
                                 for (int i = 0; i < participantsList.size(); i++) {
                                     myRef.child("" + messages.size()).child("Participants").child("" + i).setValue(participantsList.get(i));

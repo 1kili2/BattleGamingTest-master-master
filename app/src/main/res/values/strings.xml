@@ -57,6 +57,11 @@
     <string name="tournament_win_battle_score">Puntuacion:</string>
     <string name="guilds">Gremios</string>
     <string name="smith">Herrero:</string>
+    <string name="weapon_description">Descripcion...</string>
+    <string name="edit_weapon_price">Precio</string>
+    <string name="edit_weapon_name">Nombre</string>
+    <string name="weapon_price">Precio:</string>
+    <string name="weapon_name">Nombre:</string>
 
     <string-array name="hours">
         <item>17</item>

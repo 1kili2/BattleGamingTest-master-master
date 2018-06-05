@@ -1,5 +1,6 @@
 package com.example.stuivenvolt.battlegamingtest.Profile.Weapons_List;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.stuivenvolt.battlegamingtest.Profile.Weapons_List.Add_Weapon.AddWeapon;
 import com.example.stuivenvolt.battlegamingtest.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -88,6 +90,28 @@ public class WeaponListFragment extends android.app.Fragment {
 
         add = view.findViewById(R.id.addWeapon);
         add.setVisibility(View.VISIBLE);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                /*AddWeapon newFragment = new AddWeapon();
+                Bundle bundle = new Bundle();
+                bundle.putString("Month",getArguments().getString("Month"));
+                final android.app.FragmentManager fm = (getActivity()).getFragmentManager();
+                newFragment.setArguments(bundle);
+                fm.beginTransaction().replace(R.id.content_frame, newFragment).commit();*/
+
+                DialogFragment newFragment = new AddWeapon();
+                Bundle bundle = new Bundle();
+                bundle.putString("ID",mail);
+                /*bundle.putInt("Score",0);
+                bundle.putInt("Type",0);
+                bundle.putStringArrayList("Participants", null);
+                bundle.putString("Guild", guild);*/
+                newFragment.setArguments(bundle);
+                newFragment.show(getFragmentManager(), "Boom");
+            }
+        });
+
 
         new WeaponFetcher(mRecyclerView, getActivity(), mail).execute();
         return view;

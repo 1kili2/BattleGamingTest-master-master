@@ -89,9 +89,10 @@ public class MembersFetcher extends AsyncTask<Void, Void, String> {
                     array2=members.length();
                     Log.e("Array2 Length", "Members fetcher: "+array2);
                     for (int y = 0; y < array2 ; y++) {
+                        JSONObject jo2 = members.getJSONObject(y);
 
-                        guildList.add(members.getString(y));
-                        Log.e("member name", "in json parser: "+members.getString(y));
+                        guildList.add(jo2.getString("Name"));
+                        Log.e("member name", "in json parser: "+jo2.getString("Name"));
                     }
                 }
             }
