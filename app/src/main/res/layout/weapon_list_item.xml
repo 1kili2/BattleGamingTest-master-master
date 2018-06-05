@@ -8,7 +8,7 @@
     android:background="@drawable/myrect">
 
     <TextView
-        android:id="@+id/weapons3"
+        android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -18,7 +18,9 @@
         android:textColor="@color/black"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="24dp"
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:id="@+id/weapons"

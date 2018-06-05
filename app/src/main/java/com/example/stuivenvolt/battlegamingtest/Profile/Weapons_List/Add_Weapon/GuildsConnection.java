@@ -1,4 +1,4 @@
-package com.example.stuivenvolt.battlegamingtest.Profile.Weapons_List;
+package com.example.stuivenvolt.battlegamingtest.Profile.Weapons_List.Add_Weapon;
 
 
 import android.util.Log;
@@ -14,7 +14,7 @@ import java.net.URL;
  * Created by i7-4770 on 25/02/2018.
  */
 
-public class WeaponConnection {
+public class GuildsConnection {
     /*private static final String CALENDER_BASE_URL =  "https://battle-gaming-agenda.firebaseio.com"; // Base URI for the Books API
     private static final String AGENDA = "/agenda/eventos";
     private static final String YEAR = "/2018";
@@ -22,15 +22,15 @@ public class WeaponConnection {
     private static final String DAY = "/Days";
     private static final String JSON = ".json"; // Parameter for the search string*/
 
-    static String getGuildsAuth(String idToken, String mail){
+    static String getGuildsAuth(String idToken){
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String newsJSONString = null;
-        String id = mail;
 
 
         try {
-            URL requestURL = new URL("https://battle-gaming-agenda.firebaseio.com/usuarios/"+id+".json?auth="+idToken);
+            URL requestURL = new URL("https://battle-gaming-agenda.firebaseio.com/.json?auth="+idToken);
+
             urlConnection = (HttpURLConnection) requestURL.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();

@@ -1,4 +1,4 @@
-package com.example.stuivenvolt.battlegamingtest.Profile.Weapons_List;
+package com.example.stuivenvolt.battlegamingtest.Profile.Weapons_List.Add_Weapon;
 
 
 import android.annotation.SuppressLint;
@@ -26,25 +26,27 @@ import java.util.List;
  * Created by i7-4770 on 25/02/2018.
  */
 
-public class WeaponFetcher extends AsyncTask<Void, Void, String> {
+public class GuildsFetcher extends AsyncTask<Void, Void, String> {
 
     private boolean wait = true;
     private String idToken;
     FirebaseAuth mAuth;
     FirebaseUser user;
-    String guild, id;
+    String date,month;
+    ArrayList<String> bundle;
     @SuppressLint("StaticFieldLeak")
     private RecyclerView mRecyclerView;
     @SuppressLint("StaticFieldLeak")
     private Context context;
 
 
-    WeaponFetcher( RecyclerView rv, Context ctx, String mail) {
+    GuildsFetcher(RecyclerView rv, Context ctx, ArrayList<String> bndl) {
         mRecyclerView=rv;
         context=ctx;
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        id=mail;
+        bundle = bndl;
+
 
     }
 
@@ -66,37 +68,33 @@ public class WeaponFetcher extends AsyncTask<Void, Void, String> {
                     }
                 });
         while(wait == true){ }
-        return WeaponConnection.getGuildsAuth(idToken, id);
+        return GuildsConnection.getGuildsAuth(idToken);
     }
 
     protected void onPostExecute(String result) {
         Log.e("Empty string",""+result);
-        List<Weapons> guildList = new ArrayList<>();
-        Weapons weapon;
+        List<String> guildList = new ArrayList<>();
         super.onPostExecute(result);
-        int array1, array2;
-        String str = "usuarios/"+id+"/Weapon List";
+        int test;
         try {
             JSONObject jsonO = new JSONObject(result);
-            JSONArray array = jsonO.getJSONArray("Weapon List");
-            array1=array.length();
-            Log.e("Array Length", "Members fetcher: "+array1);
+            JSONArray array = jsonO.getJSONArray("gremios");
+            test=array.length();
+            Log.e("Array Length", "News fetcher: "+test);
 
-            for (int x = 0; x < array1 ; x++) {
+            for (int x = 0; x < test ; x++) {
                 JSONObject jo = array.getJSONObject(x);
-                weapon = new Weapons(jo.getString("Name"), jo.getString("Price"), jo.getString("Description"));
-                guildList.add(weapon);
+                guildList.add(jo.getString("Name"));
             }
 
 
-            WeaponListAdapter nAdapter = new WeaponListAdapter(guildList);
+            GuildsAdapter nAdapter = new GuildsAdapter(guildList, bundle);
             mRecyclerView.setAdapter(nAdapter);
 
 
         } catch (JSONException je){
             je.printStackTrace();
-            Toast toast = Toast.makeText(context, je.toString(), Toast.LENGTH_SHORT);
-            Log.e("json error", je.toString());
+            Toast toast = Toast.makeText(context, "Error", Toast.LENGTH_SHORT);
             toast.show();
 
         }

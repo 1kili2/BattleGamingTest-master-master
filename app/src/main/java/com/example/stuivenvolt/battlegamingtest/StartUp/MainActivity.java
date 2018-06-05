@@ -21,6 +21,7 @@ import com.example.stuivenvolt.battlegamingtest.Guild_Hub.Members_List.GuildMemb
 import com.example.stuivenvolt.battlegamingtest.News.NewsFragment;
 import com.example.stuivenvolt.battlegamingtest.News.NewsItemFragment;
 import com.example.stuivenvolt.battlegamingtest.Profile.PersonalProfileFragment;
+import com.example.stuivenvolt.battlegamingtest.Profile.Weapons_List.WeaponListFragment;
 import com.example.stuivenvolt.battlegamingtest.R;
 import com.example.stuivenvolt.battlegamingtest.Settings.SettingsFragment;
 import com.example.stuivenvolt.battlegamingtest.Tournament.ChampionshipCreatorFragment;
@@ -39,7 +40,8 @@ public class MainActivity extends AppCompatActivity
         PersonalProfileFragment.OnFragmentInteractionListener,
         ChampionshipCreatorFragment.OnFragmentInteractionListener,
         GuildHubFragment.OnFragmentInteractionListener,
-        GuildMembersFragment.OnFragmentInteractionListener {
+        GuildMembersFragment.OnFragmentInteractionListener,
+        WeaponListFragment.OnFragmentInteractionListener{
     FragmentManager fragmentManager = getFragmentManager();
 
     FirebaseAuth mAuth;

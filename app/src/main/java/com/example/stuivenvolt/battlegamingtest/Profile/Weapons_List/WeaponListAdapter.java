@@ -14,16 +14,16 @@ import java.util.List;
 
 public class WeaponListAdapter extends RecyclerView.Adapter<WeaponListAdapter.myViewHolder> {
     String participant;
-    List<String> listItem;
+    List<Weapons> listItem;
 
-    public WeaponListAdapter(List<String> passedListItem) {
+    public WeaponListAdapter(List<Weapons> passedListItem) {
         this.listItem = passedListItem;
     }
 
     @Override
     public WeaponListAdapter.myViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.guild_members, parent, false);
+                .inflate(R.layout.weapon_list_item, parent, false);
 
         return new myViewHolder(itemView);
     }
@@ -32,9 +32,10 @@ public class WeaponListAdapter extends RecyclerView.Adapter<WeaponListAdapter.my
     @Override
     public void onBindViewHolder(myViewHolder holder, int position) {
         int itemNumber = position + 1;
-        Log.e("textview Name","The ID is: "+holder.itemTextView.getId());
-        Log.e("member Name",listItem.get(position));
-        holder.itemTextView.setText(listItem.get(position));
+        final Weapons weapon = listItem.get(position);
+        Log.e("textview Name","The ID is: "+holder.weaponName.getId());
+        holder.weaponName.setText(weapon.getName());
+        holder.weaponPrice.setText(weapon.getPrice()+"€");
     }
 
     @Override
@@ -43,11 +44,13 @@ public class WeaponListAdapter extends RecyclerView.Adapter<WeaponListAdapter.my
     }
 
     public class myViewHolder extends RecyclerView.ViewHolder {
-        TextView itemTextView;
+        TextView weaponName;
+        TextView weaponPrice;
 
         public myViewHolder(View view) {
             super(view);
-            itemTextView = view.findViewById(R.id.members);
+            weaponName = view.findViewById(R.id.weapons);
+            weaponPrice = view.findViewById(R.id.price);
         }
     }
 }

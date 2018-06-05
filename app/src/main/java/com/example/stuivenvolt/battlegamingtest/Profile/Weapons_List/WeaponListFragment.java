@@ -3,14 +3,19 @@ package com.example.stuivenvolt.battlegamingtest.Profile.Weapons_List;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.stuivenvolt.battlegamingtest.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 
 /**
@@ -30,6 +35,11 @@ public class WeaponListFragment extends android.app.Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    DatabaseReference myRef;
+    FirebaseUser user;
+    FirebaseAuth mAuth;
+    String mail;
+    FloatingActionButton add;
 
     private OnFragmentInteractionListener mListener;
 
@@ -62,17 +72,24 @@ public class WeaponListFragment extends android.app.Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        mail = user.getEmail().replace("."," ");
+        Log.d("Email", "mail: "+mail);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_guild_members, container, false);
-        RecyclerView mRecyclerView = view.findViewById(R.id.guild_members);
+        View view = inflater.inflate(R.layout.fragment_weapon_list, container, false);
+        RecyclerView mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
-        new WeaponFetcher(getArguments().getString("Guild"), mRecyclerView, getActivity()).execute();
+        add = view.findViewById(R.id.addWeapon);
+        add.setVisibility(View.VISIBLE);
+
+        new WeaponFetcher(mRecyclerView, getActivity(), mail).execute();
         return view;
     }
 

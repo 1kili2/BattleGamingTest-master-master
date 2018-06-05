@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.example.stuivenvolt.battlegamingtest.News.NewsFragment;
+import com.example.stuivenvolt.battlegamingtest.Profile.Weapons_List.WeaponListFragment;
 import com.example.stuivenvolt.battlegamingtest.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,6 +47,7 @@ public class PersonalProfileFragment extends android.app.Fragment {
     boolean dataSet = false;
     private EditText profilePhone, profileName, profileSurname, profileNickName, profileMotto;
     Switch isSmith;
+    Button armory;
 
     private OnFragmentInteractionListener mListener;
 
@@ -101,8 +104,22 @@ public class PersonalProfileFragment extends android.app.Fragment {
         profileMotto = view.findViewById(R.id.profile_Motto);
         setData("Motto", profileMotto);
 
+        armory = view.findViewById(R.id.weapons);
+        armory.setVisibility(View.GONE);
+
         isSmith = view.findViewById(R.id.isSmith);
         setData("IsSmith", isSmith);
+
+        armory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                final android.app.FragmentManager fm = getFragmentManager();
+                fm.beginTransaction().replace(R.id.content_frame, new WeaponListFragment()).commit();
+            }
+        });
+        if(isSmith.isChecked()){
+            armory.setVisibility(View.VISIBLE);
+        }
 
 
         Button saveBTN = view.findViewById(R.id.btn_save_profile);
@@ -124,9 +141,22 @@ public class PersonalProfileFragment extends android.app.Fragment {
                 saveRef.child("Private").child("Adress").setValue("The Viking Inn");
 
                 Toast.makeText(getActivity(), R.string.successful_save, Toast.LENGTH_LONG).show();
+                if(isSmith.isChecked()){
+                    armory.setVisibility(View.VISIBLE);
+                }
             }
         });
+
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(isSmith.isChecked()){
+            armory.setVisibility(View.VISIBLE);
+        }
     }
 
     public void onButtonPressed(Uri uri) {
@@ -232,20 +262,11 @@ public class PersonalProfileFragment extends android.app.Fragment {
                         field.setChecked(dataSnapshot.getValue(boolean.class));
                         Log.e("in public smith", ""+dataSnapshot.getValue(boolean.class));
                         dataSet = true;
+                        if(dataSnapshot.getValue(boolean.class)==true){
+                            armory.setVisibility(View.VISIBLE);
+                        }
                     } else {
-                        DatabaseReference profilePrivateRef = myRef.child(mail).child("Private").child(child);
-                        profilePrivateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.getValue() != null) {
-                                    field.setChecked(dataSnapshot.getValue(boolean.class));
-                                    Log.e("in private smith", ""+dataSnapshot.getValue(boolean.class));
-                                    dataSet = true;
-                                }
-                            }
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) { }
-                        });
+
                     }
                 }
                 @Override
