@@ -188,7 +188,7 @@ public class PersonalProfileFragment extends android.app.Fragment {
         mListener = null;
     }
 
-    private void setData(final String child, final EditText field){
+    public void setData(final String child, final EditText field){
         final String mail = user.getEmail().replace("."," ");
         try {
             DatabaseReference profileRef = myRef.child(mail).child("Public").child(child);

@@ -68,6 +68,10 @@
     <string name="profile_title">Perfil</string>
     <string name="app_title">Battle Gaming</string>
     <string name="guild_list_title">Lista de gremios</string>
+    <string name="guild_motto">Motto del gremio...</string>
+    <string name="guild_name">Nombre de gremio:&#160;&#160;&#160;&#160;</string>
+    <string name="guild_logo">Logo (opcional):</string>
+    <string name="create_guild">Crear Gremio</string>
 
     <string-array name="hours">
         <item>17</item>

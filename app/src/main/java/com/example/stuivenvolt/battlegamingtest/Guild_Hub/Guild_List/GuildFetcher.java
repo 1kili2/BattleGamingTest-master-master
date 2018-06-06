@@ -73,7 +73,7 @@ public class GuildFetcher extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         Log.e("Empty string",""+result);
         List<String> guildList = new ArrayList<>();
-        Weapons weapon;
+
         super.onPostExecute(result);
         int array1;
         try {
@@ -87,7 +87,7 @@ public class GuildFetcher extends AsyncTask<Void, Void, String> {
             }
 
 
-            GuildListAdapter nAdapter = new GuildListAdapter(guildList);
+            GuildListAdapter nAdapter = new GuildListAdapter(guildList, context, id);
             mRecyclerView.setAdapter(nAdapter);
 
 

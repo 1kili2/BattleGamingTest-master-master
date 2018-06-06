@@ -41,19 +41,11 @@ public class AddWeapon extends DialogFragment implements AdapterView.OnItemSelec
      * Created by i7-4770 on 01/03/2018.
      */
 
-    Spinner score,type;
-    Switch guilds;
-    String guild;
     String id;
     private TextView error, name, price, desc;
-    boolean inserted=false;
-    RecyclerView participants;
-    RecyclerView.Adapter part_adap;
     FirebaseUser user;
     FirebaseAuth mAuth;
-    ArrayList<String> strList = new ArrayList<>();
-    List<String> participantsList = new ArrayList<>();
-    boolean printed = false, test = true;
+    boolean printed = false;
 
 
     public static AddWeapon newInstance(String param1, String param2) {
@@ -115,13 +107,6 @@ public class AddWeapon extends DialogFragment implements AdapterView.OnItemSelec
                         }
 
                     });
-
-                    try {
-                        sleep(1300);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
 
                     final android.app.FragmentManager fm = getFragmentManager();
                     fm.beginTransaction().replace(R.id.content_frame, new WeaponListFragment()).commit();

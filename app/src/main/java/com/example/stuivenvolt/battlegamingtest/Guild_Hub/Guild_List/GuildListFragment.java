@@ -76,7 +76,6 @@ public class GuildListFragment extends android.app.Fragment {
         }
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        Log.d("Email", "mail: "+mail);
     }
 
     @Override
@@ -87,29 +86,25 @@ public class GuildListFragment extends android.app.Fragment {
         RecyclerView mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
+        mail = user.getEmail().replace(".", " ");
+        Log.e("Email", "mail: "+mail);
+
         add = view.findViewById(R.id.addWeapon);
-        add.setVisibility(View.GONE);
-        /*add.setOnClickListener(new View.OnClickListener() {
+        //add.setVisibility(View.GONE);
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                *//*AddWeapon newFragment = new AddWeapon();
-                Bundle bundle = new Bundle();
-                bundle.putString("Month",getArguments().getString("Month"));
-                final android.app.FragmentManager fm = (getActivity()).getFragmentManager();
-                newFragment.setArguments(bundle);
-                fm.beginTransaction().replace(R.id.content_frame, newFragment).commit();*//*
-
-                DialogFragment newFragment = new AddWeapon();
+                DialogFragment newFragment = new CreateGuild();
                 Bundle bundle = new Bundle();
                 bundle.putString("ID",mail);
-                *//*bundle.putInt("Score",0);
+                /*bundle.putInt("Score",0);
                 bundle.putInt("Type",0);
                 bundle.putStringArrayList("Participants", null);
-                bundle.putString("Guild", guild);*//*
+                bundle.putString("Guild", guild);*/
                 newFragment.setArguments(bundle);
                 newFragment.show(getFragmentManager(), "Boom");
             }
-        });*/
+        });
 
 
         new GuildFetcher(mRecyclerView, getActivity(), mail).execute();

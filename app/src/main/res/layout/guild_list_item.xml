@@ -8,6 +8,17 @@
     android:background="@drawable/myrect">
 
 
+    <ImageView
+        android:id="@+id/join_guild"
+        android:layout_width="36dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="11dp"
+        app:srcCompat="@drawable/plus"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="11dp" />
+
     <TextView
         android:id="@+id/guilds"
         android:layout_width="wrap_content"

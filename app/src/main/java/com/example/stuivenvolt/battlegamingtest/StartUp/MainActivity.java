@@ -180,6 +180,7 @@ public class MainActivity extends AppCompatActivity
                     case R.id.nav_test2:
                         if (user != null) {
                             Toast.makeText(MainActivity.this, user.getEmail() + "    " + user.getDisplayName(), Toast.LENGTH_LONG).show();
+                            setGuild();
                         }
                         setTitle(getString(R.string.app_title));
                         break;
@@ -206,7 +207,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void setGuild(){
+    public void setGuild(){
         final String mail = user.getEmail().replace("."," ");
         myRef = FirebaseDatabase.getInstance().getReference("usuarios");
         DatabaseReference profileRef = myRef.child(mail).child("Public").child("Guild");
