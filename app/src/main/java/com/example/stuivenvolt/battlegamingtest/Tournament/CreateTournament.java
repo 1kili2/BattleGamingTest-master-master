@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import static java.lang.Thread.sleep;
 
@@ -60,6 +61,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
     List<String> guildMails = null;
     int setScore = 0;
     int setType = 0;
+    List<Rounds> rounds = new ArrayList<>();
 
 
 
@@ -193,17 +195,6 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                     newFragment.show(getFragmentManager(), "Boom");
                     alert.dismiss();
                 }
-                /*try {
-                    guilds.setEnabled(false);
-                    participantsList.add("participant" + numpart[0]);
-                    part_adap.notifyItemInserted(participantsList.size() - 1);
-                    participants.setVisibility(View.VISIBLE);
-                    participants.setMinimumHeight(20*numpart[0]);
-                    numpart[0]++;
-                } catch(NumberFormatException e) {
-                    Toast.makeText(getActivity(), "The field is empty",
-                            Toast.LENGTH_SHORT).show();
-                }*/
             }
         });
 
@@ -220,6 +211,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
             public void onClick(View v) {
                 //whatever you want
                 //Log.e("guild Text",guild.getText().toString());
+                createRounds();
                 if(!test){
                     error.setVisibility(View.VISIBLE);
 
@@ -241,6 +233,9 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                                 myRef.child("" + messages.size()).child("Hosting Guild").setValue(guild[0]);
                                 for (int i = 0; i < participantsList.size(); i++) {
                                     myRef.child("" + messages.size()).child("Participants").child("" + i).setValue(guildMails.get(i));
+                                }
+                                for (int i = 0; i < rounds.size(); i++) {
+                                    myRef.child("" + messages.size()).child("Rounds").child("" + i).setValue(rounds.get(i));
                                 }
                                 myRef.child("" + messages.size()).child("Type").setValue(type.getSelectedItemPosition());
                                 myRef.child("" + messages.size()).child("Win Score").setValue(score.getSelectedItemPosition()+1);
@@ -356,5 +351,48 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
             });
         } catch (Throwable e) {
         }
+    }
+
+
+
+    private void createRounds(){
+        String used = new String();
+        Random rand = new Random();
+
+        Rounds round;
+        int counter=0, max;
+        if(guildMails.size()%2 == 0){
+            max = guildMails.size()/2;
+        }else{
+            max = (guildMails.size()/2)+1;
+        }
+        Log.e("max size", ""+max);
+        while(counter < max){
+            int r1 = rand.nextInt(guildMails.size());
+            int r2 = rand.nextInt(guildMails.size());
+            if(used.equals("") && r1 != r2) {
+                round = new Rounds(guildMails.get(r1), guildMails.get(r2), "0-0", getDate());
+                rounds.add(round);
+                used = used + r1 + "" + r2;
+                counter++;
+            }else if(used.equals("")){
+                break;
+            }else{
+                for (int i = 0; i < used.length(); i++) {
+                    if (used.contains(""+r1) && used.contains(""+r2) && r1 != r2) {
+                        round = new Rounds(guildMails.get(r1), guildMails.get(r2), "0-0", getDate());
+                        rounds.add(round);
+                        used = used + r1 + "" + r2;
+                        counter++;
+                    }else if(guildMails.size()%2 != 0 && used.length()+1 == guildMails.size() && used.contains(""+r1)){
+                        round = new Rounds(guildMails.get(r1), "", "0-0", getDate());
+                        rounds.add(round);
+                        used = used + r1;
+                        counter++;
+                    }
+                }
+            }
+        }
+
     }
 }
