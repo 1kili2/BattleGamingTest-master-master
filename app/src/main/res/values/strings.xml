@@ -64,6 +64,10 @@
     <string name="weapon_name">Nombre:</string>
     <string name="Guildless">Sin Gremio</string>
     <string name="fill_all_fields">Porfavor rellena todos los campos</string>
+    <string name="guild_title">Gremio</string>
+    <string name="profile_title">Perfil</string>
+    <string name="app_title">Battle Gaming</string>
+    <string name="guild_list_title">Lista de gremios</string>
 
     <string-array name="hours">
         <item>17</item>

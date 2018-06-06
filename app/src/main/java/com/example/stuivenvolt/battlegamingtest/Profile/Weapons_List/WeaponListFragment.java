@@ -55,7 +55,7 @@ public class WeaponListFragment extends android.app.Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment WeaponListFragment.
+     * @return A new instance of fragment GuildListFragment.
      */
     // TODO: Rename and change types and number of parameters
     public static WeaponListFragment newInstance(String param1, String param2) {

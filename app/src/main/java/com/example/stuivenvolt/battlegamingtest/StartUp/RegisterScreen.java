@@ -181,13 +181,13 @@ public class RegisterScreen extends AppCompatActivity {
         //Toast.makeText(RegisterScreen.this, "in ondatachange", Toast.LENGTH_LONG).show();
         Log.e("database: ", "start database fill");
 
-        myRef.child(mail).child("Public").child("Guild").setValue("None");
+        myRef.child(mail).child("Public").child("Guild").setValue(null);
         myRef.child(mail).child("Public").child("IsSmith").setValue("false");
         myRef.child(mail).child("Public").child("IsTrusted").setValue("false");
         myRef.child(mail).child("Public").child("Name").setValue(name);
         myRef.child(mail).child("Public").child("NickName").setValue("NickName");
         myRef.child(mail).child("Public").child("Rank").setValue("Member");
-        myRef.child(mail).child("Public").child("Motto").setValue(R.string.profile_Motto);
+        myRef.child(mail).child("Public").child("Motto").setValue(getString(R.string.profile_Motto));
 
         myRef.child(mail).child("Private").child("Phone Number").setValue("000-00-00-00");
         myRef.child(mail).child("Private").child("Adress").setValue("The Viking Inn");

@@ -1,5 +1,6 @@
 package com.example.stuivenvolt.battlegamingtest.StartUp;
 
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Handler;
 import android.app.FragmentManager;
@@ -11,12 +12,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.stuivenvolt.battlegamingtest.Calender.CalenderFragment;
 import com.example.stuivenvolt.battlegamingtest.Calender.DateFragment;
 import com.example.stuivenvolt.battlegamingtest.Guild_Hub.GuildHubFragment;
+import com.example.stuivenvolt.battlegamingtest.Guild_Hub.Guild_List.GuildListFragment;
 import com.example.stuivenvolt.battlegamingtest.Guild_Hub.Members_List.GuildMembersFragment;
 import com.example.stuivenvolt.battlegamingtest.News.NewsFragment;
 import com.example.stuivenvolt.battlegamingtest.News.NewsItemFragment;
@@ -28,8 +31,11 @@ import com.example.stuivenvolt.battlegamingtest.Settings.SettingsFragment;
 import com.example.stuivenvolt.battlegamingtest.Tournament.ChampionshipCreatorFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -43,12 +49,14 @@ public class MainActivity extends AppCompatActivity
         GuildHubFragment.OnFragmentInteractionListener,
         GuildMembersFragment.OnFragmentInteractionListener,
         WeaponListFragment.OnFragmentInteractionListener,
-        ViewProfileFragment.OnFragmentInteractionListener{
+        ViewProfileFragment.OnFragmentInteractionListener,
+        GuildListFragment.OnFragmentInteractionListener{
     FragmentManager fragmentManager = getFragmentManager();
 
     FirebaseAuth mAuth;
     FirebaseUser user;
     DatabaseReference myRef;
+    String guild;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +67,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, RegisterScreen.class);
             startActivity(intent);
         }
+        setGuild();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -127,7 +136,7 @@ public class MainActivity extends AppCompatActivity
 
                     case R.id.nav_news:
                         fm.beginTransaction().replace(R.id.content_frame, new NewsFragment()).commit();
-                        setTitle("Battle Gaming");
+                        setTitle(getString(R.string.app_title));
                         break;
 
                     case R.id.nav_date:
@@ -136,25 +145,35 @@ public class MainActivity extends AppCompatActivity
 
                     case R.id.nav_manage:
                         fm.beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
-                        setTitle("Battle Gaming");
+                        setTitle(getString(R.string.app_title));
                         break;
 
                     case R.id.nav_fights:
                         fm.beginTransaction().replace(R.id.content_frame, new ChampionshipCreatorFragment()).commit();
-                        setTitle("Battle Gaming");
+                        setTitle(getString(R.string.app_title));
                         break;
 
                     case R.id.nav_test1:
                         //SetInfo();
                         fm.beginTransaction().replace(R.id.content_frame, new PersonalProfileFragment()).commit();
-                        setTitle("Profile");
+                        setTitle(getString(R.string.profile_title));
 
                         break;
 
                     case R.id.nav_Guild:
                         //SetInfo();
-                        fm.beginTransaction().replace(R.id.content_frame, new GuildHubFragment()).commit();
-                        setTitle("Profile");
+                        if(guild == null){
+                            fm.beginTransaction().replace(R.id.content_frame, new GuildListFragment()).commit();
+                            setTitle(getString(R.string.guild_list_title));
+                        }else {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("Guild", guild);
+                            android.app.FragmentManager fm = getFragmentManager();
+                            GuildHubFragment ghf = new GuildHubFragment();
+                            ghf.setArguments(bundle);
+                            fm.beginTransaction().replace(R.id.content_frame, ghf).commit();
+                            setTitle(getString(R.string.guild_title));
+                        }
 
                         break;
 
@@ -162,12 +181,11 @@ public class MainActivity extends AppCompatActivity
                         if (user != null) {
                             Toast.makeText(MainActivity.this, user.getEmail() + "    " + user.getDisplayName(), Toast.LENGTH_LONG).show();
                         }
-                        setTitle("Battle Gaming");
+                        setTitle(getString(R.string.app_title));
                         break;
 
                     case R.id.nav_LogOut:
                         mAuth.signOut();
-                        setTitle("Battle Gaming");
                         Intent intent = new Intent(MainActivity.this, RegisterScreen.class);
                         startActivity(intent);
                         break;
@@ -186,5 +204,20 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    private void setGuild(){
+        final String mail = user.getEmail().replace("."," ");
+        myRef = FirebaseDatabase.getInstance().getReference("usuarios");
+        DatabaseReference profileRef = myRef.child(mail).child("Public").child("Guild");
+        profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                guild = dataSnapshot.getValue(String.class);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
     }
 }
