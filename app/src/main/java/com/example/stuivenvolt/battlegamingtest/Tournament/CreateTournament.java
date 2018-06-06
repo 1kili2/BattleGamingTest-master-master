@@ -57,6 +57,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
     boolean printed = false, test = true;
     int switch_pos = 0;
     List<String> guildNames = null;
+    List<String> guildMails = null;
     int setScore = 0;
     int setType = 0;
 
@@ -87,6 +88,9 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
         }
         if(getArguments().getInt("Type") != 0){
             setType = getArguments().getInt("Type");
+        }
+        if(getArguments().getStringArrayList("ParticipantEmails") != null){
+            guildMails = getArguments().getStringArrayList("ParticipantEmails");
         }
 
 
@@ -236,7 +240,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                                 myRef.child("" + messages.size()).child("AddWeapon").setValue(guilds.isChecked());
                                 myRef.child("" + messages.size()).child("Hosting Guild").setValue(guild[0]);
                                 for (int i = 0; i < participantsList.size(); i++) {
-                                    myRef.child("" + messages.size()).child("Participants").child("" + i).setValue(participantsList.get(i));
+                                    myRef.child("" + messages.size()).child("Participants").child("" + i).setValue(guildMails.get(i));
                                 }
                                 myRef.child("" + messages.size()).child("Type").setValue(type.getSelectedItemPosition());
                                 myRef.child("" + messages.size()).child("Win Score").setValue(score.getSelectedItemPosition()+1);
@@ -336,12 +340,12 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
         try{
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             final DatabaseReference myRef = database.getReference("usuarios");
-            DatabaseReference profileRef = myRef.child(mail).child("Public").child("IsTrusted");
+            DatabaseReference profileRef = myRef.child(mail).child("Public").child("Rank");
             profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String data = dataSnapshot.getValue(String.class);
-                    if(data.equals("true")){
+                    if(data.equals("Trusted")||data.equals("Leader")){
                         guild_Switch.setEnabled(true);
                     }
                 }

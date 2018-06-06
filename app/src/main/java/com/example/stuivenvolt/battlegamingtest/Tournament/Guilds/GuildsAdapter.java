@@ -5,6 +5,7 @@ package com.example.stuivenvolt.battlegamingtest.Tournament.Guilds;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.stuivenvolt.battlegamingtest.News.NewsItemFragment;
@@ -37,7 +39,7 @@ public class GuildsAdapter extends RecyclerView.Adapter<com.example.stuivenvolt.
     @Override
     public com.example.stuivenvolt.battlegamingtest.Tournament.Guilds.GuildsAdapter.myViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.guild_members, parent, false);
+                .inflate(R.layout.tournament_participant, parent, false);
 
         com.example.stuivenvolt.battlegamingtest.Tournament.Guilds.GuildsAdapter.myViewHolder holder = new com.example.stuivenvolt.battlegamingtest.Tournament.Guilds.GuildsAdapter.myViewHolder(itemView);
         return holder;
@@ -58,11 +60,13 @@ public class GuildsAdapter extends RecyclerView.Adapter<com.example.stuivenvolt.
 
     public class myViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView itemTextView;
+        RelativeLayout layout;
 
         public myViewHolder(View view) {
             super(view);
-            itemTextView = view.findViewById(R.id.members);
+            itemTextView = view.findViewById(R.id.participant);
             itemTextView.setOnClickListener(this);
+            layout = view.findViewById(R.id.participant_container);
         }
 
         @Override
@@ -71,6 +75,7 @@ public class GuildsAdapter extends RecyclerView.Adapter<com.example.stuivenvolt.
             String element = listItem.get(mPosition);
             bundle.add(element);
             Log.e("Adapter onClick", "test "+ element);
+            layout.setBackgroundColor(Color.parseColor("#ff9400"));
             itemTextView.setOnClickListener(null);
         }
     }

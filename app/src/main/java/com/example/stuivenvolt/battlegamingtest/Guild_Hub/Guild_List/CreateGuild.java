@@ -124,7 +124,7 @@ public class CreateGuild extends DialogFragment implements AdapterView.OnItemSel
                             myRef.child("" + messages.size()).child("Location").setValue(location.getText().toString());
                             myRef.child("" + messages.size()).child("Members").child("0").child("Email").setValue(id);
                             myRef.child("" + messages.size()).child("Members").child("0").child("IsSmith").setValue(isSmith);
-                            myRef.child("" + messages.size()).child("Members").child("0").child("NickName").setValue(nickName, new DatabaseReference.CompletionListener() {
+                            myRef.child("" + messages.size()).child("Members").child("0").child("Name").setValue(nickName, new DatabaseReference.CompletionListener() {
                                 @Override
                                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                                     if (databaseError != null) {

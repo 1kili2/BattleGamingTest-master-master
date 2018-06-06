@@ -34,20 +34,22 @@ public class MembersFetcher extends AsyncTask<Void, Void, String> {
     FirebaseUser user;
     String guild;
     ArrayList<String> bundle;
+    ArrayList<String> emails;
+
     @SuppressLint("StaticFieldLeak")
     private RecyclerView mRecyclerView;
     @SuppressLint("StaticFieldLeak")
     private Context context;
 
 
-    MembersFetcher(String str, RecyclerView rv, Context ctx, ArrayList<String> bndl) {
+    MembersFetcher(String str, RecyclerView rv, Context ctx, ArrayList<String> bndl, ArrayList<String> mails) {
         mRecyclerView=rv;
         context=ctx;
         guild = str;
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         bundle = bndl;
-
+        emails=mails;
     }
 
     @Override
@@ -74,6 +76,7 @@ public class MembersFetcher extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         Log.e("Empty string",""+result);
         List<String> guildList = new ArrayList<>();
+        List<String> emailList = new ArrayList<>();
         super.onPostExecute(result);
         int array1, array2;
         try {
@@ -88,14 +91,15 @@ public class MembersFetcher extends AsyncTask<Void, Void, String> {
                     JSONArray members = jo.getJSONArray("Members");
                     array2=members.length();
                     for (int y = 0; y < array2 ; y++) {
-
-                        guildList.add(members.getString(y));
+                        JSONObject jo2 = members.getJSONObject(y);
+                        guildList.add(jo2.getString("Name"));
+                        emailList.add(jo2.getString("Email"));
                     }
                 }
             }
 
 
-            MembersAdapter nAdapter = new MembersAdapter(guildList, bundle);
+            MembersAdapter nAdapter = new MembersAdapter(guildList, bundle, emailList, emails);
             mRecyclerView.setAdapter(nAdapter);
 
 

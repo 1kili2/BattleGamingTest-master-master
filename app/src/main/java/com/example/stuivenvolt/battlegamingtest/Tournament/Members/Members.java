@@ -46,6 +46,7 @@ public class Members extends DialogFragment implements AdapterView.OnItemSelecte
     FirebaseUser user;
     FirebaseAuth mAuth;
     ArrayList<String> strList = new ArrayList<>();
+    ArrayList<String> mailList = new ArrayList<>();
     List<String> participantsList = new ArrayList<>();
     boolean printed = false, test = true;
 
@@ -73,7 +74,7 @@ public class Members extends DialogFragment implements AdapterView.OnItemSelecte
 
         RecyclerView mRecyclerView = view.findViewById(R.id.member_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        new MembersFetcher(getArguments().getString("Guild"),mRecyclerView, getActivity(), strList).execute();
+        new MembersFetcher(getArguments().getString("Guild"),mRecyclerView, getActivity(), strList, mailList).execute();
 
         Button ok = view.findViewById(R.id.Done);
         ok.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +86,7 @@ public class Members extends DialogFragment implements AdapterView.OnItemSelecte
                 bundle.putInt("Score",getArguments().getInt("Score"));
                 bundle.putInt("Type",getArguments().getInt("Type"));
                 bundle.putStringArrayList("Participants", strList);
+                bundle.putStringArrayList("ParticipantEmails", mailList);
                 bundle.putString("Guild", getArguments().getString("Guild"));
                 newFragment.setArguments(bundle);
                 newFragment.show(getFragmentManager(), "Boom");

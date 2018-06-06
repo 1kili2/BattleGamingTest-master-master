@@ -166,12 +166,12 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
         try{
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             final DatabaseReference myRef = database.getReference("usuarios");
-            DatabaseReference profileRef = myRef.child(mail).child("Public").child("IsTrusted");
+            DatabaseReference profileRef = myRef.child(mail).child("Public").child("Rank");
             profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String data = dataSnapshot.getValue(String.class);
-                    if(data.equals("true")){
+                    if(data.equals("Trusted")||data.equals("Leader")){
                         addbtn.setVisibility(View.VISIBLE);
                     }
                 }
