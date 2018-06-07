@@ -12,11 +12,11 @@ import com.example.stuivenvolt.battlegamingtest.R;
 
 import java.util.List;
 
-public class ParticipantsAdapter extends RecyclerView.Adapter<ParticipantsAdapter.myViewHolder> {
+public class TournamentsAdapter extends RecyclerView.Adapter<TournamentsAdapter.myViewHolder> {
     String participant;
     List<String> listItem;
 
-    public ParticipantsAdapter(List<String> passedListItem) {
+    public TournamentsAdapter(List<String> passedListItem) {
         this.listItem = passedListItem;
     }
 

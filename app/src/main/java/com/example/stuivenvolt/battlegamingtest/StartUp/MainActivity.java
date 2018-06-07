@@ -1,6 +1,9 @@
 package com.example.stuivenvolt.battlegamingtest.StartUp;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Handler;
 import android.app.FragmentManager;
@@ -57,34 +60,48 @@ public class MainActivity extends AppCompatActivity
     FirebaseUser user;
     DatabaseReference myRef;
     String guild;
+    boolean isConnected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
-        myRef = FirebaseDatabase.getInstance().getReference("usuarios");
-        if(user == null){
-            Intent intent = new Intent(this, RegisterScreen.class);
-            startActivity(intent);
-        }
-        setGuild();
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        ConnectivityManager cm =
+                (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        if(isConnected) {
+            mAuth = FirebaseAuth.getInstance();
+            user = mAuth.getCurrentUser();
+            myRef = FirebaseDatabase.getInstance().getReference("usuarios");
+            if (user == null) {
+                Intent intent = new Intent(this, RegisterScreen.class);
+                startActivity(intent);
+            }
+            setGuild();
 
-        FragmentManager fm = getFragmentManager();
-        fm.beginTransaction().replace(R.id.content_frame, new NewsFragment()).commit();
+
+            setContentView(R.layout.activity_main);
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.addDrawerListener(toggle);
+            toggle.syncState();
+
+            NavigationView navigationView = findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+
+            FragmentManager fm = getFragmentManager();
+            fm.beginTransaction().replace(R.id.content_frame, new NewsFragment()).commit();
+        }else{
+            Toast.makeText(MainActivity.this, "No internet connection, please check connection and reload the app!", Toast.LENGTH_LONG).show();
+            setContentView(R.layout.activity_main_no_connection);
+        }
     }
 
     @Override
@@ -98,108 +115,89 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    /*
-        **************************Opciones derecho***************************
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.main, menu);
-            return true;
-        }
 
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
-                return true;
-            }
-
-            return super.onOptionsItemSelected(item);
-        }
-    */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(final MenuItem item) {
         // Handle navigation view item clicks here.
+        if(isConnected) {
+            final android.app.FragmentManager fm = getFragmentManager();
+            Handler h = new Handler();
+            h.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    switch (item.getItemId()) {
 
-        final android.app.FragmentManager fm = getFragmentManager();
-        Handler h = new Handler();
-        h.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                switch (item.getItemId()) {
+                        case R.id.nav_news:
+                            fm.beginTransaction().replace(R.id.content_frame, new NewsFragment()).commit();
+                            setTitle(getString(R.string.app_title));
+                            break;
 
-                    case R.id.nav_news:
-                        fm.beginTransaction().replace(R.id.content_frame, new NewsFragment()).commit();
-                        setTitle(getString(R.string.app_title));
-                        break;
+                        case R.id.nav_date:
+                            fm.beginTransaction().replace(R.id.content_frame, new CalenderFragment()).commit();
+                            break;
 
-                    case R.id.nav_date:
-                        fm.beginTransaction().replace(R.id.content_frame, new CalenderFragment()).commit();
-                        break;
+                        case R.id.nav_manage:
+                            fm.beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
+                            setTitle(getString(R.string.app_title));
+                            break;
 
-                    case R.id.nav_manage:
-                        fm.beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
-                        setTitle(getString(R.string.app_title));
-                        break;
+                        case R.id.nav_fights:
+                            fm.beginTransaction().replace(R.id.content_frame, new ChampionshipCreatorFragment()).commit();
+                            setTitle(getString(R.string.app_title));
+                            break;
 
-                    case R.id.nav_fights:
-                        fm.beginTransaction().replace(R.id.content_frame, new ChampionshipCreatorFragment()).commit();
-                        setTitle(getString(R.string.app_title));
-                        break;
+                        case R.id.nav_test1:
+                            //SetInfo();
+                            fm.beginTransaction().replace(R.id.content_frame, new PersonalProfileFragment()).commit();
+                            setTitle(getString(R.string.profile_title));
 
-                    case R.id.nav_test1:
-                        //SetInfo();
-                        fm.beginTransaction().replace(R.id.content_frame, new PersonalProfileFragment()).commit();
-                        setTitle(getString(R.string.profile_title));
+                            break;
 
-                        break;
+                        case R.id.nav_Guild:
+                            //SetInfo();
+                            if (guild == null) {
+                                fm.beginTransaction().replace(R.id.content_frame, new GuildListFragment()).commit();
+                                setTitle(getString(R.string.guild_list_title));
+                            } else {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("Guild", guild);
+                                android.app.FragmentManager fm = getFragmentManager();
+                                GuildHubFragment ghf = new GuildHubFragment();
+                                ghf.setArguments(bundle);
+                                fm.beginTransaction().replace(R.id.content_frame, ghf).commit();
+                                setTitle(getString(R.string.guild_title));
+                            }
 
-                    case R.id.nav_Guild:
-                        //SetInfo();
-                        if(guild == null){
-                            fm.beginTransaction().replace(R.id.content_frame, new GuildListFragment()).commit();
-                            setTitle(getString(R.string.guild_list_title));
-                        }else {
-                            Bundle bundle = new Bundle();
-                            bundle.putString("Guild", guild);
-                            android.app.FragmentManager fm = getFragmentManager();
-                            GuildHubFragment ghf = new GuildHubFragment();
-                            ghf.setArguments(bundle);
-                            fm.beginTransaction().replace(R.id.content_frame, ghf).commit();
-                            setTitle(getString(R.string.guild_title));
-                        }
+                            break;
 
-                        break;
+                        case R.id.nav_test2:
+                            if (user != null) {
+                                Toast.makeText(MainActivity.this, user.getEmail() + "    " + user.getDisplayName(), Toast.LENGTH_LONG).show();
+                                setGuild();
+                            }
+                            setTitle(getString(R.string.app_title));
+                            break;
 
-                    case R.id.nav_test2:
-                        if (user != null) {
-                            Toast.makeText(MainActivity.this, user.getEmail() + "    " + user.getDisplayName(), Toast.LENGTH_LONG).show();
-                            setGuild();
-                        }
-                        setTitle(getString(R.string.app_title));
-                        break;
+                        case R.id.nav_LogOut:
+                            mAuth.signOut();
+                            Intent intent = new Intent(MainActivity.this, RegisterScreen.class);
+                            startActivity(intent);
+                            break;
 
-                    case R.id.nav_LogOut:
-                        mAuth.signOut();
-                        Intent intent = new Intent(MainActivity.this, RegisterScreen.class);
-                        startActivity(intent);
-                        break;
-
-                    default:
+                        default:
+                    }
                 }
-            }
 
 
-        }, 50);
+            }, 50);
+        }else{
+            Toast.makeText(MainActivity.this, "No internet connection, please check connection and reload the app!", Toast.LENGTH_LONG).show();
+        }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+
     }
 
     @Override

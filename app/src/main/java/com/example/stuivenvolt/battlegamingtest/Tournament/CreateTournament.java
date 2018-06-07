@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,13 +11,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.stuivenvolt.battlegamingtest.Calender.CalenderFragment;
 import com.example.stuivenvolt.battlegamingtest.R;
 import com.example.stuivenvolt.battlegamingtest.Tournament.Guilds.Guilds;
 import com.example.stuivenvolt.battlegamingtest.Tournament.Members.Members;
@@ -93,6 +89,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
         }
         if(getArguments().getStringArrayList("ParticipantEmails") != null){
             guildMails = getArguments().getStringArrayList("ParticipantEmails");
+            createRounds();
         }
 
 
@@ -118,7 +115,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
 
         //Setting the layout and Adapter for RecyclerView
         participants.setLayoutManager(new LinearLayoutManager(getActivity()));
-        part_adap = new ParticipantsAdapter(participantsList);
+        part_adap = new TournamentsAdapter(participantsList);
         participants.setAdapter(part_adap);
 
         if(switch_pos==0){
@@ -211,7 +208,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
             public void onClick(View v) {
                 //whatever you want
                 //Log.e("guild Text",guild.getText().toString());
-                createRounds();
+
                 if(!test){
                     error.setVisibility(View.VISIBLE);
 
@@ -229,13 +226,14 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                             if(!printed) {
 
                                 myRef.child("" + messages.size()).child("Creation").setValue(getDate());
-                                myRef.child("" + messages.size()).child("AddWeapon").setValue(guilds.isChecked());
+                                myRef.child("" + messages.size()).child("Guilds").setValue(guilds.isChecked());
                                 myRef.child("" + messages.size()).child("Hosting Guild").setValue(guild[0]);
                                 for (int i = 0; i < participantsList.size(); i++) {
                                     myRef.child("" + messages.size()).child("Participants").child("" + i).setValue(guildMails.get(i));
                                 }
                                 for (int i = 0; i < rounds.size(); i++) {
                                     myRef.child("" + messages.size()).child("Rounds").child("" + i).setValue(rounds.get(i));
+                                    Log.e("round", ""+i+rounds.get(i).getP1());
                                 }
                                 myRef.child("" + messages.size()).child("Type").setValue(type.getSelectedItemPosition());
                                 myRef.child("" + messages.size()).child("Win Score").setValue(score.getSelectedItemPosition()+1);
@@ -377,22 +375,18 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                 counter++;
             }else if(used.equals("")){
                 break;
-            }else{
-                for (int i = 0; i < used.length(); i++) {
-                    if (used.contains(""+r1) && used.contains(""+r2) && r1 != r2) {
-                        round = new Rounds(guildMails.get(r1), guildMails.get(r2), "0-0", getDate());
-                        rounds.add(round);
-                        used = used + r1 + "" + r2;
-                        counter++;
-                    }else if(guildMails.size()%2 != 0 && used.length()+1 == guildMails.size() && used.contains(""+r1)){
-                        round = new Rounds(guildMails.get(r1), "", "0-0", getDate());
-                        rounds.add(round);
-                        used = used + r1;
-                        counter++;
-                    }
-                }
+            }else if (used.contains(""+r1) && used.contains(""+r2) && r1 != r2) {
+                round = new Rounds(guildMails.get(r1), guildMails.get(r2), "0-0", getDate());
+                rounds.add(round);
+                used = used + r1 + "" + r2;
+                counter++;
+            }else if(guildMails.size()%2 != 0 && used.length()+1 == guildMails.size() && !used.contains(""+r1)){
+                round = new Rounds(guildMails.get(r1), "", "0-0", getDate());
+                rounds.add(round);
+                used = used + r1;
+                counter++;
+
             }
         }
-
     }
 }

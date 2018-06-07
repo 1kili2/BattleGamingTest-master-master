@@ -72,6 +72,7 @@
     <string name="guild_name">Nombre de gremio:&#160;&#160;&#160;&#160;</string>
     <string name="guild_logo">Logo (opcional):</string>
     <string name="create_guild">Crear Gremio</string>
+    <string name="no_internet_restart">No hay conexion a internet, comprueba tu conexion y reinicia la aplicacion</string>
 
     <string-array name="hours">
         <item>17</item>
