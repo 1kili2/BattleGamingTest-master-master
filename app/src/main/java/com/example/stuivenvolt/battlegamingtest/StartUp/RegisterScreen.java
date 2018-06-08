@@ -1,6 +1,9 @@
 package com.example.stuivenvolt.battlegamingtest.StartUp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,23 +27,36 @@ public class RegisterScreen extends AppCompatActivity {
     FirebaseAuth mAuth;
     private String email, password;
     private EditText nameET, surnameET, /*apodoET,*/ emailET, passwordET, checkPasswordET;
+    boolean isConnected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        if(user != null){
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+        ConnectivityManager cm =
+                (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        if(isConnected) {
+            mAuth = FirebaseAuth.getInstance();
+            FirebaseUser user = mAuth.getCurrentUser();
+            if(user != null){
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+            setContentView(R.layout.activity_register_screen);
+            emailET = findViewById(R.id.user_email);
+            passwordET = findViewById(R.id.user_password);
+            nameET = findViewById(R.id.user_name);
+            surnameET = findViewById(R.id.user_surname);
+            checkPasswordET = findViewById(R.id.user_password_check);
+        }else{
+            Toast.makeText(RegisterScreen.this, "No internet connection, please check connection and reload the app!", Toast.LENGTH_LONG).show();
+            setContentView(R.layout.activity_main_no_connection);
         }
-        setContentView(R.layout.activity_register_screen);
-        emailET = findViewById(R.id.user_email);
-        passwordET = findViewById(R.id.user_password);
-        nameET = findViewById(R.id.user_name);
-        surnameET = findViewById(R.id.user_surname);
-        checkPasswordET = findViewById(R.id.user_password_check);
 
     }
 
@@ -182,15 +198,14 @@ public class RegisterScreen extends AppCompatActivity {
         Log.e("database: ", "start database fill");
 
         myRef.child(mail).child("Public").child("Guild").setValue(null);
-        myRef.child(mail).child("Public").child("IsSmith").setValue("false");
-        myRef.child(mail).child("Public").child("IsTrusted").setValue("false");
+        myRef.child(mail).child("Public").child("IsSmith").setValue(false);
         myRef.child(mail).child("Public").child("Name").setValue(name);
-        myRef.child(mail).child("Public").child("NickName").setValue("NickName");
+        myRef.child(mail).child("Public").child("NickName").setValue("");
         myRef.child(mail).child("Public").child("Rank").setValue("Member");
         myRef.child(mail).child("Public").child("Motto").setValue(getString(R.string.profile_Motto));
 
-        myRef.child(mail).child("Private").child("Phone Number").setValue("000-00-00-00");
-        myRef.child(mail).child("Private").child("Adress").setValue("The Viking Inn");
+        myRef.child(mail).child("Private").child("Phone Number").setValue("");
+        myRef.child(mail).child("Private").child("Adress").setValue("");
         Log.e("database: ", "finish database fill");
 
             /*try {

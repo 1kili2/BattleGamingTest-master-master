@@ -5,25 +5,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
 
 import com.example.stuivenvolt.battlegamingtest.R;
 
 import java.util.List;
 
-public class TournamentsAdapter extends RecyclerView.Adapter<TournamentsAdapter.myViewHolder> {
+public class TournamentAdapter extends RecyclerView.Adapter<TournamentAdapter.myViewHolder> {
     String participant;
     List<String> listItem;
 
-    public TournamentsAdapter(List<String> passedListItem) {
+    public TournamentAdapter(List<String> passedListItem) {
         this.listItem = passedListItem;
     }
 
     @Override
     public myViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.tournament_participant, parent, false);
+                .inflate(R.layout.tournament_item, parent, false);
 
         myViewHolder holder = new myViewHolder(itemView);
         return holder;
@@ -45,7 +44,7 @@ public class TournamentsAdapter extends RecyclerView.Adapter<TournamentsAdapter.
 
         public myViewHolder(View view) {
             super(view);
-            itemTextView = view.findViewById(R.id.participant);
+            itemTextView = view.findViewById(R.id.TournamentName);
         }
     }
 }

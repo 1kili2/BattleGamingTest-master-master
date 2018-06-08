@@ -115,7 +115,7 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
 
         //Setting the layout and Adapter for RecyclerView
         participants.setLayoutManager(new LinearLayoutManager(getActivity()));
-        part_adap = new TournamentsAdapter(participantsList);
+        part_adap = new ParticipantsAdapter(participantsList);
         participants.setAdapter(part_adap);
 
         if(switch_pos==0){
@@ -224,12 +224,17 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                             };
                             List messages = snapshot.getValue(t);
                             if(!printed) {
-
+                                myRef.child("" + messages.size()).child("Name").setValue(messages.size() + " - " + guild[0] + " - " + getDate());
                                 myRef.child("" + messages.size()).child("Creation").setValue(getDate());
                                 myRef.child("" + messages.size()).child("Guilds").setValue(guilds.isChecked());
                                 myRef.child("" + messages.size()).child("Hosting Guild").setValue(guild[0]);
+
                                 for (int i = 0; i < participantsList.size(); i++) {
-                                    myRef.child("" + messages.size()).child("Participants").child("" + i).setValue(guildMails.get(i));
+                                    if(guilds.isChecked()){
+                                        myRef.child("" + messages.size()).child("Participants").child("" + i).setValue(guildNames.get(i));
+                                    }else {
+                                        myRef.child("" + messages.size()).child("Participants").child("" + i).setValue(guildMails.get(i));
+                                    }
                                 }
                                 for (int i = 0; i < rounds.size(); i++) {
                                     myRef.child("" + messages.size()).child("Rounds").child("" + i).setValue(rounds.get(i));

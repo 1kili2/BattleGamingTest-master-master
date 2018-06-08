@@ -199,13 +199,15 @@ public class PersonalProfileFragment extends android.app.Fragment {
                     String data = dataSnapshot.getValue(String.class);
                     if(data != null) {
                         if (field.equals(view.findViewById(R.id.profile_set_Name))) {
-                            try {
-                                fullName = data.split(" ");
-                            } catch (Throwable e) {
-                                fullName[0] = data;
-                                fullName[1] = " ";
+                            if(!data.equals(" ")) {
+                                try {
+                                    fullName = data.split(" ");
+                                } catch (Throwable e) {
+                                    fullName[0] = data;
+                                    fullName[1] = " ";
+                                }
+                                field.setText(fullName[0]);
                             }
-                            field.setText(fullName[0]);
                         } else if (field.equals(view.findViewById(R.id.profile_set_Surname))) {
                             String surname = "";
                             try {
