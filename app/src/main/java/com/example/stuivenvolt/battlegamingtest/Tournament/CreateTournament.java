@@ -58,6 +58,10 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
     int setScore = 0;
     int setType = 0;
     List<Rounds> rounds = new ArrayList<>();
+    String Creation, Guilds, Host, Name;
+    int tipo, win;
+    boolean isGuilds;
+    Tournament tm;
 
 
 
@@ -209,6 +213,8 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                 //whatever you want
                 //Log.e("guild Text",guild.getText().toString());
 
+                tm = null;
+
                 if(!test){
                     error.setVisibility(View.VISIBLE);
 
@@ -224,9 +230,16 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                             };
                             List messages = snapshot.getValue(t);
                             if(!printed) {
-                                myRef.child("" + messages.size()).child("Name").setValue(messages.size() + " - " + guild[0] + " - " + getDate());
-                                myRef.child("" + messages.size()).child("Creation").setValue(getDate());
+                                Name = messages.size() + " - " + guild[0] + " - " + getDate();
+                                myRef.child("" + messages.size()).child("Name").setValue(Name);
+
+                                Creation = getDate();
+                                myRef.child("" + messages.size()).child("Creation").setValue(Creation);
+
+                                isGuilds = guilds.isChecked();
                                 myRef.child("" + messages.size()).child("Guilds").setValue(guilds.isChecked());
+
+                                Host = guild[0];
                                 myRef.child("" + messages.size()).child("Hosting Guild").setValue(guild[0]);
 
                                 for (int i = 0; i < participantsList.size(); i++) {
@@ -240,8 +253,22 @@ public class CreateTournament extends DialogFragment implements AdapterView.OnIt
                                     myRef.child("" + messages.size()).child("Rounds").child("" + i).setValue(rounds.get(i));
                                     Log.e("round", ""+i+rounds.get(i).getP1());
                                 }
-                                myRef.child("" + messages.size()).child("Type").setValue(type.getSelectedItemPosition());
-                                myRef.child("" + messages.size()).child("Win Score").setValue(score.getSelectedItemPosition()+1);
+
+                                tipo = type.getSelectedItemPosition();
+                                myRef.child("" + messages.size()).child("Type").setValue(tipo);
+
+                                win = score.getSelectedItemPosition()+1;
+                                myRef.child("" + messages.size()).child("Win Score").setValue(win);
+
+                                tm = new Tournament(Creation,Guilds,Host,Name,tipo,win,guildMails,rounds);
+
+                                android.app.FragmentManager fm = getFragmentManager();
+                                ChampionshipFragment cf = new ChampionshipFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("Tournament", tm);
+                                cf.setArguments(bundle);
+                                fm.beginTransaction().replace(R.id.content_frame, cf).commit();
+
                                 printed = true;
                             }
                         }

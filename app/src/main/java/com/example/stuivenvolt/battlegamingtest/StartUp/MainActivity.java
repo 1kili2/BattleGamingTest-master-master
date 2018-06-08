@@ -32,6 +32,7 @@ import com.example.stuivenvolt.battlegamingtest.Profile.Weapons_List.WeaponListF
 import com.example.stuivenvolt.battlegamingtest.R;
 import com.example.stuivenvolt.battlegamingtest.Settings.SettingsFragment;
 import com.example.stuivenvolt.battlegamingtest.Tournament.ChampionshipCreatorFragment;
+import com.example.stuivenvolt.battlegamingtest.Tournament.ChampionshipFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -53,7 +54,8 @@ public class MainActivity extends AppCompatActivity
         GuildMembersFragment.OnFragmentInteractionListener,
         WeaponListFragment.OnFragmentInteractionListener,
         ViewProfileFragment.OnFragmentInteractionListener,
-        GuildListFragment.OnFragmentInteractionListener{
+        GuildListFragment.OnFragmentInteractionListener,
+        ChampionshipFragment.OnFragmentInteractionListener{
     FragmentManager fragmentManager = getFragmentManager();
 
     FirebaseAuth mAuth;

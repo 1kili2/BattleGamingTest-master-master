@@ -86,7 +86,7 @@ public class TournamentsFetcher extends AsyncTask<Void, Void, String> {
             }
 
 
-            TournamentAdapter nAdapter = new TournamentAdapter(guildList);
+            TournamentAdapter nAdapter = new TournamentAdapter(guildList, context);
             mRecyclerView.setAdapter(nAdapter);
 
 
