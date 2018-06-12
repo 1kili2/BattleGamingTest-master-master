@@ -266,19 +266,32 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/textView4"
-            android:layout_width="213dp"
+            android:id="@+id/profile_set_Guild"
+            android:layout_width="200dp"
             android:layout_height="30dp"
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
-            android:textColor="@color/black"
             android:text=""
+            android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/profile_set_Phone_Number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_set_Email" />
+
+        <TextView
+            android:id="@+id/profile_set_Adress"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="24dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_set_Phone_Number" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

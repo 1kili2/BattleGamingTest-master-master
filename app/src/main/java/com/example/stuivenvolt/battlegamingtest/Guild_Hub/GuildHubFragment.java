@@ -83,6 +83,7 @@ public class GuildHubFragment extends android.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getActivity().setTitle(getString(R.string.guild_title));
         View view = inflater.inflate(R.layout.fragment_guild_hub, container, false);
         guild = getArguments().getString("Guild");
 

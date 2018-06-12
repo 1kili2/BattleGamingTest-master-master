@@ -67,12 +67,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ConnectivityManager cm =
-                (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
+        IsConnected();
 
         if(isConnected) {
             mAuth = FirebaseAuth.getInstance();
@@ -110,8 +106,10 @@ public class MainActivity extends AppCompatActivity
     public void onBackPressed() {
         if(getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();
+            setTitle(getString(R.string.app_title));
         }else {
             super.onBackPressed();
+            setTitle(getString(R.string.app_title));
         }
         //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         /*if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -127,6 +125,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(final MenuItem item) {
         // Handle navigation view item clicks here.
+        IsConnected();
         if(isConnected) {
             final android.app.FragmentManager fm = getFragmentManager();
             Handler h = new Handler();
@@ -164,7 +163,7 @@ public class MainActivity extends AppCompatActivity
                         case R.id.nav_Guild:
                             //SetInfo();
                             if (guild == null) {
-                                fm.beginTransaction().replace(R.id.content_frame, new GuildListFragment()).addToBackStack("GuildList").commit();
+                                fm.beginTransaction().replace(R.id.content_frame, new GuildListFragment()).commit();
                                 setTitle(getString(R.string.guild_list_title));
                             } else {
                                 Bundle bundle = new Bundle();
@@ -210,6 +209,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    public void IsConnected(){
+        ConnectivityManager cm =
+                (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
     }
 
     public void setGuild(){

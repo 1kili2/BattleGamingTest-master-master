@@ -2,6 +2,8 @@ package com.example.stuivenvolt.battlegamingtest.News;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,6 +29,7 @@ public class NewsFragment extends android.app.Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     FrameLayout mScreen;
+    boolean isConnected;
 
     private OnFragmentInteractionListener mListener;
 
@@ -67,17 +70,19 @@ public class NewsFragment extends android.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        IsConnected();
         View view = inflater.inflate(R.layout.fragment_news, container, false);
-        // Get a handle to the RecyclerView.
-        RecyclerView mRecyclerView = view.findViewById(R.id.recyclernews);
-        // Create an adapter and supply the data to be displayed.
-        // Connect the adapter with the RecyclerView.
-        // Give the RecyclerView a default layout manager.
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        mScreen = view.findViewById(R.id.myScreen);
-        mScreen.setBackgroundColor(getBackgroundColor());
-        new NewsFetcher(mRecyclerView, getActivity()).execute();
+        if(isConnected) {
+            // Get a handle to the RecyclerView.
+            RecyclerView mRecyclerView = view.findViewById(R.id.recyclernews);
+            // Create an adapter and supply the data to be displayed.
+            // Connect the adapter with the RecyclerView.
+            // Give the RecyclerView a default layout manager.
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+            mScreen = view.findViewById(R.id.myScreen);
+            mScreen.setBackgroundColor(getBackgroundColor());
+            new NewsFetcher(mRecyclerView, getActivity()).execute();
+        }
         return view;
     }
 
@@ -97,17 +102,17 @@ public class NewsFragment extends android.app.Fragment {
     }
 
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void IsConnected(){
+        ConnectivityManager cm =
+                (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
     }
 }

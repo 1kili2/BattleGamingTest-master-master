@@ -2,6 +2,8 @@ package com.example.stuivenvolt.battlegamingtest.Calender;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -44,6 +46,7 @@ public class CalenderFragment extends android.app.Fragment {
 
     private OnFragmentInteractionListener mListener;
     int currentMonth;
+    boolean isConnected;
 
     public CalenderFragment() {
         // Required empty public constructor
@@ -71,67 +74,69 @@ public class CalenderFragment extends android.app.Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_calender, container, false);
-        if (getArguments() != null) {
-            for(int i=0;i<11;i++){
-                if(months[0][i].equals(getArguments().getString("Month"))){
-                    currentMonth = i;
+        IsConnected();
+        if(isConnected) {
+            if (getArguments() != null) {
+                for (int i = 0; i < 11; i++) {
+                    if (months[0][i].equals(getArguments().getString("Month"))) {
+                        currentMonth = i;
+                    }
                 }
+            } else {
+                DateFormat dateFormat = new SimpleDateFormat("M");
+                Date month = new Date();
+                currentMonth = Integer.parseInt(dateFormat.format(month)) - 1;
+                Log.e("Month", dateFormat.format(month));
             }
+            titlesetter(currentMonth);
+
+
+            mRecyclerView = view.findViewById(R.id.recyclercalender);
+            // Create an adapter and supply the data to be displayed.
+
+            // Connect the adapter with the RecyclerView.
+
+            // Give the RecyclerView a default layout manager.
+            mRecyclerView.setLayoutManager(new GridLayoutManager(this.getActivity(), 2));
+            mScreen = view.findViewById(R.id.myScreen);
+            mScreen.setBackgroundColor(getBackgroundColor());
+            FloatingActionButton btnNext = view.findViewById(R.id.btnNext);
+            FloatingActionButton btnPrev = view.findViewById(R.id.btnPrev);
+            new CalenderFetcher(currentMonth, months[0][currentMonth], months[1][currentMonth], mRecyclerView, getActivity()).execute();
+            //getDayJsonData();
+            btnNext.setColorFilter(getTextColor());
+            btnPrev.setColorFilter(getTextColor());
+
+            btnPrev.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    if (currentMonth == 0) {
+                        Toast toast = Toast.makeText(getActivity(), "Aqui empezo todo, el principio de la historia.", Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else {
+                        currentMonth--;
+                        titlesetter(currentMonth);
+                        new CalenderFetcher(currentMonth, months[0][currentMonth], months[1][currentMonth], mRecyclerView, getActivity()).execute();
+                        Log.e("Current month", months[0][currentMonth]);
+                    }
+                }
+            });
+
+            btnNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    if (currentMonth == 11) {
+                        Toast toast = Toast.makeText(getActivity(), "Llegastes al ultimo mes, se va a acabar el mundo!", Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else {
+                        currentMonth++;
+                        titlesetter(currentMonth);
+                        new CalenderFetcher(currentMonth, months[0][currentMonth], months[1][currentMonth], mRecyclerView, getActivity()).execute();
+                        Log.e("Current month", months[0][currentMonth]);
+                    }
+                }
+            });
         }
-        else {
-            DateFormat dateFormat = new SimpleDateFormat("M");
-            Date month = new Date();
-            currentMonth = Integer.parseInt(dateFormat.format(month)) - 1;
-            Log.e("Month", dateFormat.format(month));
-        }
-        titlesetter(currentMonth);
-
-
-        mRecyclerView = view.findViewById(R.id.recyclercalender);
-        // Create an adapter and supply the data to be displayed.
-
-        // Connect the adapter with the RecyclerView.
-
-        // Give the RecyclerView a default layout manager.
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this.getActivity(), 2));
-        mScreen = view.findViewById(R.id.myScreen);
-        mScreen.setBackgroundColor(getBackgroundColor());
-        FloatingActionButton btnNext = view.findViewById(R.id.btnNext);
-        FloatingActionButton btnPrev = view.findViewById(R.id.btnPrev);
-        new CalenderFetcher(currentMonth, months[0][currentMonth], months[1][currentMonth], mRecyclerView, getActivity()).execute();
-        //getDayJsonData();
-        btnNext.setColorFilter(getTextColor());
-        btnPrev.setColorFilter(getTextColor());
-
-        btnPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                if(currentMonth==0){
-                    Toast toast = Toast.makeText(getActivity(), "Aqui empezo todo, el principio de la historia.", Toast.LENGTH_SHORT);
-                    toast.show();
-                }else {
-                    currentMonth--;
-                    titlesetter(currentMonth);
-                    new CalenderFetcher(currentMonth, months[0][currentMonth], months[1][currentMonth], mRecyclerView, getActivity()).execute();
-                    Log.e("Current month", months[0][currentMonth]);
-                }
-            }
-        });
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                if(currentMonth==11) {
-                    Toast toast = Toast.makeText(getActivity(), "Llegastes al ultimo mes, se va a acabar el mundo!", Toast.LENGTH_SHORT);
-                    toast.show();
-                }else{
-                    currentMonth++;
-                    titlesetter(currentMonth);
-                    new CalenderFetcher(currentMonth, months[0][currentMonth], months[1][currentMonth], mRecyclerView, getActivity()).execute();
-                    Log.e("Current month", months[0][currentMonth]);
-                }
-            }
-        });
 
         return view;
     }
@@ -167,5 +172,14 @@ public class CalenderFragment extends android.app.Fragment {
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void IsConnected(){
+        ConnectivityManager cm =
+                (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
     }
 }

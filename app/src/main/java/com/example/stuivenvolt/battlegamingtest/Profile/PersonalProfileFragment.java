@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.stuivenvolt.battlegamingtest.News.NewsFragment;
@@ -47,6 +48,7 @@ public class PersonalProfileFragment extends android.app.Fragment {
     private View view;
     boolean dataSet = false;
     private EditText profilePhone, profileName, profileSurname, profileNickName, profileMotto;
+    private TextView profileGuild, profileAdress;
     Switch isSmith;
     Button armory;
 
@@ -84,6 +86,7 @@ public class PersonalProfileFragment extends android.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getActivity().setTitle(getString(R.string.profile_title));
         myRef = FirebaseDatabase.getInstance().getReference("usuarios");
         view = inflater.inflate(R.layout.fragment_personal_profile, container, false);
 
@@ -110,6 +113,14 @@ public class PersonalProfileFragment extends android.app.Fragment {
 
         isSmith = view.findViewById(R.id.isSmith);
         setData("IsSmith", isSmith);
+
+        profileGuild = view.findViewById(R.id.profile_set_Guild);
+        setData("Guild", profileGuild);
+
+        profileAdress = view.findViewById(R.id.profile_set_Adress);
+        setData("Adress", profileAdress);
+
+
 
         isSmith.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -257,6 +268,36 @@ public class PersonalProfileFragment extends android.app.Fragment {
                                     field.setText(data);
                                     dataSet = true;
                                 }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) { }
+                        });
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) { }
+            });
+        }catch (Throwable e) { }
+    }
+
+    public void setData(final String child, final TextView field){
+        final String mail = user.getEmail().replace("."," ");
+        try {
+            DatabaseReference profileRef = myRef.child(mail).child("Public").child(child);
+            dataSet = false;
+            profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String data = dataSnapshot.getValue(String.class);
+                    if(data != null) {
+                        field.setText(data);
+                    } else {
+                        DatabaseReference profilePrivateRef = myRef.child(mail).child("Private").child(child);
+                        profilePrivateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                String data = dataSnapshot.getValue(String.class);
+                                field.setText(data);
                             }
                             @Override
                             public void onCancelled(DatabaseError databaseError) { }
