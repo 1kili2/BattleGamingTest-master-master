@@ -106,10 +106,21 @@ public class PersonalProfileFragment extends android.app.Fragment {
         setData("Motto", profileMotto);
 
         armory = view.findViewById(R.id.weapons);
-        armory.setVisibility(View.GONE);
+        armory.setEnabled(false);
 
         isSmith = view.findViewById(R.id.isSmith);
         setData("IsSmith", isSmith);
+
+        isSmith.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                if(isSmith.isChecked()){
+                    armory.setEnabled(true);
+                }else{
+                    armory.setEnabled(false);
+                }
+            }
+        });
 
         armory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,11 +131,11 @@ public class PersonalProfileFragment extends android.app.Fragment {
                 android.app.FragmentManager fm = getFragmentManager();
                 WeaponListFragment wlf = new WeaponListFragment();
                 wlf.setArguments(bundle);
-                fm.beginTransaction().replace(R.id.content_frame, wlf).commit();
+                fm.beginTransaction().replace(R.id.content_frame, wlf).addToBackStack("PersonalProfile").commit();
             }
         });
         if(isSmith.isChecked()){
-            armory.setVisibility(View.VISIBLE);
+            armory.setEnabled(true);
         }
 
 
@@ -148,7 +159,7 @@ public class PersonalProfileFragment extends android.app.Fragment {
 
                 Toast.makeText(getActivity(), R.string.successful_save, Toast.LENGTH_LONG).show();
                 if(isSmith.isChecked()){
-                    armory.setVisibility(View.VISIBLE);
+                    armory.setEnabled(true);
                 }
             }
         });
@@ -161,7 +172,7 @@ public class PersonalProfileFragment extends android.app.Fragment {
     public void onResume() {
         super.onResume();
         if(isSmith.isChecked()){
-            armory.setVisibility(View.VISIBLE);
+            armory.setEnabled(true);
         }
     }
 
@@ -271,7 +282,7 @@ public class PersonalProfileFragment extends android.app.Fragment {
                         Log.e("in public smith", ""+dataSnapshot.getValue(boolean.class));
                         dataSet = true;
                         if(dataSnapshot.getValue(boolean.class)==true){
-                            armory.setVisibility(View.VISIBLE);
+                            armory.setEnabled(true);
                         }
                     } else {
 

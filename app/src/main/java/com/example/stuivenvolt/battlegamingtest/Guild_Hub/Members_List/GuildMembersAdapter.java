@@ -88,7 +88,7 @@ public class GuildMembersAdapter extends RecyclerView.Adapter<GuildMembersAdapte
                     android.app.FragmentManager fm = ((Activity) context).getFragmentManager();
                     ViewProfileFragment vpf = new ViewProfileFragment();
                     vpf.setArguments(bundle);
-                    fm.beginTransaction().replace(R.id.content_frame, vpf).commit();
+                    fm.beginTransaction().replace(R.id.content_frame, vpf).addToBackStack("MemberListItem").commit();
                 }
             });
 
@@ -102,7 +102,7 @@ public class GuildMembersAdapter extends RecyclerView.Adapter<GuildMembersAdapte
                     android.app.FragmentManager fm = ((Activity) context).getFragmentManager();
                     WeaponListFragment wlf = new WeaponListFragment();
                     wlf.setArguments(bundle);
-                    fm.beginTransaction().replace(R.id.content_frame, wlf).commit();
+                    fm.beginTransaction().replace(R.id.content_frame, wlf).addToBackStack("MemberListItem").commit();
                 }
             });
         }

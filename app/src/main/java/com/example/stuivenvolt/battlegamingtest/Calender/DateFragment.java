@@ -93,20 +93,6 @@ public class DateFragment extends android.app.Fragment {
         dateInfo.setText(joininfo);
         day.setBackgroundColor(getArguments().getInt("DayColor"));
 
-        final FloatingActionButton backbtn = view.findViewById(R.id.backbutton);
-        backbtn.setColorFilter(getTextColor());
-        backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                CalenderFragment newFragment = new CalenderFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("Month",getArguments().getString("Month"));
-                final android.app.FragmentManager fm = (getActivity()).getFragmentManager();
-                newFragment.setArguments(bundle);
-                fm.beginTransaction().replace(R.id.content_frame, newFragment).commit();
-            }
-        });
-
         final FloatingActionButton addbtn = view.findViewById(R.id.addtraining);
         addbtn.setColorFilter(getTextColor());
         addbtn.setOnClickListener(new View.OnClickListener() {

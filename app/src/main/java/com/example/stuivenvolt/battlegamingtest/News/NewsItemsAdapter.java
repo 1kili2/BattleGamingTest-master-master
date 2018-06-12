@@ -1,6 +1,7 @@
 package com.example.stuivenvolt.battlegamingtest.News;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -50,10 +51,15 @@ public class NewsItemsAdapter extends
             bundle.putString("Article",element.getNewsInfo());
             bundle.putString("Image",element.getImage());
             bundle.putString("Date",element.getDate());
-            final android.app.FragmentManager fm = ((Activity) context).getFragmentManager();
             NewsItemFragment nif = new NewsItemFragment();
             nif.setArguments(bundle);
-            fm.beginTransaction().replace(R.id.content_frame, nif).commit();
+
+            android.app.FragmentManager fm = ((Activity) context).getFragmentManager();
+            /*FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.content_frame, nif);
+            ft.addToBackStack("NewsItem");
+            ft.commit();*/
+            fm.beginTransaction().replace(R.id.content_frame, nif).addToBackStack("NewsItem").commit();
             //test=element.getDayInfo()+"Clicked!";
             //element.setDayInfo(test);
             //cAdapter.notifyDataSetChanged();

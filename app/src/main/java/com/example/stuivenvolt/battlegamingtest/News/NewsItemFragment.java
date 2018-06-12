@@ -91,17 +91,10 @@ public class NewsItemFragment extends android.app.Fragment {
         article.setText(getArguments().getString("Article"));
         date.setText(getArguments().getString("Date"));
 
-        final FloatingActionButton backbtn = view.findViewById(R.id.backbutton);
-        backbtn.setColorFilter(getTextColor());
-        backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                final android.app.FragmentManager fm = (getActivity()).getFragmentManager();
-                fm.beginTransaction().replace(R.id.content_frame, new NewsFragment()).commit();
-            }
-        });
         return view;
     }
+
+
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

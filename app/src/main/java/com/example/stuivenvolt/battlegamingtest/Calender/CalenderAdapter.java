@@ -60,7 +60,7 @@ public class CalenderAdapter extends
             final android.app.FragmentManager fm = ((Activity) context).getFragmentManager();
             DateFragment df = new DateFragment();
             df.setArguments(bundle);
-            fm.beginTransaction().replace(R.id.content_frame, df).commit();
+            fm.beginTransaction().replace(R.id.content_frame, df).addToBackStack("CalenderItem").commit();
             //test=element.getDayInfo()+"Clicked!";
             //element.setDayInfo(test);
             //cAdapter.notifyDataSetChanged();

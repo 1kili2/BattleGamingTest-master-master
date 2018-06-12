@@ -108,6 +108,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        if(getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        }else {
+            super.onBackPressed();
+        }
         //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         /*if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -136,22 +141,22 @@ public class MainActivity extends AppCompatActivity
                             break;
 
                         case R.id.nav_date:
-                            fm.beginTransaction().replace(R.id.content_frame, new CalenderFragment()).commit();
+                            fm.beginTransaction().replace(R.id.content_frame, new CalenderFragment()).addToBackStack("Calender").commit();
                             break;
 
                         case R.id.nav_manage:
-                            fm.beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
+                            fm.beginTransaction().replace(R.id.content_frame, new SettingsFragment()).addToBackStack("Settings").commit();
                             setTitle(getString(R.string.app_title));
                             break;
 
                         case R.id.nav_fights:
-                            fm.beginTransaction().replace(R.id.content_frame, new ChampionshipCreatorFragment()).commit();
+                            fm.beginTransaction().replace(R.id.content_frame, new ChampionshipCreatorFragment()).addToBackStack("Tournaments").commit();
                             setTitle(getString(R.string.app_title));
                             break;
 
-                        case R.id.nav_test1:
+                        case R.id.nav_profile:
                             //SetInfo();
-                            fm.beginTransaction().replace(R.id.content_frame, new PersonalProfileFragment()).commit();
+                            fm.beginTransaction().replace(R.id.content_frame, new PersonalProfileFragment()).addToBackStack("Profile").commit();
                             setTitle(getString(R.string.profile_title));
 
                             break;
@@ -159,7 +164,7 @@ public class MainActivity extends AppCompatActivity
                         case R.id.nav_Guild:
                             //SetInfo();
                             if (guild == null) {
-                                fm.beginTransaction().replace(R.id.content_frame, new GuildListFragment()).commit();
+                                fm.beginTransaction().replace(R.id.content_frame, new GuildListFragment()).addToBackStack("GuildList").commit();
                                 setTitle(getString(R.string.guild_list_title));
                             } else {
                                 Bundle bundle = new Bundle();
@@ -167,7 +172,7 @@ public class MainActivity extends AppCompatActivity
                                 android.app.FragmentManager fm = getFragmentManager();
                                 GuildHubFragment ghf = new GuildHubFragment();
                                 ghf.setArguments(bundle);
-                                fm.beginTransaction().replace(R.id.content_frame, ghf).commit();
+                                fm.beginTransaction().replace(R.id.content_frame, ghf).addToBackStack("Guild").commit();
                                 setTitle(getString(R.string.guild_title));
                             }
 
