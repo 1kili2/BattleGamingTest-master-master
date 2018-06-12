@@ -233,7 +233,7 @@
             android:text="@string/smith"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/weapons"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_Adress" />
 
@@ -241,17 +241,12 @@
             android:id="@+id/weapons"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="64dp"
             android:text="Armeria"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_save_profile"
-            app:layout_constraintTop_toBottomOf="@+id/isSmith" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_set_Phone_Number" />
 
         <Button
             android:id="@+id/btn_save_profile"
@@ -262,14 +257,28 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:text="@string/btn_profile_Save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.044"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/isSmith"
             app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="213dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
+            android:text=""
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/profile_set_Phone_Number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_set_Email" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
