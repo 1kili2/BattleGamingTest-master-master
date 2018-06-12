@@ -31,9 +31,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="91dp"
             android:fontFamily="cursive"
-            android:text="El Bar de los Vikingos"
+            android:text=""
             android:textColor="@color/red"
-            android:textSize="45dp"
+            android:textSize="45sp"
             android:textStyle="bold"
             android:textAlignment="center"/>
 
@@ -43,10 +43,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/guild_name"
             android:layout_centerHorizontal="true"
-            android:text="No complicas la vida, todo se puede solucionar con un hacha o una birra!"
+            android:text=""
             android:textAlignment="center"
             android:textColor="@color/darkRed"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <LinearLayout
@@ -66,7 +66,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:background="@drawable/register_buttons"
-            android:text="Message Board" />
+            android:text="@string/message_board" />
 
         <Button
             android:id="@+id/access_members"
@@ -75,7 +75,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:background="@drawable/register_buttons"
-            android:text="Members" />
+            android:text="@string/members" />
 
         <Button
             android:id="@+id/access_Battles"
@@ -86,6 +86,6 @@
             android:layout_marginRight="0dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/register_buttons"
-            android:text="Battles" />
+            android:text="@string/battles" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

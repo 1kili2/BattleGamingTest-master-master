@@ -20,7 +20,7 @@
     <string name="title">Title</string>
     <string name="location">Lugar de entrene</string>
     <string name="guild">Gremio</string>
-    <string name="new_session">Nueva Session</string>
+    <string name="new_session">Nueva Sesion</string>
     <string name="input_training_error">Error! Campo vacio.</string>
     <string name="ranking">Ranking</string>
     <string name="championship">Campeonato</string>
@@ -73,6 +73,10 @@
     <string name="guild_logo">Logo (opcional):</string>
     <string name="create_guild">Crear Gremio</string>
     <string name="no_internet_restart">No hay conexion a internet, comprueba tu conexion y reinicia la aplicacion</string>
+    <string name="message_board">Tablero de Mensajes</string>
+    <string name="members">Miembros</string>
+    <string name="battles">Batallas</string>
+    <string name="new_weapon">Nueva arma</string>
 
     <string-array name="hours">
         <item>17</item>

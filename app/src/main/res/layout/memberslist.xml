@@ -10,7 +10,7 @@
         android:background="@color/colorPrimary"
         android:contentDescription="@string/app_name"
         android:scaleType="center"
-        android:text="@string/guilds"
+        android:text="@string/members"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="40sp" />
