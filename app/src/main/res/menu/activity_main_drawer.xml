@@ -8,37 +8,37 @@
         <item
             android:id="@+id/nav_news"
             android:icon="@drawable/ic_menu_news"
-            android:title="Noticias" />
+            android:title="@string/news" />
 
         <item
             android:id="@+id/nav_date"
             android:icon="@drawable/ic_menu_date"
-            android:title="Calendario" />
+            android:title="@string/agenda" />
 
         <item
             android:id="@+id/nav_Guild"
             android:icon="@drawable/legolas"
-            android:title="Gremio" />
+            android:title="@string/guild" />
 
         <item
             android:id="@+id/nav_fights"
             android:icon="@drawable/swords"
-            android:title="Torneos" />
+            android:title="@string/tournaments" />
 
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/usericon"
-            android:title="Perfil" />
+            android:title="@string/profile" />
 
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Ajustes" />
+            android:title="@string/settings" />
 
         <item
             android:id="@+id/nav_LogOut"
             android:icon="@drawable/logout_inverted"
-            android:title="log out" />
+            android:title="@string/log_out" />
 
         <item
             android:id="@+id/nav_test2"

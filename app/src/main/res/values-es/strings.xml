@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Battle Gaming</string>
+    <string name="register_screen">Registra</string>
+    <string name="login_screen">Inicia sesion</string>
+
+    <string name="action_settings">Ajustes</string>
+    <string name="calendar_name">Calendario</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hola_mundo">Hola Mundo</string>
+    <string name="color_del_texto">Color del texto</string>
+    <string name="color_de_fondo">Color de fondo</string>
+    <string name="save">Save</string>
+    <string name="reset">Reset</string>
+    <string name="_03">03</string>
+    <string name="loading">Cargando...</string>
+    <string name="title">Title</string>
+    <string name="location">Lugar de entrene</string>
+    <string name="guild">Gremio</string>
+    <string name="new_session">Nueva Sesion</string>
+    <string name="input_training_error">Error! Campo vacio.</string>
+    <string name="ranking">Ranking</string>
+    <string name="championship">Campeonato</string>
+    <string name="participants">Participantes</string>
+    <string name="name">Nombre&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(Opcional)</string>
+    <string name="surname">Apellido&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(Opcional)</string>
+    <string name="password">Contraseña</string>
+    <string name="email">MyMail@Email.com</string>
+    <string name="login">&#160;&#160;&#160;Ya eres un guerrero? Inicia session!&#160;&#160;&#160;</string>
+    <string name="register">&#160;&#160;&#160;Conviertete en un guerrero. Registrate!&#160;&#160;&#160;</string>
+    <string name="nickname">(Opcional) Mote</string>
+    <string name="log_in_button_description">Log in</string>
+    <string name="failed_login_message">Log in fallado&#8230; Intentalo de nuevo en un par de minutos.</string>
+    <string name="empty_login_field">Campo vacio, por favor rellena todos los campos</string>
+    <string name="password_check">Comproba contraseña</string>
+    <string name="password_mismatch">Las contraseñas no son iguales</string>
+    <string name="empty_register_password_field">No has introducido contraseña.</string>
+    <string name="empty_register_email_field">No has introducido Email</string>
+    <string name="profile_Nickname">Apodo</string>
+    <string name="profile_Name">Nombre:</string>
+    <string name="profile_Surname">Apellidos:</string>
+    <string name="profile_Email">Email:</string>
+    <string name="profile_Guild">Gremio:</string>
+    <string name="profile_Phone_Number">Numero:</string>
+    <string name="profile_Adress">Localitzacion:</string>
+    <string name="btn_profile_Save">Guardar</string>
+    <string name="profile_Motto">No importa perder la batalla, mientras ganas la guerra!</string>
+    <string name="successful_save">Cambios guardados!</string>
+    <string name="pass_length">La contraseña tiene que ser de minimo 6 caracteres.</string>
+    <string name="valid_email">No has introducido un correo electronico valido</string>
+    <string name="errorMessage2">Error! Menos de 2 participantes.</string>
+    <string name="guilds_players_switch">Gremios:</string>
+    <string name="tournament_type">Tipo:</string>
+    <string name="tournament_win_battle_score">Puntuacion:</string>
+    <string name="guilds">Gremios</string>
+    <string name="smith">Herrero:</string>
+    <string name="weapon_description">Descripcion...</string>
+    <string name="edit_weapon_price">Precio</string>
+    <string name="edit_weapon_name">Nombre</string>
+    <string name="weapon_price">Precio:</string>
+    <string name="weapon_name">Nombre:</string>
+    <string name="Guildless">Sin Gremio</string>
+    <string name="fill_all_fields">Porfavor rellena todos los campos</string>
+    <string name="guild_title">Gremio</string>
+    <string name="profile_title">Perfil</string>
+    <string name="app_title">Battle Gaming</string>
+    <string name="guild_list_title">Lista de gremios</string>
+    <string name="guild_motto">Motto del gremio...</string>
+    <string name="guild_name">Nombre de gremio:&#160;&#160;&#160;&#160;</string>
+    <string name="guild_logo">Logo (opcional):</string>
+    <string name="create_guild">Crear Gremio</string>
+    <string name="no_internet_restart">No hay conexion a internet, comprueba tu conexion y reinicia la aplicacion</string>
+    <string name="message_board">Tablero de Mensajes</string>
+    <string name="members">Miembros</string>
+    <string name="battles">Batallas</string>
+    <string name="new_weapon">Nueva arma</string>
+
+
+    <string name="news">Noticias</string>
+    <string name="agenda">Calendario</string>
+    <string name="tournaments">Torneos</string>
+    <string name="profile">Perfil</string>
+    <string name="settings">Ajustes</string>
+    <string name="log_out">Log Out</string>
+
+    <string-array name="hours">
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>00</item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+    </string-array>
+    <string-array name="minutes">
+        <item>00</item>
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+    </string-array>
+    <string-array name="score">
+        <item>--------------------------</item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+        <item>49</item>
+        <item>50</item>
+    </string-array>
+    <string-array name="type">
+        <item>--------------------------</item>
+        <item>Eliminacion</item>
+        <item>Torneo</item>
+        <item>Todos vs. Todos</item>
+    </string-array>
+</resources>
