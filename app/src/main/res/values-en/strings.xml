@@ -81,6 +81,7 @@
     <string name="profile">Profile</string>
     <string name="settings">Settings</string>
     <string name="log_out">Log Out</string>
+    <string name="calender_row_span">Calender items per row</string>
 
     <string-array name="hours">
         <item>17</item>

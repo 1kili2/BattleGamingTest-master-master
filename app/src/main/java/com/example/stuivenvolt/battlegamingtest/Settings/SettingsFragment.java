@@ -9,10 +9,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,7 @@ public class SettingsFragment extends android.app.Fragment {
     private int seekR, seekG, seekB,seekTR, seekTG, seekTB;
     SeekBar redSeekBar, greenSeekBar, blueSeekBar, titleR, titleG, titleB;
     FrameLayout mScreen;
+    Spinner gridSpan;
 
 
     private OnFragmentInteractionListener mListener;
@@ -74,17 +77,17 @@ public class SettingsFragment extends android.app.Fragment {
     public int getSeekR(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        return prefs.getInt("seekR", 0xff000000);
+        return prefs.getInt("seekR", 0xffffffff);
     }
     public int getSeekG(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        return prefs.getInt("seekG", 0xff000000);
+        return prefs.getInt("seekG", 0xffffffff);
     }
     public int getSeekB(){
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        return prefs.getInt("seekB", 0xff000000);
+        return prefs.getInt("seekB", 0xffffffff);
     }
     public int getSeekTR(){
         Context context = getActivity();
@@ -100,6 +103,11 @@ public class SettingsFragment extends android.app.Fragment {
         Context context = getActivity();
         SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         return prefs.getInt("seekTB", 0xff000000);
+    }
+    public int getGridSpan(){
+        Context context = getActivity();
+        SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        return prefs.getInt("GridSpan", 2);
     }
 
 
@@ -138,6 +146,16 @@ public class SettingsFragment extends android.app.Fragment {
         titleR.setVisibility(View.GONE);
         titleG.setVisibility(View.GONE);
         titleB.setVisibility(View.GONE);
+
+
+        gridSpan = view.findViewById(R.id.spinner_grid_span);
+        ArrayAdapter<CharSequence> gridAdapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.grid_span, android.R.layout.simple_spinner_item);
+        gridAdapter.setDropDownViewResource
+                (android.R.layout.simple_spinner_dropdown_item);
+        gridSpan.setAdapter(gridAdapter);
+        gridSpan.setSelection(getGridSpan()-1);
+
 
 
 
@@ -250,6 +268,7 @@ public class SettingsFragment extends android.app.Fragment {
         edit.putInt("seekTR",seekTR);
         edit.putInt("seekTG",seekTG);
         edit.putInt("seekTB",seekTB);
+        edit.putInt("GridSpan",2);
         edit.apply();
         final android.app.FragmentManager fm = ((Activity) context).getFragmentManager();
         fm.beginTransaction().replace(R.id.content_frame,new SettingsFragment()).commit();
@@ -277,6 +296,7 @@ public class SettingsFragment extends android.app.Fragment {
         edit.putInt("seekTR",seekTR);
         edit.putInt("seekTG",seekTG);
         edit.putInt("seekTB",seekTB);
+        edit.putInt("GridSpan",gridSpan.getSelectedItemPosition()+1);
         edit.apply();
     }
 

@@ -83,6 +83,7 @@
     <string name="profile">Profile</string>
     <string name="settings">Settings</string>
     <string name="log_out">Log Out</string>
+    <string name="calender_row_span">Calender items per row</string>
 
     <string-array name="hours">
         <item>17</item>
@@ -174,5 +175,17 @@
         <item>Elimination</item>
         <item>Tournament</item>
         <item>All vs. All</item>
+    </string-array>
+    <string-array name="grid_span">
+        <item>&#160;&#160;&#160;&#160;&#160;1&#160;&#160;&#160;&#160;</item>
+        <item>&#160;&#160;&#160;&#160;&#160;2&#160;&#160;&#160;&#160;</item>
+        <item>&#160;&#160;&#160;&#160;&#160;3&#160;&#160;&#160;&#160;</item>
+        <item>&#160;&#160;&#160;&#160;&#160;4&#160;&#160;&#160;&#160;</item>
+        <item>&#160;&#160;&#160;&#160;&#160;5&#160;&#160;&#160;&#160;</item>
+        <item>&#160;&#160;&#160;&#160;&#160;6&#160;&#160;&#160;&#160;</item>
+        <item>&#160;&#160;&#160;&#160;&#160;7&#160;&#160;&#160;&#160;</item>
+        <item>&#160;&#160;&#160;&#160;&#160;8&#160;&#160;&#160;&#160;</item>
+        <item>&#160;&#160;&#160;&#160;&#160;9&#160;&#160;&#160;&#160;</item>
+        <item>&#160;&#160;&#160;&#160;10&#160;&#160;&#160;&#160;</item>
     </string-array>
 </resources>

@@ -72,6 +72,9 @@ public class CalenderFragment extends android.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Context context = getActivity();
+        SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
 
         View view = inflater.inflate(R.layout.fragment_calender, container, false);
         IsConnected();
@@ -97,7 +100,7 @@ public class CalenderFragment extends android.app.Fragment {
             // Connect the adapter with the RecyclerView.
 
             // Give the RecyclerView a default layout manager.
-            mRecyclerView.setLayoutManager(new GridLayoutManager(this.getActivity(), 2));
+            mRecyclerView.setLayoutManager(new GridLayoutManager(this.getActivity(), prefs.getInt("GridSpan", 2)));
             mScreen = view.findViewById(R.id.myScreen);
             mScreen.setBackgroundColor(getBackgroundColor());
             FloatingActionButton btnNext = view.findViewById(R.id.btnNext);

@@ -40,6 +40,7 @@ public class CalenderAdapter extends
             super(itemView);
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             FirebaseUser user = mAuth.getCurrentUser();
+
             calenderDateView = itemView.findViewById(R.id.Date);
             calenderDateInfoView = itemView.findViewById(R.id.DateInfo);
             calenderDayView = itemView.findViewById(R.id.Day);
@@ -71,6 +72,9 @@ public class CalenderAdapter extends
     public CalenderAdapter.WordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         prefs = parent.getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         View dItemView = dInflater.inflate(R.layout.calender_entries, parent, false);
+        if(prefs.getInt("GridSpan", 2) >= 6){
+            dItemView.setMinimumHeight(30);
+        }
         TextView day = dItemView.findViewById(R.id.Day);
         TextView date = dItemView.findViewById(R.id.Date);
         TextView dateInfo = dItemView.findViewById(R.id.DateInfo);
