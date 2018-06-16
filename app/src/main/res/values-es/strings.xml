@@ -40,7 +40,7 @@
     <string name="profile_Nickname">Apodo</string>
     <string name="profile_Name">Nombre:</string>
     <string name="profile_Surname">Apellidos:</string>
-    <string name="profile_Email">Email:</string>
+    <string name="profile_Email">Verificado:</string>
     <string name="profile_Guild">Gremio:</string>
     <string name="profile_Phone_Number">Numero:</string>
     <string name="profile_Adress">Localitzacion:</string>
@@ -83,6 +83,8 @@
     <string name="profile">Perfil</string>
     <string name="settings">Ajustes</string>
     <string name="log_out">Log Out</string>
+
+    <string name="verify_first">Porfavor verifica tu email primero!</string>
 
     <string-array name="hours">
         <item>17</item>

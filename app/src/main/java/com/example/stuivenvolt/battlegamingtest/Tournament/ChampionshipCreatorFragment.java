@@ -9,11 +9,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.stuivenvolt.battlegamingtest.R;
+import com.example.stuivenvolt.battlegamingtest.StartUp.RegisterScreen;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -170,24 +173,29 @@ public class ChampionshipCreatorFragment extends android.app.Fragment {
 
     private void getTrusted(final FloatingActionButton addbtn) {
         final String mail = user.getEmail().replace(".", " ");
-        try{
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            final DatabaseReference myRef = database.getReference("usuarios");
-            DatabaseReference profileRef = myRef.child(mail).child("Public").child("Rank");
-            profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String data = dataSnapshot.getValue(String.class);
-                    if(data.equals("Trusted")||data.equals("Leader")){
-                        addbtn.setVisibility(View.VISIBLE);
+        if(user.isEmailVerified()) {
+            Log.e("verified", ""+user.isEmailVerified());
+            try {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                final DatabaseReference myRef = database.getReference("usuarios");
+                DatabaseReference profileRef = myRef.child(mail).child("Public").child("Rank");
+                profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String data = dataSnapshot.getValue(String.class);
+                        if (data.equals("Trusted") || data.equals("Leader")) {
+                            addbtn.setVisibility(View.VISIBLE);
+                        }
                     }
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-        } catch (Throwable e) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+            } catch (Throwable e) {
+            }
+        }else{
+            Toast.makeText(getActivity(), R.string.verify_first, Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -40,7 +40,7 @@
     <string name="profile_Nickname">Bijnaam</string>
     <string name="profile_Name">Naam:</string>
     <string name="profile_Surname">Achternaam:</string>
-    <string name="profile_Email">Email:</string>
+    <string name="profile_Email">Geverifieerd:</string>
     <string name="profile_Guild">Gilde:</string>
     <string name="profile_Phone_Number">Nummer:</string>
     <string name="profile_Adress">Adres:</string>
@@ -83,6 +83,8 @@
     <string name="profile">Profiel</string>
     <string name="settings">Opties</string>
     <string name="log_out">Log Uit</string>
+
+    <string name="verify_first">Verifieer je email eerst!</string>
 
     <string-array name="hours">
         <item>17</item>

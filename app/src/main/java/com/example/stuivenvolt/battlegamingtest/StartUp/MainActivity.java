@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity
         ViewProfileFragment.OnFragmentInteractionListener,
         GuildListFragment.OnFragmentInteractionListener,
         ChampionshipFragment.OnFragmentInteractionListener{
+
     FragmentManager fragmentManager = getFragmentManager();
 
     FirebaseAuth mAuth;

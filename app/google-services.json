@@ -15,12 +15,24 @@
       },
       "oauth_client": [
         {
+          "client_id": "757375580586-h61o8id0dklncj8u15ieskkbmjn8qn63.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.stuivenvolt.battlegamingtest",
+            "certificate_hash": "283f6a556fa1b0f37660ca72ef9c496cbaa79f02"
+          }
+        },
+        {
           "client_id": "757375580586-t9iv3264b5grjhih753upcq9ob30oj3n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.stuivenvolt.battlegamingtest",
             "certificate_hash": "a0241fd293219e9627122b13137af29a018b9939"
           }
+        },
+        {
+          "client_id": "757375580586-4q6n006283qggapp5gcs0ucit2fuobsg.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
           "client_id": "757375580586-4q6n006283qggapp5gcs0ucit2fuobsg.apps.googleusercontent.com",

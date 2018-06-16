@@ -98,12 +98,13 @@ public class RegisterScreen extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(mail, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     private static final String TAG = "";
-
+                    FirebaseUser user = mAuth.getCurrentUser();
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
+                            user.sendEmailVerification();
                             HideLoadingAnimation();
                             Intent intent = new Intent(RegisterScreen.this, MainActivity.class);
                             startActivity(intent);

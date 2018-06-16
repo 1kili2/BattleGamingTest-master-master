@@ -38,7 +38,7 @@
     <string name="profile_Nickname">Nickname</string>
     <string name="profile_Name">Name:</string>
     <string name="profile_Surname">Surname:</string>
-    <string name="profile_Email">Email:</string>
+    <string name="profile_Email">Verified:</string>
     <string name="profile_Guild">Guild:</string>
     <string name="profile_Phone_Number">Number:</string>
     <string name="profile_Adress">Adress:</string>
@@ -82,6 +82,8 @@
     <string name="settings">Settings</string>
     <string name="log_out">Log Out</string>
     <string name="calender_row_span">Calender items per row</string>
+
+    <string name="verify_first">Please verify your email first!</string>
 
     <string-array name="hours">
         <item>17</item>

@@ -51,6 +51,7 @@ public class PersonalProfileFragment extends android.app.Fragment {
     private TextView profileGuild, profileAdress;
     Switch isSmith;
     Button armory;
+    boolean verified;
 
     private OnFragmentInteractionListener mListener;
 
@@ -89,6 +90,7 @@ public class PersonalProfileFragment extends android.app.Fragment {
         getActivity().setTitle(getString(R.string.profile_title));
         myRef = FirebaseDatabase.getInstance().getReference("usuarios");
         view = inflater.inflate(R.layout.fragment_personal_profile, container, false);
+        verified = user.isEmailVerified();
 
         profilePhone = view.findViewById(R.id.profile_set_Phone_Number);
         setData("Phone Number", profilePhone);
@@ -99,8 +101,17 @@ public class PersonalProfileFragment extends android.app.Fragment {
         profileSurname = view.findViewById(R.id.profile_set_Surname);
         setData("Name", profileSurname);
 
-        EditText profileEmail = view.findViewById(R.id.profile_set_Email);
-        profileEmail.setText(user.getEmail());
+        TextView profileEmail = view.findViewById(R.id.profile_set_Email);
+        profileEmail.setText("" + verified);
+
+        if(!verified){
+            profileEmail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    user.sendEmailVerification();
+                }
+            });
+        }
 
         profileNickName = view.findViewById(R.id.profile_set_Nickname);
         setData("NickName", profileNickName);
@@ -162,7 +173,6 @@ public class PersonalProfileFragment extends android.app.Fragment {
                 saveRef.child("Public").child("IsTrusted").setValue("false");
                 saveRef.child("Public").child("Name").setValue(name);
                 saveRef.child("Public").child("NickName").setValue(profileNickName.getText().toString());
-                saveRef.child("Public").child("Rank").setValue("Member");
                 saveRef.child("Public").child("Motto").setValue(profileMotto.getText().toString());
 
                 saveRef.child("Private").child("Phone Number").setValue(profilePhone.getText().toString());
