@@ -84,6 +84,20 @@
     <string name="calender_row_span">Calender items per row</string>
 
     <string name="verify_first">Please verify your email first!</string>
+    <string name="the_beginning">This is where is started, the beginning!</string>
+    <string name="the_end">You\'ve reached the end, the world is gonna end!</string>
+    <string name="jan">January</string>
+    <string name="feb">Febuary</string>
+    <string name="mar">March</string>
+    <string name="dec">December</string>
+    <string name="nov">November</string>
+    <string name="oct">October</string>
+    <string name="sep">September</string>
+    <string name="aug">August</string>
+    <string name="jul">July</string>
+    <string name="jun">June</string>
+    <string name="may">May</string>
+    <string name="apr">April</string>
 
     <string-array name="hours">
         <item>17</item>

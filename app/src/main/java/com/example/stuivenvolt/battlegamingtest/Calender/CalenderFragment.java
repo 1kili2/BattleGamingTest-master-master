@@ -42,7 +42,7 @@ public class CalenderFragment extends android.app.Fragment {
 
     private RecyclerView mRecyclerView;
     FrameLayout mScreen;
-    private String[][] months={{"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"},{"31","28","31","30","31","30","31","31","30","31","30","31"}};
+    private String[][] months={{getString(R.string.jan),getString(R.string.feb),getString(R.string.mar),getString(R.string.apr),getString(R.string.may),getString(R.string.jun),getString(R.string.jul),getString(R.string.aug),getString(R.string.sep),getString(R.string.oct),getString(R.string.nov),getString(R.string.dec)},{"31","28","31","30","31","30","31","31","30","31","30","31"}};
 
     private OnFragmentInteractionListener mListener;
     int currentMonth;
@@ -114,7 +114,7 @@ public class CalenderFragment extends android.app.Fragment {
                 @Override
                 public void onClick(final View v) {
                     if (currentMonth == 0) {
-                        Toast toast = Toast.makeText(getActivity(), "Aqui empezo todo, el principio de la historia.", Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(getActivity(), R.string.the_beginning, Toast.LENGTH_SHORT);
                         toast.show();
                     } else {
                         currentMonth--;
@@ -129,7 +129,7 @@ public class CalenderFragment extends android.app.Fragment {
                 @Override
                 public void onClick(final View v) {
                     if (currentMonth == 11) {
-                        Toast toast = Toast.makeText(getActivity(), "Llegastes al ultimo mes, se va a acabar el mundo!", Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(getActivity(), R.string.the_end, Toast.LENGTH_SHORT);
                         toast.show();
                     } else {
                         currentMonth++;

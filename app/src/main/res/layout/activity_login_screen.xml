@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StartUp.LoginScreen">
+    tools:context=".StartUp.LoginScreen"
+    android:background="@drawable/legolas">
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".StartUp.LoginScreen"
-        android:background="@drawable/legolas"
-        android:backgroundTintMode="multiply"
-        android:backgroundTint="@color/darkLayer">
+        android:background="@color/transparantWhite">
 
         <EditText
             android:id="@+id/login_email"
@@ -64,6 +63,23 @@
             app:layout_constraintEnd_toEndOf="@+id/login_password"
             app:layout_constraintStart_toStartOf="@+id/login_password"
             app:layout_constraintTop_toBottomOf="@+id/login_password" />
+
+        <ImageView
+            android:id="@+id/click_me_bubble"
+            android:layout_width="125dp"
+            android:layout_height="117dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="49dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="49dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageButton3"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton3"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_password"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/click_me" />
 
     </android.support.constraint.ConstraintLayout>
     <RelativeLayout

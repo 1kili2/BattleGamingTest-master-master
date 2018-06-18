@@ -85,6 +85,20 @@
     <string name="log_out">Log Out</string>
 
     <string name="verify_first">Porfavor verifica tu email primero!</string>
+    <string name="the_beginning">Aqui empezo todo, el principio de la historia.</string>
+    <string name="the_end">Llegastes al ultimo mes, se va a acabar el mundo!</string>
+    <string name="jan">Enero</string>
+    <string name="feb">Febrero</string>
+    <string name="mar">Marzo</string>
+    <string name="dec">Diciembre</string>
+    <string name="nov">Noviembre</string>
+    <string name="oct">Octubre</string>
+    <string name="sep">Septiembre</string>
+    <string name="aug">Agosto</string>
+    <string name="jul">Julio</string>
+    <string name="jun">Junio</string>
+    <string name="may">Mayo</string>
+    <string name="apr">Abril</string>
 
     <string-array name="hours">
         <item>17</item>
