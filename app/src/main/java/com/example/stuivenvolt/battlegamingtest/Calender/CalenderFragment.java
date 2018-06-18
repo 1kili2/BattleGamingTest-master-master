@@ -43,7 +43,7 @@ public class CalenderFragment extends android.app.Fragment {
     private RecyclerView mRecyclerView;
     FrameLayout mScreen;
     private String[][] months={{"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"},{"31","28","31","30","31","30","31","31","30","31","30","31"}};
-    private String[] translatedMonths = {getString(R.string.jan),getString(R.string.feb),getString(R.string.mar),getString(R.string.apr),getString(R.string.may),getString(R.string.jun),getString(R.string.jul),getString(R.string.aug),getString(R.string.sep),getString(R.string.oct),getString(R.string.nov),getString(R.string.dec)};
+    //private String[] translatedMonths = {getString(R.string.jan),getString(R.string.feb),getString(R.string.mar),getString(R.string.apr),getString(R.string.may),getString(R.string.jun),getString(R.string.jul),getString(R.string.aug),getString(R.string.sep),getString(R.string.oct),getString(R.string.nov),getString(R.string.dec)};
     private OnFragmentInteractionListener mListener;
     int currentMonth;
     boolean isConnected;
@@ -144,6 +144,8 @@ public class CalenderFragment extends android.app.Fragment {
         return view;
     }
 
+
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -151,7 +153,7 @@ public class CalenderFragment extends android.app.Fragment {
     }
 
     public void titlesetter(int month) {
-        getActivity().setTitle(translatedMonths[month]);
+        getActivity().setTitle(months[0][month]);
     }
 
     @Override
