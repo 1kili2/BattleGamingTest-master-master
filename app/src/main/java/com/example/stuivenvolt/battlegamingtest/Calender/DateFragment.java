@@ -81,7 +81,8 @@ public class DateFragment extends android.app.Fragment {
         date.setText(getArguments().getString("Date"));
         day.setText(getArguments().getString("Day"));
 
-        String[] splitinfo=getArguments().getString("DayInfo").split("\\{|\\}|\\,");
+        String tosplit = getArguments().getString("DayInfo").replace("\"", "");
+        String[] splitinfo=tosplit.split("\\{|\\}|\\,");
         String joininfo="test";
         for(int i=0;i<splitinfo.length;i++){
             if(joininfo.equals("test")) {

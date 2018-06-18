@@ -139,35 +139,6 @@ public class CalenderFetcher extends AsyncTask<Void, Void, String> {
             je.printStackTrace();
             Toast toast = Toast.makeText(context, "No hay mas informacion", Toast.LENGTH_SHORT);
             toast.show();
-           // try {
-           //     //JSONObject jsonObject = new JSONObject(result);
-           //     JSONObject itemsArray = new JSONObject(result);
-           //     Log.d(LOG_TAG,result);
-//
-           //         String day = ""+itemsArray;
-           //         //String day=null;
-           //         //JSONObject volumeInfo = book.getJSONObject("sessionInfo");
-//
-//
-//
-//
-//
-           //         if (day != null ){
-           //             mTextView.setText(mTextView.getText()+" "+day);
-//
-           //         }
-//
-//
-           //     if(mTextView.getText()==null) {
-           //         mTextView.setText(dayn+"No Results Found");
-           //     }
-//
-//
-//
-           // } catch (Exception ex){
-           //     mTextView.setText(dayn+"No Results Found"+test);
-           //     ex.printStackTrace();
-           // }
         }
     }
 }

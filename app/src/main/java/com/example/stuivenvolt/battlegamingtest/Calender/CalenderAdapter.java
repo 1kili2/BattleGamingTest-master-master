@@ -43,6 +43,7 @@ public class CalenderAdapter extends
 
             calenderDateView = itemView.findViewById(R.id.Date);
             calenderDateInfoView = itemView.findViewById(R.id.DateInfo);
+            Log.e("gridspan", ""+context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).getInt("GridSpan", 2));
             calenderDayView = itemView.findViewById(R.id.Day);
             this.cAdapter = adapter;
             itemView.setOnClickListener(this);
@@ -71,9 +72,14 @@ public class CalenderAdapter extends
     @Override
     public CalenderAdapter.WordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         prefs = parent.getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        View dItemView = dInflater.inflate(R.layout.calender_entries, parent, false);
-        if(prefs.getInt("GridSpan", 2) >= 6){
-            dItemView.setMinimumHeight(30);
+        View dItemView;
+
+        if(prefs.getInt("GridSpan", 2) > 4){
+            dItemView = dInflater.inflate(R.layout.calender_entries_flat, parent, false);
+            Log.e("Inflating", "flat");
+        }else{
+            dItemView = dInflater.inflate(R.layout.calender_entries, parent, false);
+            Log.e("Inflating", "normal");
         }
         TextView day = dItemView.findViewById(R.id.Day);
         TextView date = dItemView.findViewById(R.id.Date);
@@ -81,8 +87,10 @@ public class CalenderAdapter extends
         day.setTextColor(getTextColor());
         date.setTextColor(getTextColor());
         dateInfo.setTextColor(getTextColor());
-        //String color = getArguments().getString("Color");
         context=parent.getContext();
+
+        //String color = getArguments().getString("Color");
+
 
         return new WordViewHolder(dItemView, this);
     }
@@ -91,18 +99,22 @@ public class CalenderAdapter extends
     public void onBindViewHolder(CalenderAdapter.WordViewHolder holder, int position) {
         final DayItems dayItems = dayList.get(position);
         holder.calenderDateView.setText(dayItems.getDate());
-        String[] splitinfo=dayItems.getDayInfo().split("\\{|\\}|\\,");
-        String joininfo="test";
-        for(int i=0;i<splitinfo.length;i++){
-            if(joininfo.equals("test")) {
-                joininfo = splitinfo[i];
-            }else{
-                joininfo = joininfo + splitinfo[i] + "\n";
+        if(prefs.getInt("GridSpan", 2) < 5) {
+            String tosplit = dayItems.getDayInfo().replace("\"", " ");
+            String[] splitinfo = tosplit.split("\\{|\\}|\\,");
+            String joininfo = "test";
+            for (int i = 0; i < splitinfo.length; i++) {
+                if (joininfo.equals("test")) {
+                    joininfo = splitinfo[i];
+                } else {
+                    joininfo = joininfo + splitinfo[i] + "\n";
+                }
             }
+            joininfo.replace("\"", " ");
+            holder.calenderDateInfoView.setText(joininfo);
         }
-        joininfo.replace("\""," ");
-        holder.calenderDateInfoView.setText(joininfo);
         holder.calenderDayView.setBackgroundColor(dayItems.getDayColor());
+        holder.calenderDateView.setBackgroundColor(dayItems.getDayColor());
         holder.calenderDayView.setText(dayItems.getDay());
         Log.e("Current day",dayItems.getDay());
     }

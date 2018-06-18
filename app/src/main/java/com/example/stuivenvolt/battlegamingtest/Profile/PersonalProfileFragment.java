@@ -109,6 +109,7 @@ public class PersonalProfileFragment extends android.app.Fragment {
                 @Override
                 public void onClick(final View v) {
                     user.sendEmailVerification();
+                    Toast.makeText(getActivity(), "Verification Email send.", Toast.LENGTH_SHORT).show();
                 }
             });
         }

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,7 +26,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
 
 
 /**
@@ -46,6 +50,8 @@ public class GuildHubFragment extends android.app.Fragment {
     private String guild;
     TextView guildName, guildMotto;
     ImageView guildLogo;
+    boolean dataSet;
+
 
 
 
@@ -88,8 +94,17 @@ public class GuildHubFragment extends android.app.Fragment {
         guild = getArguments().getString("Guild");
 
         guildName = view.findViewById(R.id.guild_name);
-
         guildMotto = view.findViewById(R.id.guild_motto);
+        guildLogo = view.findViewById(R.id.guild_logo);
+        Button messageBoard = view.findViewById(R.id.access_Message_Board);
+        messageBoard.setEnabled(false);
+        Button battles = view.findViewById(R.id.access_Battles);
+        battles.setEnabled(false);
+
+        guildName.setText(guild);
+
+        new GuildDataFetcher(guildMotto, getActivity(), guildLogo, guild).execute();
+
 
 
         final Button membersList = view.findViewById(R.id.access_members);
@@ -148,4 +163,6 @@ public class GuildHubFragment extends android.app.Fragment {
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
+
+
 }

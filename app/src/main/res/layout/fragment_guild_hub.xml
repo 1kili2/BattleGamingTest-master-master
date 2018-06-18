@@ -16,7 +16,7 @@
         android:background="@color/black">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/guild_logo"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_alignParentTop="true"
