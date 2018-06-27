@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -21,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginScreen extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText emailET, passwordET;
-    private ImageButton ibLogin;
+    private Button ibLogin;
     FirebaseUser user;
     private boolean isBig = false;
 
@@ -40,7 +41,8 @@ public class LoginScreen extends AppCompatActivity {
             Toast.makeText(LoginScreen.this, R.string.empty_login_field, Toast.LENGTH_SHORT).show();
         }else{
             if(emailET.getText().toString().contains("@") && emailET.getText().toString().contains(".")) {
-                changebutton();
+                //changebutton();
+                ShowLoadingAnimation();
                 String email = emailET.getText().toString();
                 String password = passwordET.getText().toString();
                 mAuth.signInWithEmailAndPassword(email, password)
@@ -61,7 +63,7 @@ public class LoginScreen extends AppCompatActivity {
                                     Log.w("Login Fail:", "signInWithEmail:failure", task.getException());
                                     HideLoadingAnimation();
                                     Toast.makeText(LoginScreen.this, R.string.failed_login_message, Toast.LENGTH_SHORT).show();
-                                    changebutton();
+                                    //changebutton();
                                 }
                             }
                         });
@@ -84,7 +86,7 @@ public class LoginScreen extends AppCompatActivity {
         pageLoading.setVisibility(View.GONE);
     }
 
-    private void changebutton(){
+   /* private void changebutton(){
         if(isBig == false) {
             ibLogin.setImageResource(R.drawable.young_viking_200);
             isBig = true;
@@ -93,5 +95,5 @@ public class LoginScreen extends AppCompatActivity {
             ibLogin.setImageResource(R.drawable.veteran_viking_200);
             isBig = false;
         }
-    }
+    }*/
 }

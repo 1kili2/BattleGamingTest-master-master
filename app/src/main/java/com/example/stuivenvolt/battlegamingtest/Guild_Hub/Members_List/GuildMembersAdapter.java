@@ -103,6 +103,7 @@ public class GuildMembersAdapter extends RecyclerView.Adapter<GuildMembersAdapte
                     WeaponListFragment wlf = new WeaponListFragment();
                     wlf.setArguments(bundle);
                     fm.beginTransaction().replace(R.id.content_frame, wlf).addToBackStack("MemberListItem").commit();
+                    //((Activity) context).setTitle(context.getString(R.string.weapon_list_title));
                 }
             });
         }

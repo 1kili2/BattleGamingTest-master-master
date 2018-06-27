@@ -117,6 +117,7 @@ public class GuildHubFragment extends android.app.Fragment {
                 bundle.putString("Guild", guild);
                 gmf.setArguments(bundle);
                 fm.beginTransaction().replace(R.id.content_frame, gmf).addToBackStack("MembersList").commit();
+                getActivity().setTitle(getString(R.string.members));
             }
         });
         return view;

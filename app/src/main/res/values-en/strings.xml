@@ -98,6 +98,11 @@
     <string name="jun">June</string>
     <string name="may">May</string>
     <string name="apr">April</string>
+    <string name="news_title">News</string>
+    <string name="official_contact">Official Contact:</string>
+    <string name="log_in_button_text">Log In!</string>
+    <string name="logging_in">Logging in...</string>
+    <string name="open_training">Open training</string>
 
     <string-array name="hours">
         <item>17</item>

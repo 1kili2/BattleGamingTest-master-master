@@ -99,6 +99,11 @@
     <string name="jun">Junio</string>
     <string name="may">Mayo</string>
     <string name="apr">Abril</string>
+    <string name="news_title">Noticias</string>
+    <string name="official_contact">Contacto oficial:</string>
+    <string name="log_in_button_text">Inicia Sesion!</string>
+    <string name="logging_in">Entrando...</string>
+    <string name="open_training">Entrene Libre</string>
 
     <string-array name="hours">
         <item>17</item>

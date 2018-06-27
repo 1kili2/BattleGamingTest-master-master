@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity
 
                         case R.id.nav_news:
                             fm.beginTransaction().replace(R.id.content_frame, new NewsFragment()).commit();
-                            setTitle(getString(R.string.app_title));
+                            setTitle(getString(R.string.news_title));
                             break;
 
                         case R.id.nav_date:
@@ -149,10 +149,10 @@ public class MainActivity extends AppCompatActivity
                             setTitle(getString(R.string.app_title));
                             break;
 
-                        case R.id.nav_fights:
+                        /*case R.id.nav_fights:
                             fm.beginTransaction().replace(R.id.content_frame, new ChampionshipCreatorFragment()).addToBackStack("Tournaments").commit();
                             setTitle(getString(R.string.app_title));
-                            break;
+                            break;*/
 
                         case R.id.nav_profile:
                             //SetInfo();
@@ -176,14 +176,6 @@ public class MainActivity extends AppCompatActivity
                                 setTitle(getString(R.string.guild_title));
                             }
 
-                            break;
-
-                        case R.id.nav_test2:
-                            if (user != null) {
-                                Toast.makeText(MainActivity.this, user.getEmail() + "    " + user.getDisplayName(), Toast.LENGTH_LONG).show();
-                                setGuild();
-                            }
-                            setTitle(getString(R.string.app_title));
                             break;
 
                         case R.id.nav_LogOut:

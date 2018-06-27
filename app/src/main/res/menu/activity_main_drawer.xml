@@ -19,30 +19,33 @@
             android:id="@+id/nav_Guild"
             android:icon="@drawable/legolas"
             android:title="@string/guild" />
+    </group>
 
-        <item
+        <!--<item
             android:id="@+id/nav_fights"
             android:icon="@drawable/swords"
-            android:title="@string/tournaments" />
+            android:title="@string/tournaments" />-->
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/usericon"
+                android:title="@string/profile" />
 
-        <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/usericon"
-            android:title="@string/profile" />
+            <item
+                android:id="@+id/nav_manage"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="@string/settings" />
+        </menu>
+    </item>
 
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/settings" />
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_LogOut"
+                android:icon="@drawable/logout_inverted"
+                android:title="@string/log_out" />
+        </menu>
+    </item>
 
-        <item
-            android:id="@+id/nav_LogOut"
-            android:icon="@drawable/logout_inverted"
-            android:title="@string/log_out" />
-
-        <item
-            android:id="@+id/nav_test2"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="test" />
-    </group>
 </menu>

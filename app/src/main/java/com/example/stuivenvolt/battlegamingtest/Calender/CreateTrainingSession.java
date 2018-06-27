@@ -13,6 +13,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.stuivenvolt.battlegamingtest.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +31,10 @@ import static java.lang.Thread.sleep;
 public class CreateTrainingSession extends DialogFragment implements AdapterView.OnItemSelectedListener{
     Spinner hours,minutes;
     private TextView guild,location,error;
-    boolean inserted=false;
+    boolean inserted=false, dataSet;
+    DatabaseReference myRef;
+    FirebaseUser user;
+    FirebaseAuth mAuth;
 
 
     public static CreateTrainingSession newInstance(String param1, String param2) {
@@ -44,11 +49,14 @@ public class CreateTrainingSession extends DialogFragment implements AdapterView
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.createtraining, null);
         error = view.findViewById(R.id.ErrorMessage);
         error.setVisibility(View.GONE);
         guild = view.findViewById(R.id.guildname);
+        setGuild(guild);
         location = view.findViewById(R.id.location);
         builder.setView(view);
         final AlertDialog alert = builder.create();
@@ -150,5 +158,28 @@ public class CreateTrainingSession extends DialogFragment implements AdapterView
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
         //Log.e(TAG, "onNothingSelected: ");
+    }
+
+    public void setGuild(final TextView tv){
+        final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("usuarios");
+        final String mail = user.getEmail().replace("."," ");
+        final String[] test = new String[1];
+
+
+        DatabaseReference profileRef = myRef.child(mail).child("Public").child("Guild");
+        dataSet = false;
+        profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String data = dataSnapshot.getValue(String.class);
+                if(data != null) {
+                    tv.setText(data);
+                }else{
+                    tv.setText(R.string.open_training);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
     }
 }
